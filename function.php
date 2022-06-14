@@ -24,10 +24,18 @@ function get_time_ago( $time ){
     }
 }
 
+
+function check_empty($tmp) {
+    return !empty($tmp) ? $tmp : NULL;
+}
+
 function format($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
+    $data = check_empty($data);
+    if($data != NULL) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+    }
     return $data;
 }
 

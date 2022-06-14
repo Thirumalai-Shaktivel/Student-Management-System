@@ -10,19 +10,14 @@
     include "../../function.php";
 
     $username = trim($_SESSION['username']);
+    ini_set('display_errors', 1);
 
-    $insert = $dupl = $clas = $sec = $gen = false;
+    $insert = $dupl = $clas = false;
 
     if(isset($_SESSION['insertStudents']))
         $insert = true;
     else if(isset($_SESSION['DuplicateStudent']))
         $dupl = true;
-    if(isset($_SESSION['class']))
-        $clas = true;
-    if(isset($_SESSION['section']))
-        $sec = true;
-    if(isset($_SESSION['gender']))
-        $gen = true;
 
     if(isset($_POST['submit'])){
         $StudentId = format($_POST['StudID']);
@@ -31,63 +26,138 @@
         $query = mysqli_query($conn, $check);
         $res = mysqli_fetch_assoc($query);
         if(!$res){
+            $USN = format($_POST['USN']);
             $name = format($_POST['Firstname']) ." ". format($_POST['Lastname']);
-            if ($_POST['class'] == 'Please Select Class')
-                $_SESSION['class'] = true;
-            if($_POST['section'] == 'Please Select Section')
-                $_SESSION['section']= true;
-            $class = format($_POST['class']) ." ". format($_POST['section']);
-            if($_POST['gender'] == 'Please Select Gender')
-                $_SESSION['gender'] = true;
-            else
-                $gender = format($_POST['gender']);
-
-            $blood = format($_POST['Blood']);
-            $input = format($_POST['DOB']);
-            $dob = date("d M, Y",strtotime($input));
-            $email = format($_POST['Email']);
-            $admNum = format($_POST['AdmNum']);
-            $input = format($_POST['AdmDate']);
-            $addDate= date("Y-m-d",strtotime($input));
+            $ColID= format($_POST['ColID']);
+            $dob_ = format($_POST['DOB']);
+            $dob = date("d M, Y",strtotime($dob_));
             $religion = format($_POST['religion']);
-            $nationality = format($_POST['Nationality']);
+            $admYear = format($_POST['AdmYear']);
+            $admNature = format($_POST['AdmNature']);
+            $hostel_DayScholar = format($_POST['hostel_DayScholar']);
+            $degree = format($_POST['degree']);
+            $passport = format($_POST['passport']);
+            $drivingLicense = format($_POST['drivingLicense']);
+            $language = format($_POST['language']);
+            $blood = format($_POST['Blood']);
+            $height_Weight = format($_POST['height_Weight']);
+            $mobileNum = format($_POST['MobileNum']);
+            $email = format($_POST['Email']);
+            $bank1 = format($_POST['bank1']);
+            $acNo1 = format($_POST['AcNo1']);
+            $bank2 = format($_POST['bank2']);
+            $acNo2 = format($_POST['AcNo2']);
             $fatherName = format($_POST['FatherName']);
-            $fatherOcc = format($_POST['FatherOccupation']);
-            $fatherNum = format($_POST['FatherPhoneNum']);
+            $fatherOccupation = format($_POST['FatherOccupation']);
+            $fatherMobileNum = format($_POST['FatherMobileNum']);
+            $fatherEmail = format($_POST['FatherEmail']);
+            $fatherPhoto = format($_POST['FatherPhoto']);
+            $fatherofficeAddress = mysqli_real_escape_string($conn, format($_POST['FatherofficeAddress']));
             $motherName = format($_POST['MotherName']);
-            $motherOcc = format($_POST['MotherOccupation']);
-            $motherNum = format($_POST['MotherPhoneNum']);
-            $prstAdd = mysqli_real_escape_string($conn, format($_POST['PresentAdd']));
-            $permAdd = mysqli_real_escape_string($conn, format($_POST['PmtAdd']));
+            $motherOccupation = format($_POST['MotherOccupation']);
+            $motherMobileNum = format($_POST['MotherMobileNum']);
+            $motherEmail = format($_POST['MotherEmail']);
+            $motherPhoto = format($_POST['MotherPhoto']);
+            $motherofficeAddress = mysqli_real_escape_string($conn, format($_POST['MotherofficeAddress']));
+            $guardianName = format($_POST['GuardianName']);
+            $guardianOccupation = format($_POST['GuardianOccupation']);
+            $guardianMobileNum = format($_POST['GuardianMobileNum']);
+            if($guardianMobileNum == "+91 ") {
+                $guardianMobileNum = "";
+            }
+            $guardianEmail = format($_POST['GuardianEmail']);
+            $guardianPhoto = format($_POST['GuardianPhoto']);
+            $guardianofficeAddress = mysqli_real_escape_string($conn, format($_POST['GuardianofficeAddress']));
+            $addressCommunication = format($_POST['AddressCommunication']);
+            $permAdd = mysqli_real_escape_string($conn, format($_POST['permAdd']));
+            $communicationAddress = mysqli_real_escape_string($conn, format($_POST['CommunicationAddress']));
+            $pinPermanent = format($_POST['PinPermanent']);
+            $pinCommunication = format($_POST['PinCommunication']);
+            $phonePermanent = format($_POST['PhonePermanent']);
+            $phoneCommunication = format($_POST['PhoneCommunication']);
+            $_10th_School = format($_POST['10th_School']);
+            $_10th_Place = format($_POST['10th_Place']);
+            $_10th_year = format($_POST['10th_year']);
+            $_10th_Marks = format($_POST['10th_Marks']);
+            $_10th_Medium = format($_POST['10th_Medium']);
+            $_12th_School = format($_POST['12th_School']);
+            $_12th_Place = format($_POST['12th_Place']);
+            $_12th_Address = mysqli_real_escape_string($conn, format($_POST['12th_Address']));
+            $_12th_Board = format($_POST['12th_Board']);
+            $_12th_year = format($_POST['12th_year']);
+            $_12th_Marks = format($_POST['12th_Marks']);
+            $_12th_Medium = format($_POST['12th_Medium']);
+            $_12th_MarksPercent = format($_POST['12th_MarksPercent']);
+            $_12th_Marks_Maths = format($_POST['12th_Marks_Maths']);
+            $_12th_Marks_Physics = format($_POST['12th_Marks_Physics']);
+            $_12th_Marks_Chem = format($_POST['12th_Marks_Chem']);
+            $diploma_School = format($_POST['diploma_School']);
+            $diploma_Place = format($_POST['diploma_Place']);
+            $diploma_year = format($_POST['diploma_year']);
+            $diploma_Marks = format($_POST['diploma_Marks']);
+            $diploma_Medium = format($_POST['diploma_Medium']);
+            if($diploma_School == "") {
+                $diploma_year = 0;
+                $diploma_Medium = NULL;
+            }
+            $diploma_MarksPercent = format($_POST['diploma_MarksPercent']);
+            $diploma_Marks_I = format($_POST['diploma_Marks_I']);
+            $diploma_Marks_II = format($_POST['diploma_Marks_II']);
+            $diploma_Marks_III = format($_POST['diploma_Marks_III']);
+            $diploma_Marks_IV = format($_POST['diploma_Marks_IV']);
+            $diploma_Marks_V = format($_POST['diploma_Marks_V']);
+            $diploma_Marks_VI = format($_POST['diploma_Marks_VI']);
+            $examPrep = format($_POST['examPrep']);
+            $communicateEnglish = format($_POST['communicateEnglish']);
+            $prepareEnglish = format($_POST['prepareEnglish']);
+            $elderBrothersCount = format($_POST['elderBrothersCount']);
+            $elderBrothersQualification = format($_POST['elderBrothersQualification']);
+            $youngerBrothersCount = format($_POST['youngerBrothersCount']);
+            $youngerBrothersQualification = format($_POST['youngerBrothersQualification']);
+            $elderSistersCount = format($_POST['elderSistersCount']);
+            $elderSistersQualification = format($_POST['elderSistersQualification']);
+            $youngerSistersCount = format($_POST['youngerSistersCount']);
+            $youngerSistersQualification = format($_POST['youngerSistersQualification']);
+            $moveTogether = format($_POST['MoveTogether']);
+            $personalProblems = format($_POST['personalProblems']);
+            $healthCondition = format($_POST['healthCondition']);
+            $anyMedication = format($_POST['anyMedication']);
+            $otherInterest = format($_POST['otherInterest']);
+            $hobbies = format($_POST['hobbies']);
+            $sportsInterest = format($_POST['sportsInterest']);
+            $prizeDetails = format($_POST['prizeDetails']);
+            $specificTalents = format($_POST['specificTalents']);
+            $ambition = format($_POST['ambition']);
+            $branchReason = format($_POST['branchReason']);
 
-            if(!(@$_SESSION['class'] || @$_SESSION['section'] || @$_SESSION['gender'])){
-                $insertQuery = "INSERT INTO `student_details`(`Student ID`, `Name`, `Class`, `Gender`, `Blood Group`, `DOB`, `Email`, `Admission Number`, `Admission Date`, `Religion`, `Nationality`, `Father Name`, `Father Occupation`, `Father PhoneNum`, `Mother Name`, `Mother Occupation`, `Mother PhoneNum`, `Present Address`, `Permanent Address`) VALUES ('$StudentId', '$name', '$class', '$gender', '$blood', '$dob', '$email', $admNum, '$addDate', '$religion', '$nationality', '$fatherName', '$fatherOcc', '$fatherNum', '$motherName', '$motherOcc', '$motherNum', '$prstAdd', '$permAdd')";
+            // if(!(@$_SESSION['class'] || @$_SESSION['section'] || @$_SESSION['gender'])) {
+            $insertQuery = "INSERT INTO `student_details`(`Student ID`, `USN`, `Name`, `College ID`, `DOB`, `Religion`, `Admission Year`, `Admission Nature`, `Hostel DayScholar`, `Degree_Branch`, `Passport`, `Driving License`, `Languages`, `Blood Group`, `Height_Weight`, `Mobile Number`, `Email`, `Bank 1`, `Account No 1`, `Bank 2`, `Account No 2`, `Father Name`, `Father Occupation`, `Father Number`, `Father Email`, `Father Photo`, `Father Office Address`, `Mother Name`, `Mother Occupation`, `Mother Number`, `Mother Email`, `Mother Photo`, `Mother Office Address`, `Guardian Name`, `Guardian Occupation`, `Guardian Number`, `Guardian Email`, `Guardian Photo`, `Guardian Office Address`, `Address of Communication`, `Permanent Address`, `Permanent Address PIN`, `Permanent Address Phone`, `Communication Address`, `Communication Address PIN`, `Communication Address Phone`, `10th School Name`, `10th School Place`, `10th Year`, `10th Marks`, `10th Medium`, `12th School Name`, `12th School Place`, `12th School Address`, `12th Board`, `12th Year`, `12th Marks`, `12th Medium`, `12th Marks Percentage`, `12th Marks Maths`, `12th Marks Physics`, `12th Marks Chemistry`, `Diploma School Name`, `Diploma School Place`, `Diploma year`, `Diploma Marks`, `Diploma Medium`, `Diploma Marks Percent`, `Diploma Marks Sem I`, `Diploma Marks Sem II`, `Diploma Marks Sem III`, `Diploma Marks Sem IV`, `Diploma Marks Sem V`, `Diploma Marks Sem VI`, `Exam Preparation Method`, `Communicate well in English`, `Prepare English`, `Elder Brothers Count`, `Elder Broters Qualification`, `Younger Brothers Count`, `Younger Brothers Qualification`, `Elder Sisters Count`, `Elder Sisters Qualification`, `Younger Sisters Count`, `Younger Sisters Qualification`, `Move Together`, `Personal Problems`, `Health Condition`, `Any Medications`, `Other Interests`, `Hobbies`, `Sports Interest`, `Prize Details`, `Specific talents`, `Ambition`, `Branch Reason`) VALUES ('$StudentId', '$USN', '$name', '$ColID', '$dob', '$religion', '$admYear', '$admNature', '$hostel_DayScholar', '$degree', '$passport', '$drivingLicense', '$language', '$blood', '$height_Weight', '$mobileNum', '$email', '$bank1', '$acNo1', '$bank2', '$acNo2', '$fatherName', '$fatherOccupation', '$fatherMobileNum', '$fatherEmail', '$fatherPhoto', '$fatherofficeAddress', '$motherName', '$motherOccupation', '$motherMobileNum', '$motherEmail', '$motherPhoto', '$motherofficeAddress', '$guardianName', '$guardianOccupation', '$guardianMobileNum', '$guardianEmail', '$guardianPhoto', '$guardianofficeAddress', '$addressCommunication', '$permAdd', '$pinPermanent', '$phonePermanent', '$communicationAddress', '$pinCommunication', '$phoneCommunication', '$_10th_School', '$_10th_Place', '$_10th_year', '$_10th_Marks', '$_10th_Medium', '$_12th_School', '$_12th_Place', '$_12th_Address', '$_12th_Board', '$_12th_year', '$_12th_Marks', '$_12th_Medium', '$_12th_MarksPercent', '$_12th_Marks_Maths', '$_12th_Marks_Physics', '$_12th_Marks_Chem', '$diploma_School', '$diploma_Place', '$diploma_year', '$diploma_Marks', '$diploma_Medium', '$diploma_MarksPercent', '$diploma_Marks_I', '$diploma_Marks_II', '$diploma_Marks_III', '$diploma_Marks_IV', '$diploma_Marks_V', '$diploma_Marks_VI', '$examPrep', '$communicateEnglish', '$prepareEnglish', '$elderBrothersCount', '$elderBrothersQualification', '$youngerBrothersCount', '$youngerBrothersQualification', '$elderSistersCount', '$elderSistersQualification', '$youngerSistersCount', '$youngerSistersQualification', '$moveTogether', '$personalProblems', '$healthCondition', '$anyMedication', '$otherInterest', '$hobbies', '$sportsInterest', '$prizeDetails', '$specificTalents', '$ambition', '$branchReason')";
 
-                $query = mysqli_query($conn, $insertQuery);
+            $query = mysqli_query($conn, $insertQuery);
 
-                if($query){
-                    $_SESSION['insertStudents'] = true;
+            if($query){
+                $_SESSION['insertStudents'] = true;
 
-                    $selectQuery = "SELECT `Subject Code` from subject_details";
-                    $query = mysqli_query($conn, $selectQuery);
-                    while($res = mysqli_fetch_assoc($query)){
-                            $code = $res['Subject Code'];
-                            $insertQuery = "INSERT INTO `internals_marks`(`Student ID`, `Subject Code`) VALUES ('$StudentId','$code')";
-                            $query2 = mysqli_query($conn, $insertQuery);
-                        }
-                    $selectQuery = "SELECT `Subject Code` from subject_details";
-                    $query = mysqli_query($conn, $selectQuery);
-                    while($res = mysqli_fetch_assoc($query)){
-                            $code = $res['Subject Code'];
-                            $insertQuery = "INSERT INTO `exam_marks`(`Student ID`, `Subject Code`) VALUES ('$StudentId','$code')";
-                            $query2 = mysqli_query($conn, $insertQuery);
-                        }
+                $selectQuery = "SELECT `Subject Code` from subject_details";
+                $query = mysqli_query($conn, $selectQuery);
+                while($res = mysqli_fetch_assoc($query)){
+                    $code = $res['Subject Code'];
+                    $insertQuery = "INSERT INTO `internals_marks`(`Student ID`, `Subject Code`) VALUES ('$StudentId','$code')";
+                    $query2 = mysqli_query($conn, $insertQuery);
                 }
-                    header("location: AdmitStudents.php");
+                $selectQuery = "SELECT `Subject Code` from subject_details";
+                $query = mysqli_query($conn, $selectQuery);
+                while($res = mysqli_fetch_assoc($query)){
+                    $code = $res['Subject Code'];
+                    $insertQuery = "INSERT INTO `exam_marks`(`Student ID`, `Subject Code`) VALUES ('$StudentId','$code')";
+                    $query2 = mysqli_query($conn, $insertQuery);
+                }
             }
-            else{
-                header("location: AdmitStudents.php");
-            }
+            header("location: AdmitStudents.php");
+            // }
+            // else{
+            //     header("location: AdmitStudents.php");
+            // }
         }
         else{
             $_SESSION['DuplicateStudent'] = true;
@@ -226,13 +296,6 @@
                     <?php } else if($dupl) { unset($_SESSION["DuplicateStudent"]);?>
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <strong>Student ID already Taken!!</strong> Use Different Student ID(Must be Unqiue)
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    <?php } else if($clas || $gen || $sec) { ?>
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong>Shortage of Input!!</strong> Enter All the required inputs Again
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
                             <span aria-hidden="true">&times;</span>
                             </button>
@@ -400,7 +463,7 @@
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="FatherPhoto">Stamp Size Photo</label>
-                                            <input type="text" name="FatherPhoto" class="form-control" id="FatherPhoto" placeholder="Upload" required>
+                                            <input type="text" name="FatherPhoto" class="form-control" id="FatherPhoto" placeholder="Upload">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="officeAddress">Office Address with Phone No.</label>
@@ -434,7 +497,7 @@
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="MotherPhoto">Stamp Size Photo</label>
-                                            <input type="text" name="MotherPhoto" class="form-control" id="MotherPhoto" placeholder="Upload" required>
+                                            <input type="text" name="MotherPhoto" class="form-control" id="MotherPhoto" placeholder="Upload">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="officeAddress">Office Address with Phone No.</label>
@@ -537,17 +600,17 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-3">
                                             <label for="10th_year">Year of Passing</label>
-                                            <input type="number" name="10th_year" class="form-control" id="10th_year" min="2000" max="2050" step="1">
+                                            <input type="number" name="10th_year" class="form-control" id="10th_year" min="2000" max="2050" step="1" value="<?php echo date("Y")-2 ?>">
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="10th_Marks">Marks Secured</label>
-                                            <input type="text" name="10th_Marks" class="form-control" id="10th_Marks" value="        /        ">
+                                            <input type="text" name="10th_Marks" class="form-control" id="10th_Marks" placeholder="625/625">
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-5">
                                             <label for="10th_Medium">Medium of Instruction</label>
-                                            <input type="text" name="10th_Medium" class="form-control" id="10th_Medium">
+                                            <input type="text" name="10th_Medium" class="form-control" id="10th_Medium" value="English">
                                         </div>
                                     </div>
 
@@ -585,17 +648,17 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-3">
                                             <label for="12th_year">Year of Passing</label>
-                                            <input type="number" name="12th_year" class="form-control" id="12th_year" min="2000" max="2050" step="1">
+                                            <input type="number" name="12th_year" class="form-control" id="12th_year" min="2000" max="2050" step="1" value="<?php echo date("Y") ?>">
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="12th_Marks">Marks Secured</label>
-                                            <input type="text" name="12th_Marks" class="form-control" id="12th_Marks" value="        /        ">
+                                            <input type="text" name="12th_Marks" class="form-control" id="12th_Marks" placeholder="600/600">
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
                                             <label for="12th_Medium">Medium of Instruction</label>
-                                            <input type="text" name="12th_Medium" class="form-control" id="12th_Medium">
+                                            <input type="text" name="12th_Medium" class="form-control" id="12th_Medium" value="English">
                                         </div>
                                         <div class="form-group col-md-2">
                                             <label for="12th_MarksPercent">% of Marks</label>
@@ -606,15 +669,15 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-2">
                                             <label for="12th_Marks_Maths">Maths</label>
-                                            <input type="number" name="12th_Marks_Maths" class="form-control" id="12th_Marks_Maths">
+                                            <input type="text" name="12th_Marks_Maths" class="form-control" id="12th_Marks_Maths" placeholder="100">
                                         </div>
                                         <div class="form-group col-md-2">
                                             <label for="12th_Marks_Physics">Physics</label>
-                                            <input type="number" name="12th_Marks_Physics" class="form-control" id="12th_Marks_Physics">
+                                            <input type="text" name="12th_Marks_Physics" class="form-control" id="12th_Marks_Physics" placeholder="100">
                                         </div>
                                         <div class="form-group col-md-2">
                                             <label for="12th_Marks_Chem">Chemistry</label>
-                                            <input type="number" name="12th_Marks_Chem" class="form-control" id="12th_Marks_Chem">
+                                            <input type="text" name="12th_Marks_Chem" class="form-control" id="12th_Marks_Chem" placeholder="100">
                                         </div>
                                     </div>
 
@@ -637,17 +700,17 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-3">
                                             <label for="diploma_year">Year of Passing</label>
-                                            <input type="number" name="diploma_year" class="form-control" id="diploma_year" min="2000" max="2050" step="1">
+                                            <input type="number" name="diploma_year" class="form-control" id="diploma_year" min="2000" max="2050" step="1" value="<?php echo date("Y") ?>">
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="diploma_Marks">Marks Secured</label>
-                                            <input type="text" name="diploma_Marks" class="form-control" id="diploma_Marks" value="        /        ">
+                                            <input type="text" name="diploma_Marks" class="form-control" id="diploma_Marks">
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
                                             <label for="diploma_Medium">Medium of Instruction</label>
-                                            <input type="text" name="diploma_Medium" class="form-control" id="diploma_Medium">
+                                            <input type="text" name="diploma_Medium" class="form-control" id="diploma_Medium" value="English">
                                         </div>
                                         <div class="form-group col-md-2">
                                             <label for="diploma_MarksPercent">% of Marks</label>
@@ -658,27 +721,27 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-1">
                                             <label for="diploma_Marks_I">I Sem</label>
-                                            <input type="number" name="diploma_Marks_I" class="form-control" id="diploma_Marks_I">
+                                            <input type="text" name="diploma_Marks_I" class="form-control" id="diploma_Marks_I">
                                         </div>
                                         <div class="form-group col-md-1">
                                             <label for="diploma_Marks_II">II Sem</label>
-                                            <input type="number" name="diploma_Marks_II" class="form-control" id="diploma_Marks_II">
+                                            <input type="text" name="diploma_Marks_II" class="form-control" id="diploma_Marks_II">
                                         </div>
                                         <div class="form-group col-md-1">
                                             <label for="diploma_Marks_III">III Sem</label>
-                                            <input type="number" name="diploma_Marks_III" class="form-control" id="diploma_Marks_III">
+                                            <input type="text" name="diploma_Marks_III" class="form-control" id="diploma_Marks_III">
                                         </div>
                                         <div class="form-group col-md-1">
                                             <label for="diploma_Marks_IV">IV Sem</label>
-                                            <input type="number" name="diploma_Marks_IV" class="form-control" id="diploma_Marks_IV">
+                                            <input type="text" name="diploma_Marks_IV" class="form-control" id="diploma_Marks_IV">
                                         </div>
                                         <div class="form-group col-md-1">
                                             <label for="diploma_Marks_V">V Sem</label>
-                                            <input type="number" name="diploma_Marks_V" class="form-control" id="diploma_Marks_V">
+                                            <input type="text" name="diploma_Marks_V" class="form-control" id="diploma_Marks_V">
                                         </div>
                                         <div class="form-group col-md-1">
                                             <label for="diploma_Marks_VI">VI Sem</label>
-                                            <input type="number" name="diploma_Marks_VI" class="form-control" id="diploma_Marks_VI">
+                                            <input type="text" name="diploma_Marks_VI" class="form-control" id="diploma_Marks_VI">
                                         </div>
                                     </div>
                                     <hr  class="my-3">
@@ -714,7 +777,7 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-3">
                                             <label for="elderBrothersCount">Brothers Elder</label>
-                                            <input type="number" name="elderBrothersCount" class="form-control" id="elderBrothersCount">
+                                            <input type="number" name="elderBrothersCount" class="form-control" id="elderBrothersCount" placeholder="0">
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="elderBrothersQualification">Qualification</label>
@@ -724,7 +787,7 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-3">
                                             <label for="youngerBrothersCount">Younger</label>
-                                            <input type="number" name="youngerBrothersCount" class="form-control" id="youngerBrothersCount">
+                                            <input type="number" name="youngerBrothersCount" class="form-control" id="youngerBrothersCount" placeholder="1">
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="youngerBrothersQualification">Qualification</label>
@@ -734,7 +797,7 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-3">
                                             <label for="elderSistersCount">Sisters Elder</label>
-                                            <input type="number" name="elderSistersCount" class="form-control" id="elderSistersCount">
+                                            <input type="number" name="elderSistersCount" class="form-control" id="elderSistersCount" placeholder="2">
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="elderSistersQualification">Qualification</label>
@@ -744,7 +807,7 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-3">
                                             <label for="youngerSistersCount">Younger</label>
-                                            <input type="number" name="youngerSistersCount" class="form-control" id="youngerSistersCount">
+                                            <input type="number" name="youngerSistersCount" class="form-control" id="youngerSistersCount" placeholder="0">
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="youngerSistersQualification">Qualification</label>

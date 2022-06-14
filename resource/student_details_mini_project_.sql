@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 13, 2022 at 05:20 AM
+-- Generation Time: Jun 14, 2022 at 11:47 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -58,6 +58,13 @@ CREATE TABLE `attendence` (
   `Percentage` int(3) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `attendence`
+--
+
+INSERT INTO `attendence` (`ID`, `Student ID`, `Total Class`, `Attended Class`, `Percentage`) VALUES
+(15, '2022_CSE_01', NULL, NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -72,6 +79,19 @@ CREATE TABLE `exam_marks` (
   `Internals Total` int(11) DEFAULT NULL,
   `Total` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `exam_marks`
+--
+
+INSERT INTO `exam_marks` (`ID`, `Student ID`, `Subject Code`, `External Marks`, `Internals Total`, `Total`) VALUES
+(80, '2022_CSE_01', NULL, NULL, NULL, NULL),
+(81, '2022_CSE_01', '51ENG', NULL, NULL, NULL),
+(82, '2022_CSE_01', '52KAN', NULL, NULL, NULL),
+(83, '2022_CSE_01', '53HIN', NULL, NULL, NULL),
+(84, '2022_CSE_01', '54MAT', NULL, NULL, NULL),
+(85, '2022_CSE_01', '55SCI', NULL, NULL, NULL),
+(86, '2022_CSE_01', '56SOC', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -89,6 +109,19 @@ CREATE TABLE `internals_marks` (
   `Average` int(3) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `internals_marks`
+--
+
+INSERT INTO `internals_marks` (`ID`, `Student ID`, `Subject Code`, `IA1`, `IA2`, `IA3`, `Average`) VALUES
+(80, '2022_CSE_01', NULL, NULL, NULL, NULL, NULL),
+(81, '2022_CSE_01', '51ENG', NULL, NULL, NULL, NULL),
+(82, '2022_CSE_01', '52KAN', NULL, NULL, NULL, NULL),
+(83, '2022_CSE_01', '53HIN', NULL, NULL, NULL, NULL),
+(84, '2022_CSE_01', '54MAT', NULL, NULL, NULL, NULL),
+(85, '2022_CSE_01', '55SCI', NULL, NULL, NULL, NULL),
+(86, '2022_CSE_01', '56SOC', NULL, NULL, NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -105,35 +138,35 @@ CREATE TABLE `student_details` (
   `Admission Year` int(4) NOT NULL,
   `Admission Nature` varchar(10) NOT NULL,
   `Hostel DayScholar` varchar(6) NOT NULL,
-  `Dregree_Branch` varchar(50) NOT NULL,
+  `Degree_Branch` varchar(50) NOT NULL,
   `Passport` varchar(15) DEFAULT NULL,
   `Driving License` varchar(15) DEFAULT NULL,
   `Languages` varchar(50) DEFAULT NULL,
-  `Blood Group` text NOT NULL,
+  `Blood Group` varchar(4) NOT NULL,
   `Height_Weight` varchar(15) DEFAULT NULL,
   `Mobile Number` varchar(15) NOT NULL,
   `Email` varchar(25) NOT NULL,
-  `Bank1` varchar(50) NOT NULL,
-  `Account No 1` varchar(50) NOT NULL,
-  `Bank 2` varchar(25) DEFAULT NULL,
-  `Account 2` varchar(25) DEFAULT NULL,
+  `Bank 1` varchar(50) NOT NULL,
+  `Account No 1` varchar(15) NOT NULL,
+  `Bank 2` varchar(30) DEFAULT NULL,
+  `Account No 2` varchar(15) DEFAULT NULL,
   `Father Name` varchar(50) NOT NULL,
   `Father Occupation` varchar(30) NOT NULL,
   `Father Number` varchar(15) NOT NULL,
   `Father Email` varchar(50) NOT NULL,
-  `Father Photo` varchar(10) NOT NULL,
+  `Father Photo` varchar(50) NOT NULL,
   `Father Office Address` varchar(255) NOT NULL,
   `Mother Name` varchar(50) NOT NULL,
   `Mother Occupation` varchar(30) NOT NULL,
   `Mother Number` varchar(15) NOT NULL,
   `Mother Email` varchar(50) NOT NULL,
-  `Mother Photo` varchar(10) NOT NULL,
+  `Mother Photo` varchar(50) NOT NULL,
   `Mother Office Address` varchar(255) DEFAULT NULL,
   `Guardian Name` varchar(50) DEFAULT NULL,
   `Guardian Occupation` varchar(30) DEFAULT NULL,
   `Guardian Number` varchar(15) DEFAULT NULL,
   `Guardian Email` varchar(50) DEFAULT NULL,
-  `Guardian Photo` varchar(10) DEFAULT NULL,
+  `Guardian Photo` varchar(50) DEFAULT NULL,
   `Guardian Office Address` varchar(255) DEFAULT NULL,
   `Address of Communication` varchar(50) NOT NULL,
   `Permanent Address` varchar(255) NOT NULL,
@@ -144,43 +177,43 @@ CREATE TABLE `student_details` (
   `Communication Address Phone` varchar(15) NOT NULL,
   `10th School Name` varchar(50) NOT NULL,
   `10th School Place` varchar(50) NOT NULL,
-  `10th Year` int(11) NOT NULL,
+  `10th Year` int(4) NOT NULL,
   `10th Marks` varchar(10) NOT NULL,
   `10th Medium` varchar(15) NOT NULL,
   `12th School Name` varchar(50) NOT NULL,
   `12th School Place` varchar(50) NOT NULL,
   `12th School Address` varchar(255) NOT NULL,
   `12th Board` varchar(15) NOT NULL,
-  `12th Year` int(11) NOT NULL,
+  `12th Year` int(4) NOT NULL,
   `12th Marks` varchar(10) NOT NULL,
   `12th Medium` varchar(15) NOT NULL,
   `12th Marks Percentage` varchar(5) NOT NULL,
-  `12th Marks Maths` int(11) NOT NULL,
-  `12th Marks Physics` int(11) NOT NULL,
-  `12th Marks Chemistry` int(11) NOT NULL,
+  `12th Marks Maths` varchar(10) NOT NULL,
+  `12th Marks Physics` varchar(10) NOT NULL,
+  `12th Marks Chemistry` varchar(10) NOT NULL,
   `Diploma School Name` varchar(50) DEFAULT NULL,
   `Diploma School Place` varchar(50) DEFAULT NULL,
-  `Diploma year` int(11) DEFAULT NULL,
+  `Diploma year` int(4) DEFAULT NULL,
   `Diploma Marks` varchar(10) DEFAULT NULL,
   `Diploma Medium` varchar(25) DEFAULT NULL,
   `Diploma Marks Percent` varchar(5) DEFAULT NULL,
-  `Diploma Marks Sem I` int(11) DEFAULT NULL,
-  `Diploma Marks Sem II` int(11) DEFAULT NULL,
-  `Diploma Marks Sem III` int(11) DEFAULT NULL,
-  `Diploma Marks Sem IV` int(11) DEFAULT NULL,
-  `Diploma Marks Sem V` int(11) DEFAULT NULL,
-  `Diploma Marks Sem VI` int(11) DEFAULT NULL,
-  `Exam Preparation Method` varchar(15) NOT NULL,
-  `Communicate well in English` text NOT NULL,
-  `Prepare English` int(11) DEFAULT NULL,
-  `Elder Brothers Count` int(11) DEFAULT NULL,
-  `Elder Broters Qualification` varchar(50) DEFAULT NULL,
-  `Younger Brothers Count` int(11) DEFAULT NULL,
-  `Younger Brothers Qualification` varchar(50) NOT NULL,
-  `Elder Sisters Count` int(11) NOT NULL,
-  `Elder Sisters Qualification` varchar(50) NOT NULL,
-  `Younger Sisters Count` int(11) NOT NULL,
-  `Younger Sisters Qualification` varchar(50) NOT NULL,
+  `Diploma Marks Sem I` varchar(10) DEFAULT NULL,
+  `Diploma Marks Sem II` varchar(10) DEFAULT NULL,
+  `Diploma Marks Sem III` varchar(10) DEFAULT NULL,
+  `Diploma Marks Sem IV` varchar(10) DEFAULT NULL,
+  `Diploma Marks Sem V` varchar(10) DEFAULT NULL,
+  `Diploma Marks Sem VI` varchar(10) DEFAULT NULL,
+  `Exam Preparation Method` varchar(10) NOT NULL,
+  `Communicate well in English` varchar(3) NOT NULL,
+  `Prepare English` varchar(50) DEFAULT NULL,
+  `Elder Brothers Count` varchar(2) DEFAULT NULL,
+  `Elder Broters Qualification` varchar(100) DEFAULT NULL,
+  `Younger Brothers Count` varchar(2) DEFAULT NULL,
+  `Younger Brothers Qualification` varchar(100) NOT NULL,
+  `Elder Sisters Count` varchar(2) NOT NULL,
+  `Elder Sisters Qualification` varchar(100) NOT NULL,
+  `Younger Sisters Count` varchar(2) NOT NULL,
+  `Younger Sisters Qualification` varchar(100) NOT NULL,
   `Move Together` varchar(255) NOT NULL,
   `Personal Problems` varchar(255) NOT NULL,
   `Health Condition` varchar(255) NOT NULL,
@@ -193,6 +226,13 @@ CREATE TABLE `student_details` (
   `Ambition` varchar(255) NOT NULL,
   `Branch Reason` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `student_details`
+--
+
+INSERT INTO `student_details` (`Student ID`, `USN`, `Name`, `College ID`, `DOB`, `Religion`, `Admission Year`, `Admission Nature`, `Hostel DayScholar`, `Degree_Branch`, `Passport`, `Driving License`, `Languages`, `Blood Group`, `Height_Weight`, `Mobile Number`, `Email`, `Bank 1`, `Account No 1`, `Bank 2`, `Account No 2`, `Father Name`, `Father Occupation`, `Father Number`, `Father Email`, `Father Photo`, `Father Office Address`, `Mother Name`, `Mother Occupation`, `Mother Number`, `Mother Email`, `Mother Photo`, `Mother Office Address`, `Guardian Name`, `Guardian Occupation`, `Guardian Number`, `Guardian Email`, `Guardian Photo`, `Guardian Office Address`, `Address of Communication`, `Permanent Address`, `Permanent Address PIN`, `Permanent Address Phone`, `Communication Address`, `Communication Address PIN`, `Communication Address Phone`, `10th School Name`, `10th School Place`, `10th Year`, `10th Marks`, `10th Medium`, `12th School Name`, `12th School Place`, `12th School Address`, `12th Board`, `12th Year`, `12th Marks`, `12th Medium`, `12th Marks Percentage`, `12th Marks Maths`, `12th Marks Physics`, `12th Marks Chemistry`, `Diploma School Name`, `Diploma School Place`, `Diploma year`, `Diploma Marks`, `Diploma Medium`, `Diploma Marks Percent`, `Diploma Marks Sem I`, `Diploma Marks Sem II`, `Diploma Marks Sem III`, `Diploma Marks Sem IV`, `Diploma Marks Sem V`, `Diploma Marks Sem VI`, `Exam Preparation Method`, `Communicate well in English`, `Prepare English`, `Elder Brothers Count`, `Elder Broters Qualification`, `Younger Brothers Count`, `Younger Brothers Qualification`, `Elder Sisters Count`, `Elder Sisters Qualification`, `Younger Sisters Count`, `Younger Sisters Qualification`, `Move Together`, `Personal Problems`, `Health Condition`, `Any Medications`, `Other Interests`, `Hobbies`, `Sports Interest`, `Prize Details`, `Specific talents`, `Ambition`, `Branch Reason`) VALUES
+('2022_CSE_01', '1KS18CS109', 'Shankar KS', '1234', '14 Jun, 2022', 'Muslim', 2022, 'CET', 'I Year', 'BE, CSE', 'N 00144521', 'UP1420080079043', 'English, Telugu', 'A-', '6, 50', '+91 9456137851', 'shankar@gmail.com', 'Indian Bank', '123456789123', NULL, NULL, 'Venkatesh', 'Network Engineer', '+91 9638527415', 'venkatesh@gmail.com', '', 'Wipro’s Campus, Cafeteria Hall EC-3, Ground Floor, Opp. Tower 8, No. 72, Keonics, Electronic\nCity, Hosur Road, Bangalore', 'Sumalatha', 'House-Wife', '+91 9638527415', 'suma@gmail.com', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Banashankari', '#411 TCH College road, Harinagar, Anjanapura(P)', '560085', '62354158', '#411 TCH College road, Harinagar, Anjanapura(P)', '560085', '62354158', 'Silicon High School', 'Harinagar', 2020, '566/625', 'English', 'Kumarans PU College', 'Banashankari', 'Banashankari Bangalore', 'State Board', 2022, '555/600', 'English', '92.5', '98', '98', '90', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Self Study', 'Yes', NULL, '1', 'Software engineer', NULL, '', '', '', '', '', 'Yes', 'No', 'Excellent', 'No', 'Sports', 'Drawing, Dancing', 'Yes (Football, Cricket)', 'N/A', 'Quick-learner', 'Entrepreneur', 'Understand more about Trending Technology');
 
 --
 -- Triggers `student_details`
@@ -229,6 +269,13 @@ CREATE TABLE `stud_users` (
   `Unique_ID` varchar(255) NOT NULL,
   `password` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `stud_users`
+--
+
+INSERT INTO `stud_users` (`ID`, `Unique_ID`, `password`) VALUES
+(15, '2022_CSE_01', NULL);
 
 -- --------------------------------------------------------
 
@@ -361,25 +408,25 @@ ALTER TABLE `announcements`
 -- AUTO_INCREMENT for table `attendence`
 --
 ALTER TABLE `attendence`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `exam_marks`
 --
 ALTER TABLE `exam_marks`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT for table `internals_marks`
 --
 ALTER TABLE `internals_marks`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT for table `stud_users`
 --
 ALTER TABLE `stud_users`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `teacher_user`

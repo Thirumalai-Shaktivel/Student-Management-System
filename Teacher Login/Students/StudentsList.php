@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 session_start();
 if(isset($_SESSION['username']) != true)
@@ -31,12 +31,12 @@ else if(isset($_SESSION['DeletedStudent']))
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <button class="btn btn-link btn order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
         <a class="navbar-brand" href="../HomePage.php">Teacher</a>
-        
+
         <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"></form>
         <ul class="navbar-nav ml-auto ml-md-0">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="userDropdown" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle fa-lg"></i>
-                    <?php 
+                    <?php
                         echo($username)
                     ?>
                 </a>
@@ -121,7 +121,7 @@ else if(isset($_SESSION['DeletedStudent']))
                 </div>
                 <div class="sb-sidenav-footer">
                     <div class="small">Logged in as:</div>
-                    <?php 
+                    <?php
                         echo($username)
                     ?>
                 </div>
@@ -135,7 +135,7 @@ else if(isset($_SESSION['DeletedStudent']))
                         <li class="breadcrumb-item">Students Info</li>
                         <li class="breadcrumb-item active">All Students</li>
                     </ol>
-                    <?php if($update){ 
+                    <?php if($update){
                         unset($_SESSION["UpdatedStudents"]);
                     ?>
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -144,7 +144,7 @@ else if(isset($_SESSION['DeletedStudent']))
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                    <?php } else if($del){ 
+                    <?php } else if($del){
                         unset($_SESSION["DeletedStudent"]);
                     ?>
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -164,31 +164,31 @@ else if(isset($_SESSION['DeletedStudent']))
                                 <table class="table table-striped text-center" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Students ID</th>
+                                            <th>USN</th>
                                             <th>Students Name</th>
                                             <th>Parent Name</th>
-                                            <th>Class</th>
+                                            <!-- <th>Class</th> -->
                                             <!-- <th>Section</th> -->
                                             <th>Date Of Birth</th>
-                                            <th>Phone Number</th>
-                                            <th>E-mail</th>
+                                            <th>Father Phone Number</th>
+                                            <th>Father E-mail</th>
                                             <th colspan="2" class="text-center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php 
+                                        <?php
                                             $selectQuery = "SELECT * from `student_details`";
-                                            $query = mysqli_query($conn, $selectQuery); 
-                                            while($result = mysqli_fetch_assoc($query)){ 
+                                            $query = mysqli_query($conn, $selectQuery);
+                                            while($result = mysqli_fetch_assoc($query)){
                                         ?>
                                         <tr>
-                                            <td><?php echo $result['Student ID']; ?></td>
+                                            <td><?php echo $result['USN']; ?></td>
                                             <td><?php echo $result['Name']; ?></td>
                                             <td><?php echo $result['Father Name']; ?></td>
-                                            <td><?php echo $result['Class']; ?></td>
+                                            <!-- <td><?php echo $result['Class']; ?></td> -->
                                             <td><?php echo $result['DOB']; ?></td>
-                                            <td><?php echo $result['Father PhoneNum']; ?></td>
-                                            <td><?php echo $result['Email']; ?></td>
+                                            <td><?php echo $result['Father Number']; ?></td>
+                                            <td><?php echo $result['Father Email']; ?></td>
                                             <td>
                                                 <div class="row">
                                                     <div class="col py-2">
@@ -213,7 +213,7 @@ else if(isset($_SESSION['DeletedStudent']))
                 </div>
             </main>
         </div>
-    </div>  
+    </div>
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>

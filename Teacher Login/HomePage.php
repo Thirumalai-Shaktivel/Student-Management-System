@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 session_start();
 if(isset($_SESSION['username']) != true)
@@ -34,12 +34,12 @@ include "../function.php";
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <button class="btn btn-link btn order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
         <a class="navbar-brand" href="HomePage.php">Teacher</a>
-        
+
         <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"></form>
         <ul class="navbar-nav ml-auto ml-md-0">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="userDropdown" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle fa-lg"></i>
-                    <?php 
+                    <?php
                         echo($username)
                     ?>
                 </a>
@@ -124,7 +124,7 @@ include "../function.php";
                 </div>
                 <div class="sb-sidenav-footer">
                     <div class="small">Logged in as:</div>
-                    <?php 
+                    <?php
                         echo($username)
                     ?>
                 </div>
@@ -164,7 +164,7 @@ include "../function.php";
                                     </div>
                                 </div>
                                 <div class="text-center col-12">
-                                    <img src="../image/TeacherStudents.jpg" class="responsive" width="510" height="340" alt="Classroom">
+                                    <img src="../image/TeacherStudents.webp" class="responsive" alt="Classroom">
                                 </div>
                             </div>
                         </div>
@@ -185,7 +185,7 @@ include "../function.php";
                                                 <button class="btn btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#Body<?php echo $result['ID']; ?>">
                                                     <h3><?php echo $result['Title']; ?></h3>
                                                     <small class="text-muted">Posted By </small>
-                                                    <?php 
+                                                    <?php
                                                         $post = $result['Posted By'];
                                                         echo $post;
                                                         $selectQuery1 = "SELECT `Subject Name` from `subject_details` WHERE `Instructor Name` = '$post'";
@@ -195,8 +195,8 @@ include "../function.php";
                                                     ?>
                                                     <br>
                                                     <small class="text-muted">
-                                                    <?php 
-                                                        echo get_time_ago($result['Posted time']); 
+                                                    <?php
+                                                        echo get_time_ago($result['Posted time']);
                                                     ?>
                                                     </small>
                                                 </button>
@@ -218,7 +218,7 @@ include "../function.php";
                 </div>
             </main>
         </div>
-    </div>  
+    </div>
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
