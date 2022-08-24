@@ -8,6 +8,18 @@ if(isset($_SESSION['username']) != true)
 }
 $username = trim($_SESSION['username']);
 include "../../config.php";
+
+$file_issue = $subject_not_found = $student_not_found = $success = false;
+
+if(isset($_SESSION['FileFormatIssue']))
+    $file_issue = true;
+else if(isset($_SESSION['SubjectNotFound']['status']))
+    $subject_not_found = true;
+else if(isset($_SESSION['StudentNotFound']['status']))
+    $student_not_found = true;
+else if(isset($_SESSION['Uploaded']))
+    $success = true;
+
 ?>
 
 <!DOCTYPE html>
@@ -133,20 +145,71 @@ include "../../config.php";
                             $selectQuery = "SELECT * from subject_details";
                             $query2 = mysqli_query($conn, $selectQuery);
                             $first = mysqli_fetch_assoc($query2);
-
+                            
                             $selectQuery = "SELECT * from subject_details";
                             $query2 = mysqli_query($conn, $selectQuery);
-                        while($result = mysqli_fetch_assoc($query2)){
+                            while($result = mysqli_fetch_assoc($query2)){
                         ?>
                         <li class="nav-item">
-                          <a class="nav-link <?php if($first['Subject Name'] == $result['Subject Name']) { ?> active <?php } ?>" data-toggle="pill" href="#<?php echo $result['Subject Name']; ?>"><?php echo $result['Subject Name']; ?></a>
+                            <a class="nav-link <?php if($first['Subject Name'] == $result['Subject Name']) { ?> active <?php } ?>" data-toggle="pill" href="#<?php echo $result['Subject Name']; ?>"><?php echo $result['Subject Name']; ?></a>
                         </li>
                         <?php } ?>
                     </ul>
 
+                    <?php if ($file_issue) {
+                        unset($_SESSION["FileFormatIssue"]); ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>File type not supported! Please upload .csv file</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    <?php } else if ($subject_not_found) { ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong><?php echo $_SESSION["SubjectNotFound"]["SubCode"] ?> is not a valid subject code!</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    <?php unset($_SESSION["SubjectNotFound"]);
+                    } else if ($student_not_found) { ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong><?php echo $_SESSION["StudentNotFound"]["StudID"] ?> is not found! please check the Student ID</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    <?php unset($_SESSION["StudentNotFound"]); 
+                    } else if ($success) {
+                        unset($_SESSION["Uploaded"]); ?>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Student marks uploaded successfully!</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    <?php } ?>
+
                     <div class="card mb-4">
                         <div class="card-header">
-                            <h5>Marks Sheet</h5>
+                            <div class="row">
+                                <div class="col-7">
+                                    <h5>Marks Sheet</h5>
+                                </div>
+                                <div class="col-5">
+                                <form action="UploadInternalsCSV.php" method="POST" enctype="multipart/form-data">
+                                    <div class="row">
+                                        <h5>Have a CSV file? Upload:&emsp;</h5>
+                                        <input type="file" name="marks_upload">
+                                        <div class="col-2">
+                                            <button type="submit" name="upload" class="btn btn-success btn-block">
+                                                <strong>Upload</strong>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="tab-content">
