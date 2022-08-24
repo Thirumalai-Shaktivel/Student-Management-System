@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 session_start();
 if(isset($_SESSION['username']) != true)
@@ -26,11 +26,11 @@ include "../../config.php";
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <button class="btn btn-link btn order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
         <a class="navbar-brand" href="../HomePage.php">Teacher</a>
-        
+
         <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"></form>
         <ul class="navbar-nav ml-auto ml-md-0">
             <a class="nav-link dropdown-toggle" id="userDropdown" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle fa-lg"></i>
-                <?php 
+                <?php
                     echo($username)
                 ?>
             </a>
@@ -115,7 +115,7 @@ include "../../config.php";
                 </div>
                 <div class="sb-sidenav-footer">
                     <div class="small">Logged in as:</div>
-                    <?php 
+                    <?php
                         echo($username)
                     ?>
                 </div>
@@ -145,10 +145,10 @@ include "../../config.php";
                                             <th colspan="2">Make Changes</th>
                                         </tr>
                                         <tbody>
-                                        <?php 
+                                        <?php
                                             $selectQuery = "SELECT * from `student_details`";
-                                            $query = mysqli_query($conn, $selectQuery); 
-                                            while($result = mysqli_fetch_assoc($query)){ 
+                                            $query = mysqli_query($conn, $selectQuery);
+                                            while($result = mysqli_fetch_assoc($query)){
                                         ?>
                                             <tr>
                                                 <td><?php echo $result['Student ID']; ?></td>
@@ -159,7 +159,7 @@ include "../../config.php";
                                                 $query1 = mysqli_query($conn, $selectQuery1);
                                                 $res = mysqli_fetch_assoc($query1);
                                             ?>
-                                            
+
                                                 <td><?php echo (@$res['Total Class']!=null)?$res['Total Class'] : "-"; ?></td>
                                                 <td><?php echo (@$res['Attended Class']!=null)? $res['Attended Class'] : "-"; ?></td>
                                                 <td <?php if($res['Percentage'] >= 75) { ?>style="background-color: #51f542;"
@@ -192,7 +192,7 @@ include "../../config.php";
                 </div>
             </main>
         </div>
-    </div>  
+    </div>
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>

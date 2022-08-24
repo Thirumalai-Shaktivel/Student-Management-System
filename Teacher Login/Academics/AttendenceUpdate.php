@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 session_start();
 if(isset($_SESSION['username']) != true)
@@ -11,13 +11,13 @@ include "../../config.php";
 $id = $_GET['id'];
 
     // $selectQuery = "SELECT * from `student_details`";
-    // $query = mysqli_query($conn, $selectQuery); 
+    // $query = mysqli_query($conn, $selectQuery);
     // while($result = mysqli_fetch_assoc($query)){
     //     $Sid = $result['Student ID'];
     //     $insertQuery = "INSERT INTO `attendence` (`Student ID`) VALUES ('$Sid')";
     //     $query1 = mysqli_query($conn, $insertQuery);
     //     if(!$query1){
-    //         
+    //
     //     }
 
     // }
@@ -25,18 +25,18 @@ $id = $_GET['id'];
 if(isset($_POST['save'])){
     ?>
         <script>alert(" You Clicked");</script>
-    <?php 
+    <?php
 
     $total = $_POST['total'];
     $attend = $_POST['attend'];
     $per = round(($attend/$total)*100);
-    
+
     $updateQuery = "UPDATE `attendence` SET `Total Class`=$total,`Attended Class`=$attend,`Percentage`=$per WHERE `Student ID` = '$id'";
-    
+
     $query2 = mysqli_query($conn, $updateQuery);
     if($query2);
         header("location: Attendence.php");
-        
+
 }
 ?>
 
@@ -56,11 +56,11 @@ if(isset($_POST['save'])){
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <button class="btn btn-link btn order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
         <a class="navbar-brand" href="../HomePage.php">Teacher</a>
-        
+
         <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"></form>
         <ul class="navbar-nav ml-auto ml-md-0">
             <a class="nav-link dropdown-toggle" id="userDropdown" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle fa-lg"></i>
-                <?php 
+                <?php
                     echo($username)
                 ?>
             </a>
@@ -72,7 +72,7 @@ if(isset($_POST['save'])){
             </div>
         </ul>
     </nav>
- 
+
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
             <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
@@ -145,7 +145,7 @@ if(isset($_POST['save'])){
                 </div>
                 <div class="sb-sidenav-footer">
                     <div class="small">Logged in as:</div>
-                    <?php 
+                    <?php
                         echo($username)
                     ?>
                 </div>
@@ -175,10 +175,10 @@ if(isset($_POST['save'])){
                                             <th>Make Changes</th>
                                         </tr>
                                         <tbody>
-                                            <?php 
+                                            <?php
                                                 $selectQuery = "SELECT * from `student_details`";
-                                                $query = mysqli_query($conn, $selectQuery); 
-                                                while($result = mysqli_fetch_assoc($query)){ 
+                                                $query = mysqli_query($conn, $selectQuery);
+                                                while($result = mysqli_fetch_assoc($query)){
                                             ?>
                                             <tr>
                                             <form action="" method="POST">
@@ -187,14 +187,14 @@ if(isset($_POST['save'])){
                                                     <td><?php echo $result['Name']; ?></td>
                                                 <?php
                                                     $selectQuery1 = "SELECT * FROM `attendence` WHERE `Student ID` = '$id'";
-                                                    $query1 = mysqli_query($conn, $selectQuery1); 
+                                                    $query1 = mysqli_query($conn, $selectQuery1);
                                                     $res = mysqli_fetch_assoc($query1);
                                                     ?>
                                                     <td>
-                                                        <input type="number" name="total" class="form-control" value="<?php echo @$res['Total Class']; ?>"> 
+                                                        <input type="number" name="total" class="form-control" value="<?php echo @$res['Total Class']; ?>">
                                                     </td>
                                                     <td>
-                                                        <input type="number" name="attend" class="form-control" value="<?php echo @$res['Attended Class']; ?>"> 
+                                                        <input type="number" name="attend" class="form-control" value="<?php echo @$res['Attended Class']; ?>">
                                                     </td>
                                                     <td><?php echo @$res['Percentage']; ?></td>
                                                     <td>
@@ -209,7 +209,7 @@ if(isset($_POST['save'])){
                                                         </div>
                                                     </div>
                                                     </td>
-                                                <?php } 
+                                                <?php }
                                                     else { ?>
                                                     <td><?php echo $result['Student ID']; ?></td>
                                                     <td><?php echo $result['Name']; ?></td>
@@ -227,11 +227,11 @@ if(isset($_POST['save'])){
                                                         </a></td>
                                                     <?php }
                                                 }
-                                                
+
                                                 ?>
                                                 </form>
                                             </tr>
-                                            
+
                                         </tbody>
                                     </thead>
                                 </table>
@@ -241,7 +241,7 @@ if(isset($_POST['save'])){
                 </div>
             </main>
         </div>
-    </div>  
+    </div>
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>

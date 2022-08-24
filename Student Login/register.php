@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $Unique_ID = $SSignUpPassword = $SSignUpconfirm_password = "";
 $Unique_ID_err = $SSignUpPassword_err = $SSignUpconfirm_password_err = "";
@@ -27,10 +27,10 @@ if (isset($_POST['StudentSignUp'])){
                       location.replace("index.php");
                     }
                   </script>
-                  <?php 
+                  <?php
                   exit();
                 }
-                else 
+                else
                   $Unique_ID = trim($_POST['uniqueId']);
             }
         }
@@ -67,13 +67,13 @@ if (isset($_POST['StudentSignUp'])){
             $exe = mysqli_stmt_execute($stmt);
             if(!mysqli_stmt_affected_rows($stmt)){
               ?>
-              <script>confirm("~~~~~~~~~~~~ Sorry ~~~~~~~~~~~~\n You are not allowed to Sign Up \n Since Your Student ID is Not Created Yet!!");</script> 
+              <script>confirm("~~~~~~~~~~~~ Sorry ~~~~~~~~~~~~\n You are not allowed to Sign Up \n Since Your Student ID is Not Created Yet!!");</script>
             <?php
             }
             else if ($exe)
             {
               ?>
-              <script>confirm("~~~~~~~~~~~~ Thank You ~~~~~~~~~~~~\n We are Glad You joined us!! Account Created Sucessfully\nPlease Log into your Account, to get started!!");</script> 
+              <script>confirm("~~~~~~~~~~~~ Thank You ~~~~~~~~~~~~\n We are Glad You joined us!! Account Created Sucessfully\nPlease Log into your Account, to get started!!");</script>
             <?php
             }
         }

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $TSignUpUser = $TSignUpPassword = $TSignUpconfirm_password = "";
 $TSignUpUser_err = $TSignUpPassword_err = $TSignUpconfirm_password_err = "";
@@ -19,16 +19,16 @@ if (isset($_POST['TeacherSignUp'])){
             {
               ?>
               <script>alert("~~~~~~~~~~~~Username Already exist!!~~~~~~~~~~~~\n Login Instead");</script>
-              <?php 
+              <?php
               $TSignUpUser_err = "exist";
             }
             else{
               $TSignUpUser = trim($_POST['username']);
-            } 
+            }
         }
     }
     mysqli_stmt_close($stmt);
-      
+
     if(strlen(trim($_POST['password'])) < 7){
       ?>
       <script>alert("~~~~~~~~~~~~ Weak Password!! ~~~~~~~~~~~~\n Enter more than 7 characters !!");</script>
@@ -60,7 +60,7 @@ if (isset($_POST['TeacherSignUp'])){
           if (mysqli_stmt_execute($stmt))
           {
             ?>
-              <script>confirm("~~~~~~~~~~~~ Thank You ~~~~~~~~~~~~\n We are Glad You joined us!! Account Created Sucessfully\nPlease Log into your Account, to get started!!");</script> 
+              <script>confirm("~~~~~~~~~~~~ Thank You ~~~~~~~~~~~~\n We are Glad You joined us!! Account Created Sucessfully\nPlease Log into your Account, to get started!!");</script>
             <?php
           }
         }

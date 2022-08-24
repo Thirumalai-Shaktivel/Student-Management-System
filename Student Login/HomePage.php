@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 session_start();
 if(isset($_SESSION['uniqueId']) != true)
@@ -35,12 +35,12 @@ include "../config.php";
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <button class="btn btn-link btn order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
         <a class="navbar-brand" href="HomePage.php">Student</a>
-        
+
         <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"></form>
         <ul class="navbar-nav ml-auto ml-md-0">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="userDropdown" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle fa-lg"></i>
-                    <?php 
+                    <?php
                         echo($result['Name']);
                     ?>
                 </a>
@@ -98,7 +98,7 @@ include "../config.php";
                 </div>
                 <div class="sb-sidenav-footer">
                     <div class="small">Logged in as:</div>
-                    <?php 
+                    <?php
                         echo($result['Name']);
                     ?>
                 </div>
@@ -114,7 +114,7 @@ include "../config.php";
                         <div class="col-lg-7">
                             <div class="card mb-4">
                                 <div class="card-header">
-                                    
+
                                     <h4>Student Information</h4>
                                 </div>
                                 <div class="card-body">
@@ -172,7 +172,7 @@ include "../config.php";
                                                                 <tr>
                                                                     <td>Blood Group </td><td><?php echo ":\t".$result['Blood Group'] ?></td>
                                                                 </tr>
-                                                                
+
                                                                 <tr>
                                                                     <td>Admission Number </td><td><?php echo ":\t".$result['Admission Number'] ?></td>
                                                                 </tr>
@@ -216,13 +216,13 @@ include "../config.php";
                                                                 </tr>
                                                             </tbody>
                                                         </table>
-                                                    </div> 
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div>
                             <div class="text-center col-12">
                                 <img src="../image/students.png" class="responsive" alt="Students">
@@ -247,7 +247,7 @@ include "../config.php";
                                                     <a href="Academics/Announcements.php" role="button" class="btn btn-block text-left">
                                                         <h4><?php echo $result['Title']; ?></h4>
                                                         <small class="text-muted">Posted By </small>
-                                                        <?php 
+                                                        <?php
                                                             $post = $result['Posted By'];
                                                             echo $post;
                                                             $Code = $result['Subject Code'];
@@ -272,7 +272,7 @@ include "../config.php";
                 </div>
             </main>
         </div>
-    </div>  
+    </div>
 
     </nav>
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->

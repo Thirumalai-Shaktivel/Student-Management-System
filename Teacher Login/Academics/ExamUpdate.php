@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 session_start();
 if(isset($_SESSION['username']) != true)
@@ -14,23 +14,23 @@ $id = $_GET['id'];
 //     $query = mysqli_query($conn, $selectQuery);
 //     while($res = mysqli_fetch_assoc($query)){
 //         $selectQuery = "SELECT * from `student_details`";
-//         $query1 = mysqli_query($conn, $selectQuery); 
+//         $query1 = mysqli_query($conn, $selectQuery);
 //         while($result = mysqli_fetch_assoc($query1)){
 //             $id = $result['Student ID'];
 //             $code = $res['Subject Code'];
 //             $insertQuery = "INSERT INTO `exam_marks`(`Student ID`, `Subject Code`) VALUES ('$id','$code')";
 //             $query2 = mysqli_query($conn, $insertQuery);
 //         }
-//     } 
+//     }
 
 if(isset($_POST['save'])){
     $arr = $_POST['Ext'];
-    
+
     $selectQuery1 = "SELECT `Subject Code` from `subject_details`";
-    $query1 = mysqli_query($conn, $selectQuery1); 
+    $query1 = mysqli_query($conn, $selectQuery1);
     while($res = mysqli_fetch_assoc($query1)){
         $code = $res['Subject Code'];
-        
+
         $selectQuery = "SELECT `Average` FROM `internals_marks` WHERE `Student ID` = '$id' AND `Subject Code` = '$code'";
         $query = mysqli_query($conn, $selectQuery);
         $res = mysqli_fetch_assoc($query);
@@ -39,9 +39,9 @@ if(isset($_POST['save'])){
             $total = $arr[$code] + $res['Average'];
             $selectQuery2 = "UPDATE `exam_marks` SET `Internals Total`=$avg, `Total`=$total WHERE `Student ID` = '$id' AND `Subject Code` = '$code'";
             $query2 = mysqli_query($conn, $selectQuery2);
-        
+
         }
-        
+
         $selectQuery2 = "UPDATE `exam_marks` SET `External Marks`= $arr[$code] WHERE `Student ID` = '$id' AND `Subject Code` = '$code'";
         $query2 = mysqli_query($conn, $selectQuery2);
         if($query2){
@@ -49,7 +49,7 @@ if(isset($_POST['save'])){
             header("location: Exam.php");
         }
     }
-    
+
 }
 
 ?>
@@ -70,11 +70,11 @@ if(isset($_POST['save'])){
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <button class="btn btn-link btn order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
         <a class="navbar-brand" href="../HomePage.php">Teacher</a>
-        
+
         <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"></form>
         <ul class="navbar-nav ml-auto ml-md-0">
             <a class="nav-link dropdown-toggle" id="userDropdown" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle fa-lg"></i>
-                <?php 
+                <?php
                     echo($username)
                 ?>
             </a>
@@ -86,7 +86,7 @@ if(isset($_POST['save'])){
             </div>
         </ul>
     </nav>
- 
+
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
             <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
@@ -158,7 +158,7 @@ if(isset($_POST['save'])){
                 </div>
                 <div class="sb-sidenav-footer">
                     <div class="small">Logged in as:</div>
-                    <?php 
+                    <?php
                         echo($username)
                     ?>
                 </div>
@@ -195,9 +195,9 @@ if(isset($_POST['save'])){
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php 
+                                        <?php
                                             $selectQuery = "SELECT `Student ID`, `Name` from `student_details`";
-                                            $query = mysqli_query($conn, $selectQuery); 
+                                            $query = mysqli_query($conn, $selectQuery);
                                             while($result = mysqli_fetch_assoc($query)){
                                                 $Sid = $result['Student ID'];
                                         ?>
@@ -207,19 +207,19 @@ if(isset($_POST['save'])){
                                                 <?php
                                                     if($id == $Sid){
                                                     $selectQuery1 = "SELECT `Subject Code` from `subject_details`";
-                                                    $query1 = mysqli_query($conn, $selectQuery1); 
+                                                    $query1 = mysqli_query($conn, $selectQuery1);
                                                     while($res = mysqli_fetch_assoc($query1)){
-                                                       
+
                                                     $code = $res['Subject Code'];
                                                     $selectQuery2 = "SELECT * from `exam_marks` WHERE `Student ID` = '$id' AND `Subject Code` = '$code'";
-                                                    $query2 = mysqli_query($conn, $selectQuery2); 
+                                                    $query2 = mysqli_query($conn, $selectQuery2);
                                                     $res2 = mysqli_fetch_assoc($query2);
                                                 ?>
                                             <td>
-                                                <input type="number" name="Ext[<?php echo $code ?>]" class="form-control" value="<?php echo $res2['External Marks']; ?>"> 
+                                                <input type="number" name="Ext[<?php echo $code ?>]" class="form-control" value="<?php echo $res2['External Marks']; ?>">
                                             </td>
                                             <?php } ?>
-                                            
+
                                             <td>
                                                 <div class="row">
                                                     <div class="col py-2">
@@ -235,12 +235,12 @@ if(isset($_POST['save'])){
 
                                             <?php } else {
                                                 $selectQuery1 = "SELECT `Subject Code` from `subject_details`";
-                                                $query1 = mysqli_query($conn, $selectQuery1); 
+                                                $query1 = mysqli_query($conn, $selectQuery1);
                                                 while($res1 = mysqli_fetch_assoc($query1)){
                                                     $code = $res1['Subject Code'];
                                                     $selectQuery2 = "SELECT `External Marks` from `exam_marks` WHERE `Student ID` = '$Sid' AND `Subject Code` = '$code'";
-                                                    $query2 = mysqli_query($conn, $selectQuery2); 
-                                                    $res2 = mysqli_fetch_assoc($query2); 
+                                                    $query2 = mysqli_query($conn, $selectQuery2);
+                                                    $res2 = mysqli_fetch_assoc($query2);
                                             ?>
                                                     <td><?php echo (@$res2['External Marks'] != null)? $res2['External Marks'] : "-"; ?></td>
                                                 <?php } ?>
@@ -257,7 +257,7 @@ if(isset($_POST['save'])){
                 </div>
             </main>
         </div>
-    </div>  
+    </div>
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>

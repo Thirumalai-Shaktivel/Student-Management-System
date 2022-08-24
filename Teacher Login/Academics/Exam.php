@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 session_start();
 if(isset($_SESSION['username']) != true)
@@ -27,11 +27,11 @@ include "../../config.php";
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <button class="btn btn-link btn order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
         <a class="navbar-brand" href="../HomePage.php">Teacher</a>
-        
+
         <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"></form>
         <ul class="navbar-nav ml-auto ml-md-0">
             <a class="nav-link dropdown-toggle" id="userDropdown" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle fa-lg"></i>
-                <?php 
+                <?php
                     echo($username)
                 ?>
             </a>
@@ -115,7 +115,7 @@ include "../../config.php";
                 </div>
                 <div class="sb-sidenav-footer">
                     <div class="small">Logged in as:</div>
-                    <?php 
+                    <?php
                         echo($username)
                     ?>
                 </div>
@@ -154,34 +154,34 @@ include "../../config.php";
                                         </tr>
                                     </thead>
                                     <tbody>
-                                         
-                                            
-                                        
+
+
+
                                         <tr>
                                             <?php
                                             $selectQuery = "SELECT `Student ID`, `Name` from `student_details`";
-                                            $query = mysqli_query($conn, $selectQuery); 
+                                            $query = mysqli_query($conn, $selectQuery);
                                             while($result = mysqli_fetch_assoc($query)){
-                                            ?> 
+                                            ?>
                                                 <td><?php echo $result['Student ID']; ?></td>
                                                 <td><?php echo $result['Name']; ?></td>
-                                            <?php 
+                                            <?php
                                                 $sum = 0;
                                                 $notnull  = true;
                                                 $selectQuery1 = "SELECT `Subject Code` from `subject_details`";
-                                                $query1 = mysqli_query($conn, $selectQuery1); 
-                                                while($res = mysqli_fetch_assoc($query1)){ 
+                                                $query1 = mysqli_query($conn, $selectQuery1);
+                                                while($res = mysqli_fetch_assoc($query1)){
                                                     $Sid = $result['Student ID'];
                                                     $code = $res['Subject Code'];
                                                     $selectQuery2 = "SELECT `External Marks` from `exam_marks` WHERE `Student ID` = '$Sid' AND `Subject Code` = '$code'";
-                                                    $query2 = mysqli_query($conn, $selectQuery2); 
+                                                    $query2 = mysqli_query($conn, $selectQuery2);
                                                     $res2 = mysqli_fetch_assoc($query2);
                                                     $sum += @$res2['External Marks'];
                                                     if(!@$res2['External Marks'])
                                                         $notnull = false;
                                             ?>
                                             <td><?php echo (@$res2['External Marks'] != null)? $res2['External Marks'] : "-"; ?></td>
-                                            
+
                                             <!-- <td></td> -->
                                             <?php } ?>
                                             <td><?php echo ($notnull)? $sum : "-"; ?></td>
@@ -189,16 +189,16 @@ include "../../config.php";
                                                 $sum1 = 0;
                                                 $not_null  = true;
                                                 $selectQuery2 = "SELECT `Subject Code` from `subject_details`";
-                                                $query2 = mysqli_query($conn, $selectQuery2); 
+                                                $query2 = mysqli_query($conn, $selectQuery2);
                                                 while($res2 = mysqli_fetch_assoc($query2)){
-                                                    $code = $res2['Subject Code']; 
+                                                    $code = $res2['Subject Code'];
                                                     $selectQuery3 = "SELECT `Average` from `internals_marks` WHERE `Student ID` = '$Sid' AND `Subject Code` = '$code'";
-                                                    $query3 = mysqli_query($conn, $selectQuery3); 
+                                                    $query3 = mysqli_query($conn, $selectQuery3);
                                                     $res3 = mysqli_fetch_assoc($query3);
                                                     $sum1 += @$res3['Average'];
                                                     if(!@$res3['Average'])
                                                         $not_null = false;
-                                                    } 
+                                                    }
                                             ?>
                                             <td><?php echo ($not_null)? $sum1 : "-"; ?></td>
                                             <?php
@@ -226,7 +226,7 @@ include "../../config.php";
                 </div>
             </main>
         </div>
-    </div>  
+    </div>
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
@@ -235,7 +235,7 @@ include "../../config.php";
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
-    
+
     <!-- JavaScript -->
     <script src="../../js/scripts.js"></script>
     <script src="../../js/datatable.js"></script>

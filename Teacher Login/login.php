@@ -17,16 +17,16 @@ if(isset($_POST['TeacherLogin'])){
 
     $sql = "SELECT `username`, `password` FROM teacher_user WHERE username = ?";
     $stmt = mysqli_prepare($conn, $sql);
-    
+
     mysqli_stmt_bind_param($stmt, "s", $User);
-    
+
     $User = $TLoginuser;
     if(mysqli_stmt_execute($stmt)){
         mysqli_stmt_store_result($stmt);
         if(mysqli_stmt_num_rows($stmt)){
             mysqli_stmt_bind_result($stmt, $User, $hashed_password);
             if(mysqli_stmt_fetch($stmt))
-            { 
+            {
               if(password_verify($TLoginPassword, $hashed_password))
               {
                 session_start();
@@ -37,18 +37,18 @@ if(isset($_POST['TeacherLogin'])){
               }
               else{
                 ?>
-                  <script>confirm("Wrong Password!!\nCheck the Password Correctly and Re-enter again.");</script> 
+                  <script>confirm("Wrong Password!!\nCheck the Password Correctly and Re-enter again.");</script>
                 <?php
               }
             }
         }
         else{
           ?>
-          <script>confirm("~~~~~~~~~~~~No such User Available!!~~~~~~~~~~~~\nNot an User? Create your Account By clicking Sign Up Button");</script> 
+          <script>confirm("~~~~~~~~~~~~No such User Available!!~~~~~~~~~~~~\nNot an User? Create your Account By clicking Sign Up Button");</script>
           <?php
         }
     }
-    
+
 }
 
 ?>
@@ -111,10 +111,10 @@ if(isset($_POST['TeacherLogin'])){
             <a href="../select.html" role="button" class="btn btn-outline-danger btn-block">Cancel</a>
           </div>
         </div>
-        
+
       </form>
     </div>
-    
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 

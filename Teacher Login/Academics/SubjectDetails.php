@@ -1,4 +1,4 @@
-<?php 
+<?php
 
     session_start();
     if(isset($_SESSION['username']) != true)
@@ -8,14 +8,14 @@
     }
     require_once "../../config.php";
     include "../../function.php";
-    
+
     $username = trim($_SESSION['username']);
     $success = $update = $del = $sub = false;
-    
+
     if(isset($_SESSION['UpdatedSubDetails']))
         $update = true;
     else if(isset($_SESSION['DeletedSubDetails']))
-        $del = true;    
+        $del = true;
     if(isset($_SESSION['DuplicateSub']))
         $sub = true;
 
@@ -23,7 +23,7 @@
     if(isset($_POST['add'])){
         $SubCode = format($_POST['SubCode']);
         $SubName = format($_POST['SubName']);
-        
+
         $check = "SELECT * FROM subject_details WHERE `Subject Code` = '$SubCode' OR `Subject Name` =  '$SubName'";
         $query = mysqli_query($conn, $check);
         $res = mysqli_fetch_assoc($query);
@@ -37,7 +37,7 @@
             if($query1){
                 $success = true;
             }
-            
+
             $selectQuery = "SELECT `Student ID` from student_details";
             $query = mysqli_query($conn, $selectQuery);
             while($res = mysqli_fetch_assoc($query)){
@@ -52,7 +52,7 @@
                 $id = $res['Student ID'];
                 $insertQuery = "INSERT INTO `exam_marks`(`Student ID`, `Subject Code`) VALUES ('$id','$SubCode')";
                 $query2 = mysqli_query($conn, $insertQuery);
-            } 
+            }
         }
         else {
             $_SESSION['DuplicateSub'] = true;
@@ -78,11 +78,11 @@
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <button class="btn btn-link btn order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
         <a class="navbar-brand" href="../HomePage.php">Teacher</a>
-        
+
         <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"></form>
         <ul class="navbar-nav ml-auto ml-md-0">
             <a class="nav-link dropdown-toggle" id="userDropdown" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle fa-lg"></i>
-                <?php 
+                <?php
                     echo($username)
                 ?>
             </a>
@@ -166,7 +166,7 @@
                 </div>
                 <div class="sb-sidenav-footer">
                     <div class="small">Logged in as:</div>
-                    <?php 
+                    <?php
                         echo($username)
                     ?>
                 </div>
@@ -230,7 +230,7 @@
                         </div>
                         <div class="col-xl-7">
                             <div>
-                                 <?php if($update){ 
+                                 <?php if($update){
                                     unset($_SESSION["UpdatedSubDetails"]);
                                 ?>
                                     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -239,7 +239,7 @@
                                         <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                <?php } else if($del){ 
+                                <?php } else if($del){
                                     unset($_SESSION["DeletedSubDetails"]);
                                 ?>
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -248,7 +248,7 @@
                                         <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                <?php } else if($sub){ 
+                                <?php } else if($sub){
                                     unset($_SESSION['DuplicateSub']);
                                 ?>
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -258,13 +258,13 @@
                                         </button>
                                     </div>
                                 <?php } ?>
-                                
+
                                 <div class="card mb-4">
                                     <div class="card-header">
                                         <h5>Subject Details</h5>
                                     </div>
                                     <div class="card-body">
-                                        
+
                                         <div class="table-responsive">
                                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                                 <thead>
@@ -308,7 +308,7 @@
                 </div>
             </main>
         </div>
-    </div>  
+    </div>
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>

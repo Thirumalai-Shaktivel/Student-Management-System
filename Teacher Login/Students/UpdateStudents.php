@@ -1,4 +1,4 @@
-<?php 
+<?php
 
     session_start();
     if(isset($_SESSION['username']) != true)
@@ -8,7 +8,7 @@
     }
     include "../../config.php";
     include "../../function.php";
-    
+
     $username = trim($_SESSION['username']);
     $insert = false;
 
@@ -72,12 +72,12 @@
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <button class="btn btn-link btn order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
         <a class="navbar-brand" href="../HomePage.php">Teacher</a>
-        
+
         <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"></form>
         <ul class="navbar-nav ml-auto ml-md-0">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="userDropdown" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle fa-lg"></i>
-                    <?php 
+                    <?php
                         echo($username)
                     ?>
                 </a>
@@ -90,7 +90,7 @@
             </li>
         </ul>
     </nav>
- 
+
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
             <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
@@ -162,7 +162,7 @@
                 </div>
                 <div class="sb-sidenav-footer">
                     <div class="small">Logged in as:</div>
-                    <?php 
+                    <?php
                         echo($username)
                     ?>
                 </div>
@@ -191,7 +191,7 @@
                         <form action="" method="POST">
                             <div class="card-body">
                                 <h5>Student Information</h5>
-                                <?php   
+                                <?php
                                     $select = "SELECT * FROM `student_details` WHERE `Student ID` = '$id'";
                                     $query = mysqli_query($conn, $select);
                                     $res = mysqli_fetch_assoc($query);
@@ -302,7 +302,7 @@
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="FatherPhNum">Phone Number</label>
-                                            <input type="text" name="FatherPhoneNum" class="form-control" id="FatherPhNum" value="<?php echo $res['Father PhoneNum']; ?>" required> 
+                                            <input type="text" name="FatherPhoneNum" class="form-control" id="FatherPhNum" value="<?php echo $res['Father PhoneNum']; ?>" required>
                                         </div>
                                     </div>
                                     <div class="form-row">
@@ -316,7 +316,7 @@
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="MotherPhNum">Phone Number</label>
-                                            <input type="text" name="MotherPhoneNum" class="form-control" id="MotherPhNum" value="<?php echo $res['Mother PhoneNum']; ?>"> 
+                                            <input type="text" name="MotherPhoneNum" class="form-control" id="MotherPhNum" value="<?php echo $res['Mother PhoneNum']; ?>">
                                         </div>
                                     </div>
                                     <div class="form-row">
@@ -354,14 +354,14 @@
                                         <a href="DeleteStudent.php?id2=<?php echo $id ?>" role="button" class="btn btn-danger btn-lg btn-block">Delete</a>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </form>
                     </div>
                 </div>
             </main>
         </div>
-    </div>  
+    </div>
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>

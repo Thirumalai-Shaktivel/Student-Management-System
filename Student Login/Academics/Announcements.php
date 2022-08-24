@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 session_start();
 if(isset($_SESSION['uniqueId']) != true)
@@ -34,12 +34,12 @@ $result1 = mysqli_fetch_assoc($query1);
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <button class="btn btn-link btn order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
         <a class="navbar-brand" href="../HomePage.php">Student</a>
-        
+
         <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"></form>
         <ul class="navbar-nav ml-auto ml-md-0">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="userDropdown" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle fa-lg"></i>
-                    <?php 
+                    <?php
                         echo($result1['Name']);
                     ?>
                 </a>
@@ -97,7 +97,7 @@ $result1 = mysqli_fetch_assoc($query1);
                 </div>
                 <div class="sb-sidenav-footer">
                     <div class="small">Logged in as:</div>
-                    <?php 
+                    <?php
                         echo($result1['Name']);
                     ?>
                 </div>
@@ -128,7 +128,7 @@ $result1 = mysqli_fetch_assoc($query1);
                                             <button class="btn btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#Body<?php echo $result['ID']; ?>">
                                                 <h3><?php echo $result['Title']; ?></h3>
                                                 <small class="text-muted">Posted By </small>
-                                                <?php 
+                                                <?php
                                                     $post = $result['Posted By'];
                                                     echo $post;
                                                     $Code = $result['Subject Code'];
@@ -139,8 +139,8 @@ $result1 = mysqli_fetch_assoc($query1);
                                                 ?>
                                                 <br>
                                                 <small class="text-muted">
-                                                <?php 
-                                                    echo get_time_ago($result['Posted time']); 
+                                                <?php
+                                                    echo get_time_ago($result['Posted time']);
                                                 ?>
                                                 </small>
                                             </button>
@@ -161,7 +161,7 @@ $result1 = mysqli_fetch_assoc($query1);
                 </div>
             </main>
         </div>
-    </div>  
+    </div>
 
     </nav>
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->

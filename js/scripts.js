@@ -1,4 +1,4 @@
-   (function($) {
+(function($) {
     "use strict";
 
     // Add active state to sidbar nav links
@@ -15,4 +15,3 @@
         $("body").toggleClass("sb-sidenav-toggled");
     });
 })(jQuery);
-
