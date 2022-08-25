@@ -199,7 +199,7 @@
         `Communicate well in English`='$communicateEnglish',
         `Prepare English`='$prepareEnglish',
         `Elder Brothers Count`='$elderBrothersCount',
-        `Elder Broters Qualification`='$elderBrothersQualification',
+        `Elder Brothers Qualification`='$elderBrothersQualification',
         `Younger Brothers Count`='$youngerBrothersCount',
         `Younger Brothers Qualification`='$youngerBrothersQualification',
         `Elder Sisters Count`='$elderSistersCount',
@@ -851,7 +851,7 @@
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="elderBrothersQualification">Qualification</label>
-                                            <input type="text" name="elderBrothersQualification" class="form-control" id="elderBrothersQualification" value="<?php echo $res['Elder Broters Qualification']?>">
+                                            <input type="text" name="elderBrothersQualification" class="form-control" id="elderBrothersQualification" value="<?php echo $res['Elder Brothers Qualification']?>">
                                         </div>
                                     </div>
                                     <div class="form-row">

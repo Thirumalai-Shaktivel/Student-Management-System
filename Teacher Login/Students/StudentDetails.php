@@ -415,7 +415,7 @@
                                                     <td>Brothers Elder</td><td><?php echo ":\t".$result['Elder Brothers Count']?></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Qualification</td><td><?php echo ":\t".$result['Elder Broters Qualification']?></td>
+                                                    <td>Qualification</td><td><?php echo ":\t".$result['Elder Brothers Qualification']?></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Younger</td><td><?php echo ":\t".$result['Younger Brothers Count']?></td>
