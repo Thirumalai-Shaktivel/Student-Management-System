@@ -501,7 +501,7 @@
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="officeAddress">Office Address with Phone No.</label>
-                                            <textarea type="text" name="MotherofficeAddress" class="form-control" id="officeAddress" rows="3" required></textarea>
+                                            <textarea type="text" name="MotherofficeAddress" class="form-control" id="officeAddress" rows="3"></textarea>
                                         </div>
                                     </div>
                                     <div class="form-row">
@@ -700,7 +700,7 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-3">
                                             <label for="diploma_year">Year of Passing</label>
-                                            <input type="number" name="diploma_year" class="form-control" id="diploma_year" min="2000" max="2050" step="1" value="<?php echo date("Y") ?>">
+                                            <input type="number" name="diploma_year" class="form-control" id="diploma_year">
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="diploma_Marks">Marks Secured</label>
@@ -710,7 +710,7 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
                                             <label for="diploma_Medium">Medium of Instruction</label>
-                                            <input type="text" name="diploma_Medium" class="form-control" id="diploma_Medium" value="English">
+                                            <input type="text" name="diploma_Medium" class="form-control" id="diploma_Medium">
                                         </div>
                                         <div class="form-group col-md-2">
                                             <label for="diploma_MarksPercent">% of Marks</label>
@@ -760,7 +760,7 @@
                                         <div class="form-group col-md-2">
                                             <label for="englishCommunication">Do you communicate well in English:</label> <br>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="communicateEnglish" id="inlineRadio1" value="Yes">
+                                                    <input class="form-check-input" type="radio" name="communicateEnglish" id="inlineRadio1" value="Yes" checked>
                                                     <label class="form-check-label" for="inlineRadio1">Yes</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
