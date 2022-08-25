@@ -23,6 +23,16 @@ else if(isset($_SESSION['Uploaded']))
 if(isset($_SESSION['Updated']))
     $updated = true;
 
+if(isset($_GET['sub'])) {
+    $sub  = $_GET['sub'];
+} else {
+    $selectQuery = "SELECT * from subject_details";
+    $query2 = mysqli_query($conn, $selectQuery);
+    $first = mysqli_fetch_assoc($query2);
+
+    $sub = $first['Subject Name'];
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -147,14 +157,10 @@ if(isset($_SESSION['Updated']))
                         <?php
                             $selectQuery = "SELECT * from subject_details";
                             $query2 = mysqli_query($conn, $selectQuery);
-                            $first = mysqli_fetch_assoc($query2);
-                            
-                            $selectQuery = "SELECT * from subject_details";
-                            $query2 = mysqli_query($conn, $selectQuery);
                             while($result = mysqli_fetch_assoc($query2)){
                         ?>
                         <li class="nav-item">
-                            <a class="nav-link <?php if($first['Subject Name'] == $result['Subject Name']) { ?> active <?php } ?>" data-toggle="pill" href="#<?php echo $result['Subject Name']; ?>"><?php echo $result['Subject Name']; ?></a>
+                            <a class="nav-link <?php if($sub == $result['Subject Name']) { ?> active <?php } ?>" data-toggle="pill" href="#<?php echo $result['Subject Name']; ?>"><?php echo $result['Subject Name']; ?></a>
                         </li>
                         <?php } ?>
                     </ul>
@@ -182,7 +188,7 @@ if(isset($_SESSION['Updated']))
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                    <?php unset($_SESSION["StudentNotFound"]); 
+                    <?php unset($_SESSION["StudentNotFound"]);
                     } else if ($success) {
                         unset($_SESSION["Uploaded"]); ?>
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -230,7 +236,7 @@ if(isset($_SESSION['Updated']))
                                 $query2 = mysqli_query($conn, $selectQuery);
                             while($res = mysqli_fetch_assoc($query2)){
                             ?>
-                                <div class="tab-pane fade <?php if($first['Subject Name'] == $res['Subject Name']) { ?> show active <?php } ?>" id="<?php echo $res['Subject Name']; ?>">
+                                <div class="tab-pane fade <?php if($sub == $res['Subject Name']) { ?> show active <?php } ?>" id="<?php echo $res['Subject Name']; ?>">
                                     <div class="table-responsive">
                                         <table class="table table-striped text-center" width="100%" cellspacing="0">
                                         <div class="d-flex justify-content-around">
@@ -247,7 +253,7 @@ if(isset($_SESSION['Updated']))
                                                                     <label> Internal Assessment-01(20)</label>
                                                                 </div>
                                                             <div class="col align-self-center">
-                                                                <a href="UpdateInternals.php?id=IA1" role="button" class="btn btn-primary btn-block">
+                                                                <a href="UpdateInternals.php?id=IA1&sub=<?php echo $res['Subject Name'] ?>" role="button" class="btn btn-primary btn-block">
                                                                     <i class="fas fa-edit"></i>
                                                                 </a>
                                                             </div>
@@ -259,7 +265,7 @@ if(isset($_SESSION['Updated']))
                                                                 <label> Internal Assessment-02(20)</label>
                                                             </div>
                                                             <div class="col align-self-center">
-                                                                <a href="UpdateInternals.php?id=IA2" role="button" class="btn btn-primary btn-block">
+                                                                <a href="UpdateInternals.php?id=IA2&sub=<?php echo $res['Subject Name'] ?>" role="button" class="btn btn-primary btn-block">
                                                                     <i class="fas fa-edit"></i>
                                                                 </a>
                                                             </div>
@@ -271,7 +277,7 @@ if(isset($_SESSION['Updated']))
                                                                 <label> Internal Assessment-03(20)</label>
                                                             </div>
                                                             <div class="col align-self-center">
-                                                                <a href="UpdateInternals.php?id=IA3" role="button" class="btn btn-primary btn-block">
+                                                                <a href="UpdateInternals.php?id=IA3&sub=<?php echo $res['Subject Name'] ?>" role="button" class="btn btn-primary btn-block">
                                                                     <i class="fas fa-edit"></i>
                                                                 </a>
                                                             </div>

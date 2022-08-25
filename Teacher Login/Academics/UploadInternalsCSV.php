@@ -1,5 +1,5 @@
 <?php
- 
+
 session_start();
 if(isset($_SESSION['username']) != true)
 {
@@ -7,7 +7,7 @@ if(isset($_SESSION['username']) != true)
     exit;
 }
 include "../../config.php";
- 
+
 if(isset($_POST['upload'])) {
     $file = $_FILES['marks_upload'];
 
@@ -45,7 +45,7 @@ if(isset($_POST['upload'])) {
             header("location: Internals.php");
             exit();
         }
-        
+
         $selectQuery = "SELECT * from `student_details`";
         $query1 = mysqli_query($conn, $selectQuery);
         $result = array();
@@ -79,5 +79,5 @@ if(isset($_POST['upload'])) {
         header("location: Internals.php");
     }
 }
- 
+
 ?>

@@ -9,6 +9,7 @@
     $username = trim($_SESSION['username']);
     include "../../config.php";
     $id = $_GET['id'];
+    $sub = $_GET['sub'];
     // $selectQuery = "SELECT * from subject_details";
     // $query = mysqli_query($conn, $selectQuery);
     // while($res = mysqli_fetch_assoc($query)){
@@ -49,7 +50,7 @@
                     $query2 = mysqli_query($conn, $insertQuery);
                     if($query2){
                         $_SESSION["Updated"] = true;
-                        header("location: Internals.php");
+                        header("location: Internals.php?sub=");.$res['Subject Name']);
                     }
                 }
             }
@@ -224,14 +225,12 @@
                         <?php
                             $selectQuery = "SELECT * from subject_details";
                             $query2 = mysqli_query($conn, $selectQuery);
-                            $first = mysqli_fetch_assoc($query2);
-
-                            $selectQuery = "SELECT * from subject_details";
-                            $query2 = mysqli_query($conn, $selectQuery);
                         while($result = mysqli_fetch_assoc($query2)){
                         ?>
                         <li class="nav-item">
-                          <a class="nav-link <?php if($first['Subject Name'] == $result['Subject Name']) { ?> active <?php } ?>" data-toggle="pill" href="#<?php echo $result['Subject Name']; ?>"><?php echo $result['Subject Name']; ?></a>
+                            <a class="nav-link disabled <?php if($sub == $result['Subject Name']) { ?> active <?php } ?>"
+                                data-toggle="pill" href="#<?php echo $result['Subject Name']; ?>"><?php echo $result['Subject Name']; ?>
+                            </a>
                         </li>
                         <?php } ?>
                     </ul>
@@ -247,7 +246,7 @@
                                 $query2 = mysqli_query($conn, $selectQuery);
                             while($res = mysqli_fetch_assoc($query2)){
                             ?>
-                                <div class="tab-pane fade <?php if($first['Subject Name'] == $res['Subject Name']) { ?> show active <?php } ?>" id="<?php echo $res['Subject Name']; ?>">
+                                <div class="tab-pane fade <?php if($sub == $res['Subject Name']) { ?> show active <?php } ?>" id="<?php echo $res['Subject Name']; ?>">
                                     <div class="table-responsive">
                                         <table class="table table-striped text-center" width="100%" cellspacing="0">
                                         <form action="" method="POST">
