@@ -50,7 +50,7 @@
                     $query2 = mysqli_query($conn, $insertQuery);
                     if($query2){
                         $_SESSION["Updated"] = true;
-                        header("location: Internals.php?sub=");.$res['Subject Name']);
+                        header("location: Internals.php?sub=".$res['Subject Name']);
                     }
                 }
             }
