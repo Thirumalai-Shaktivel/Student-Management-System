@@ -48,6 +48,7 @@
                     $insertQuery = "UPDATE `internals_marks` SET $IA1= $IA WHERE `Student ID` = '$id' AND `Subject Code` ='$code'";
                     $query2 = mysqli_query($conn, $insertQuery);
                     if($query2){
+                        $_SESSION["Updated"] = true;
                         header("location: Internals.php");
                     }
                 }

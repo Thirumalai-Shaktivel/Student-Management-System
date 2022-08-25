@@ -9,7 +9,7 @@ if(isset($_SESSION['username']) != true)
 $username = trim($_SESSION['username']);
 include "../../config.php";
 
-$file_issue = $subject_not_found = $student_not_found = $success = false;
+$file_issue = $subject_not_found = $student_not_found = $success = $updated = false;
 
 if(isset($_SESSION['FileFormatIssue']))
     $file_issue = true;
@@ -19,6 +19,9 @@ else if(isset($_SESSION['StudentNotFound']['status']))
     $student_not_found = true;
 else if(isset($_SESSION['Uploaded']))
     $success = true;
+
+if(isset($_SESSION['Updated']))
+    $updated = true;
 
 ?>
 
@@ -184,6 +187,15 @@ else if(isset($_SESSION['Uploaded']))
                         unset($_SESSION["Uploaded"]); ?>
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             <strong>Student marks uploaded successfully!</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    <?php }
+                    if ($updated) {
+                        unset($_SESSION["Updated"]); ?>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Student marks updated successfully!</strong>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
                             <span aria-hidden="true">&times;</span>
                             </button>
