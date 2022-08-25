@@ -211,15 +211,20 @@ if(isset($_GET['sub'])) {
                     <div class="card mb-4">
                         <div class="card-header">
                             <div class="row">
-                                <div class="col-7">
+                                <div class="col-6">
                                     <h5>Marks Sheet</h5>
                                 </div>
-                                <div class="col-5">
+                                <div class="col-6">
                                 <form action="UploadInternalsCSV.php" method="POST" enctype="multipart/form-data">
                                     <div class="row">
-                                        <h5>Have a CSV file? Upload:&emsp;</h5>
-                                        <input type="file" name="marks_upload">
-                                        <div class="col-2">
+                                        <div class="col-8">
+                                            <h5>
+                                                Have a CSV file?
+                                                <a href="https://raw.githubusercontent.com/Thirumalai-Shaktivel/Student-Management-System/master/resource/MarksExample.csv"> upload format </a>
+                                            </h5>
+                                            <input type="file" name="marks_upload" class="mb-2">
+                                        </div>
+                                        <div class="col align-self-center">
                                             <button type="submit" name="upload" class="btn btn-success btn-block">
                                                 <strong>Upload</strong>
                                             </button>
