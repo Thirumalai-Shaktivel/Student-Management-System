@@ -138,7 +138,7 @@ $result1 = mysqli_fetch_assoc($query1);
                                             <td><?php echo $res['Subject Name']; ?></td>
                                         <?php
                                             $code = $res['Subject Code'];
-                                            $selectQuery = "SELECT * from `internals_marks` WHERE `Student ID` = '$id' AND `Subject Code` ='$code'";
+                                            $selectQuery = "SELECT * from `sem1_internals` WHERE `Student ID` = '$id' AND `Subject Code` ='$code'";
                                             $query = mysqli_query($conn, $selectQuery);
                                             $result = mysqli_fetch_assoc($query);
                                         ?>

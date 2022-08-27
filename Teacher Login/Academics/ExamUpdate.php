@@ -31,7 +31,7 @@ if(isset($_POST['save'])){
     while($res = mysqli_fetch_assoc($query1)){
         $code = $res['Subject Code'];
 
-        $selectQuery = "SELECT `Average` FROM `internals_marks` WHERE `Student ID` = '$id' AND `Subject Code` = '$code'";
+        $selectQuery = "SELECT `Average` FROM `sem1_internals` WHERE `Student ID` = '$id' AND `Subject Code` = '$code'";
         $query = mysqli_query($conn, $selectQuery);
         $res = mysqli_fetch_assoc($query);
         if(@$res['Average'] != null){

@@ -46,7 +46,7 @@
                     $id = $result['Student ID'];
                     $code = $res['Subject Code'];
                     $IA = $name[$result['Student ID']][$res['Subject Code']];
-                    $insertQuery = "UPDATE `internals_marks` SET $IA1= $IA WHERE `Student ID` = '$id' AND `Subject Code` ='$code'";
+                    $insertQuery = "UPDATE `sem1_internals` SET $IA1= $IA WHERE `Student ID` = '$id' AND `Subject Code` ='$code'";
                     $query2 = mysqli_query($conn, $insertQuery);
                     if($query2){
                         $_SESSION["Updated"] = true;
@@ -321,7 +321,7 @@
                                                     $ID = $result['Student ID'];
                                                     $code = $res['Subject Code'];
 
-                                                    $selectQuery1 = "SELECT * from `internals_marks` WHERE `Student ID` = '$ID' AND `Subject Code` ='$code'";
+                                                    $selectQuery1 = "SELECT * from `sem1_internals` WHERE `Student ID` = '$ID' AND `Subject Code` ='$code'";
                                                     $query1 = mysqli_query($conn, $selectQuery1);
                                                     $result = mysqli_fetch_assoc($query1);
                                                 ?>
@@ -353,7 +353,7 @@
                                                         if((@$result['IA1'] AND @$result['IA2'] AND @$result['IA3']) != NULL){
                                                         $Average = round((@$result['IA1'] + @$result['IA2'] + @$result['IA3'])/3);
 
-                                                        $insert = "UPDATE `internals_marks` SET `Average` = $Average WHERE `Student ID` = '$ID' AND `Subject Code` ='$code'";
+                                                        $insert = "UPDATE `sem1_internals` SET `Average` = $Average WHERE `Student ID` = '$ID' AND `Subject Code` ='$code'";
                                                         $query3 = mysqli_query($conn, $insert);
                                                         }
                                                 ?>

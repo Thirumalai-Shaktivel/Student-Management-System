@@ -192,7 +192,7 @@ include "../../config.php";
                                                 $query2 = mysqli_query($conn, $selectQuery2);
                                                 while($res2 = mysqli_fetch_assoc($query2)){
                                                     $code = $res2['Subject Code'];
-                                                    $selectQuery3 = "SELECT `Average` from `internals_marks` WHERE `Student ID` = '$Sid' AND `Subject Code` = '$code'";
+                                                    $selectQuery3 = "SELECT `Average` from `sem1_internals` WHERE `Student ID` = '$Sid' AND `Subject Code` = '$code'";
                                                     $query3 = mysqli_query($conn, $selectQuery3);
                                                     $res3 = mysqli_fetch_assoc($query3);
                                                     $sum1 += @$res3['Average'];
