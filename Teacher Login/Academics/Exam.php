@@ -15,6 +15,30 @@ $updateCounsel = $success = false;
 if(isset($_SESSION['UpdatedExamMarks']))
     $success = true;
 
+$selectQuery = "SELECT `Subject Code` from subject_details";
+$query = mysqli_query($conn, $selectQuery);
+$code = mysqli_fetch_assoc($query)['Subject Code'];
+
+if (isset($_POST['submit'])) {
+    $studentID = format($_POST['studentID']);
+    date_default_timezone_set('Asia/Kolkata');
+    $date = date('d M, Y H:i:s');
+    $check = "SELECT * FROM exam_marks";
+    $query = mysqli_query($conn, $check);
+    if ($res = mysqli_fetch_assoc($query)) {
+        $shortfalls = format($_POST['shortfalls']);
+        $remarks = format($_POST['remarks']);
+        $updateQuery = "UPDATE `exam_marks` SET
+            `Counselling_date`='$date',
+            `Shortfalls`='$shortfalls',
+            `Remarks`='$remarks'
+        WHERE `Student ID` = '$studentID' AND `Subject Code`='$code'";
+        $query = mysqli_query($conn, $updateQuery);
+        if($query){
+            $updateCounsel = true;
+        }
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -218,6 +242,103 @@ if(isset($_SESSION['UpdatedExamMarks']))
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-4 col-sm">
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <h5>Counselling after University Results</h5>
+                                </div>
+                                <div class="card-body">
+                                    <form action="" method="POST">
+                                        <div class="form-row">
+                                            <div class="form-group col-sm">
+                                                <label for="studentID">Student ID</label>
+                                                    <select id="studentID" name="studentID" class="form-control">
+                                                        <option selected>Please Select Student ID</option>
+                                                    <?php
+                                                    $selectQuery = "SELECT * from `student_details`";
+                                                    $query = mysqli_query($conn, $selectQuery);
+                                                    while($res = mysqli_fetch_assoc($query)) {
+                                                    ?>
+                                                        <option value="<?php echo $res['Student ID']; ?>"><?php echo $res['Student ID']; ?></option>
+                                                    <?php } ?>
+                                                    </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-sm">
+                                                <label for="shortfalls">Discuss the shortfalls in the Academics performance</label>
+                                                <textarea type="text" name="shortfalls" class="form-control" id="shortfalls" rows="3"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-sm">
+                                                <label for="remarks">Remarks</label>
+                                                <textarea type="text" name="remarks" class="form-control" id="remarks" rows="3"></textarea>
+                                           </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-lg-5">
+                                                <button type="submit" name="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+                                            </div>
+                                            <div class="form-group col-lg-5">
+                                                <a href="Internals.php" role="button" class="btn btn-outline-warning btn-lg btn-block">Cancel</a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8 col-sm">
+                            <div>
+                                 <?php if($updateCounsel) { $updateCounsel = false; ?>
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        <strong>Counselling details updated successfully</strong>
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                <?php } ?>
+
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <h5>Counselling Details</h5>
+                                    </div>
+                                    <div class="card-body">
+
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="align-middle">Student ID</th>
+                                                        <th class="align-middle">Date and time of Counselling</th>
+                                                        <th class="align-middle">Discussed the shortfalls in the Academics performance</th>
+                                                        <th class="align-middle">Adherence to the suggestions given by the facutly<br>(submitted by the students)</th>
+                                                        <th class="align-middle">Remarks</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php
+                                                    $query = mysqli_query($conn, "SELECT `Subject Code` from subject_details");
+                                                    $code = mysqli_fetch_assoc($query)['Subject Code'];
+                                                    $selectQuery = "SELECT * from `exam_marks` WHERE `Subject Code` ='$code'";
+                                                    $query = mysqli_query($conn, $selectQuery);
+                                                    while($result = mysqli_fetch_assoc($query)) {
+                                                ?>
+                                                    <tr>
+                                                        <td><?php echo $result['Student ID']; ?></td>
+                                                        <td><?php echo (@$result['Counselling_date'] != null)? $result['Counselling_date'] : "-"; ?></td>
+                                                        <td><?php echo (@$result['Shortfalls'] != null)? $result['Shortfalls'] : "-"; ?></td>
+                                                        <td><?php echo (@$result['Adherence'] != null)? $result['Adherence'] : "-"; ?></td>
+                                                        <td><?php echo (@$result['Remarks'] != null)? $result['Remarks'] : "-"; ?></td>
+                                                    </tr>
+                                                <?php } ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
