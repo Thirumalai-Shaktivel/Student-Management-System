@@ -359,9 +359,9 @@ if (isset($_POST['submit'])) {
                                                     <td><?php echo (@$result['IA3_CA'] != null)? $result['IA3_CA'] : "-"; ?></td>
                                                     <td><?php echo (@$result['IA3_AP'] != null)? $result['IA3_AP'] : "-"; ?></td>
                                                     <td><?php echo (@$result['IA3_MO'] != null)? $result['IA3_MO'] : "-"; ?></td>
-                                                    <td <?php if(@$result['Average'] >= 12) { ?>style="background-color: #51f542;"
+                                                    <td <?php if(@$result['Average'] > 12) { ?>style="background-color: #51f542;"
                                                     <?php } else{ ?> style="background-color: #f54242;" <?php } ?>
-                                                    ><?php echo (@$result['Average'] !=null)?$result['Average']: "-"; ?></td>
+                                                    ><?php echo (@$result['Average']!="0" && @$result['Average']!=null)?$result['Average']: "-"; ?></td>
                                                 </tr>
                                                 <?php
                                                     }
@@ -382,7 +382,7 @@ if (isset($_POST['submit'])) {
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-md-4 col-sm">
                             <div class="card mb-4">
                                 <div class="card-header">
                                     <h5>Counselling after Internal Assessment Test</h5>
@@ -417,10 +417,10 @@ if (isset($_POST['submit'])) {
                                            </div>
                                         </div>
                                         <div class="form-row">
-                                            <div class="form-group col-sm-4">
+                                            <div class="form-group col-lg-5">
                                                 <button type="submit" name="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
                                             </div>
-                                            <div class="form-group col-sm-4">
+                                            <div class="form-group col-lg-5">
                                                 <a href="Internals.php" role="button" class="btn btn-outline-warning btn-lg btn-block">Cancel</a>
                                             </div>
                                         </div>
@@ -428,7 +428,7 @@ if (isset($_POST['submit'])) {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-8">
+                        <div class="col-md-8 col-sm">
                             <div>
                                  <?php if($updateCounsel) { $updateCounsel = false; ?>
                                     <div class="alert alert-success alert-dismissible fade show" role="alert">

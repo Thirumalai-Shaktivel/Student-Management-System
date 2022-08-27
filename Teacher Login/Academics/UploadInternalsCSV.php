@@ -52,22 +52,22 @@ if(isset($_POST['upload'])) {
         while($res = mysqli_fetch_assoc($query1)) {
             $result[] = $res['Student ID'];
         }
-
-        for($i=$x=1; $i < count($lines[0]); $i+=3, $x++) {
-            $Average = 0;
-            for ($j = 1; $j < count($lines); $j++) {
-                $id = $lines[$j][0];
-                $classesTaken = (int)$lines[$j][$i];
-                $classesAttended = (int)$lines[$j][$i+1];
-                $attend_per = ($classesAttended/$classesTaken)*100;
-                $IA_marks = $lines[$j][$i+2];
-                $Average += $IA_marks;
+        for ($i=1; $i < count($lines); $i++) {
+            $sum = 0;
+            for($j=$k=1; $j < count($lines[0]); $j+=3, $k++) {
+                $id = $lines[$i][0];
                 if(in_array($id, $result)) {
+                    $classesTaken = (int)$lines[$i][$j];
+                    $classesAttended = (int)$lines[$i][$j+1];
+                    $attend_per = ($classesAttended/$classesTaken)*100;
+                    $sum += $IA_marks = $lines[$i][$j+2];
+                    $Average=(count($lines[0]) == 10)?$sum/$k:0;
+                    // echo "<br>Sum: ".$sum."<br>".$Average;
                     $insertQuery = "UPDATE `sem1_internals` SET
-                        `IA{$x}_CT`='$classesTaken',
-                        `IA{$x}_CA`='$classesAttended',
-                        `IA{$x}_AP`='$attend_per',
-                        `IA{$x}_MO`='$IA_marks',
+                        `IA{$k}_CT`='$classesTaken',
+                        `IA{$k}_CA`='$classesAttended',
+                        `IA{$k}_AP`='$attend_per',
+                        `IA{$k}_MO`='$IA_marks',
                         `Average`='$Average'
                     WHERE `Student ID` = '$id' AND `Subject Code` ='$code'";
                     $query2 = mysqli_query($conn, $insertQuery);
