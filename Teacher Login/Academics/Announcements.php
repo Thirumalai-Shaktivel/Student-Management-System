@@ -145,11 +145,9 @@
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="Internals.php">
                                     Internal Assessment's
-                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-right"></i></div>
                                 </a>
                                 <a class="nav-link" href="Exam.php">
                                     External Assessment
-                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-right"></i></div>
                                 </a>
                             </nav>
                         </div>

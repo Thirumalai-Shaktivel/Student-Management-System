@@ -112,7 +112,6 @@
                         <a href="Attendence.php" class="nav-link">
                             <div class="sb-nav-link-icon"><i class="far fa-calendar-check"></i></div>
                             Update Attendence
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-right"></i></div>
                         </a>
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts2" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-tasks"></i></div>
@@ -123,11 +122,9 @@
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="Internals.php">
                                     Internal Assessment's
-                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-right"></i></div>
                                 </a>
                                 <a class="nav-link" href="Exam.php">
                                     External Assessment
-                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-right"></i></div>
                                 </a>
                             </nav>
                         </div>
