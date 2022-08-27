@@ -15,20 +15,9 @@
     $query = mysqli_query($conn, $selectQuery);
     $sub = mysqli_fetch_assoc($query)['Subject Name'];
 
-    if(isset($_POST['save1'])){
-        $values = $_POST['values'];
-        $keys = array_keys($values);
-    }
-    else if(isset($_POST['save2'])){
-        $values = $_POST['values'];
-        $keys = array_keys($values);
-    }
-    else if(isset($_POST['save3'])){
-        $values = $_POST['values'];
-        $keys = array_keys($values);
-    }
-
     if(isset($_POST['save1']) || isset($_POST['save2']) || isset($_POST['save3'])) {
+        $values = $_POST['values'];
+        $keys = array_keys($values);
         $selectQuery = "SELECT `Student ID` from `student_details`";
         $query1 = mysqli_query($conn, $selectQuery);
         while($result = mysqli_fetch_assoc($query1)){

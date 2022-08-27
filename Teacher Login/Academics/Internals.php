@@ -43,14 +43,13 @@ if (isset($_POST['submit'])) {
     $check = "SELECT * FROM sem1_internals";
     $query = mysqli_query($conn, $check);
     if ($res = mysqli_fetch_assoc($query)) {
-        echo $date;
         $shortfalls = format($_POST['shortfalls']);
         $remarks = format($_POST['remarks']);
         $updateQuery = "UPDATE `sem1_internals` SET
             `Counselling_date`='$date',
             `Shortfalls`='$shortfalls',
             `Remarks`='$remarks'
-        WHERE `Student ID` = '$studentID' AND `Subject Code` =  '$code'";
+        WHERE `Student ID` = '$studentID' AND `Subject Code`='$code'";
         $query = mysqli_query($conn, $updateQuery);
         if($query){
             $updateCounsel = true;
@@ -335,7 +334,7 @@ if (isset($_POST['submit'])) {
                                                 <?php
                                                     $selectQuery = "SELECT * from `student_details`";
                                                     $query = mysqli_query($conn, $selectQuery);
-                                                    while($result = mysqli_fetch_assoc($query)){
+                                                    while($result = mysqli_fetch_assoc($query)) {
                                                 ?>
                                                 <tr>
                                                     <td><?php echo $result['Student ID']; ?></td>
