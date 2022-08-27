@@ -8,6 +8,13 @@ if(isset($_SESSION['username']) != true)
 }
 $username = trim($_SESSION['username']);
 include "../../config.php";
+include "../../function.php";
+
+$updateCounsel = $success = false;
+
+if(isset($_SESSION['UpdatedExamMarks']))
+    $success = true;
+
 ?>
 
 <!DOCTYPE html>
@@ -122,103 +129,95 @@ include "../../config.php";
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid">
-                    <ol class="breadcrumb mb-4">
+                    <ol class="breadcrumb mb-1">
                         <li class="breadcrumb-item">Dashboard</li>
                         <li class="breadcrumb-item">Student Progress Updation</li>
                         <li class="breadcrumb-item active">External Assessment</li>
                     </ol>
+                    <nav class="navbar navbar-dark bg-primary mb-3 d-flex justify-content-center rounded">
+                        <h1 class="navbar-brand mb-0">I SEMESTER</h1>
+                    </nav>
+                    <?php if ($success) {
+                        unset($_SESSION["UpdatedExamMarks"]); ?>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Student marks uploaded successfully!</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    <?php } ?>
                     <div class="card mb-4">
                         <div class="card-header">
-                            <h4>Finalized Marks Sheets</h4>
+                            <h4>University Results</h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-striped text-center" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Students ID</th>
-                                            <th>Students Name</th>
-                                            <th>English(80)</th>
-                                            <th>Kannada(80)</th>
-                                            <th>Hindi(80)</th>
-                                            <th>Maths(80)</th>
-                                            <th>Science(80)</th>
-                                            <th>Social(80)</th>
-                                            <th>Externals(480)</th>
-                                            <th>Internals(120)</th>
-                                            <th>Total(600)</th>
-                                            <!-- <th>Result</th> -->
-                                            <th>Action</th>
+                                            <th rowspan="2" class="align-middle">Students ID</th>
+                                            <th rowspan="2" class="align-middle">Students Name</th>
+                                            <?php
+                                                $selectQuery = "SELECT `Subject Code`, `Subject Name` from subject_details";
+                                                $query2 = mysqli_query($conn, $selectQuery);
+                                                while($result = mysqli_fetch_assoc($query2)) {
+                                            ?>
+                                            <th colspan="3">
+                                                <?php echo $result['Subject Code']; ?><br>
+                                                <?php echo $result['Subject Name']; ?>
+                                            </th>
+                                            <?php } ?>
+                                            <th rowspan="2" class="align-middle">Action</th>
+                                        </tr>
+                                        <tr>
+                                        <?php
+                                            $selectQuery = "SELECT `Subject Code`, `Subject Name` from subject_details";
+                                            $query2 = mysqli_query($conn, $selectQuery);
+                                            while($result = mysqli_fetch_assoc($query2)) {
+                                        ?>
+                                            <th>INT</th>
+                                            <th>EXT</th>
+                                            <th>GL</th>
+                                        <?php } ?>
                                         </tr>
                                     </thead>
                                     <tbody>
-
-
-
-                                        <tr>
-                                            <?php
+                                        <?php
                                             $selectQuery = "SELECT `Student ID`, `Name` from `student_details`";
                                             $query = mysqli_query($conn, $selectQuery);
                                             while($result = mysqli_fetch_assoc($query)){
-                                            ?>
-                                                <td><?php echo $result['Student ID']; ?></td>
-                                                <td><?php echo $result['Name']; ?></td>
+                                                $Sid = $result['Student ID'];
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $Sid; ?></td>
+                                            <td><?php echo $result['Name']; ?></td>
                                             <?php
-                                                $sum = 0;
-                                                $notnull  = true;
                                                 $selectQuery1 = "SELECT `Subject Code` from `subject_details`";
                                                 $query1 = mysqli_query($conn, $selectQuery1);
-                                                while($res = mysqli_fetch_assoc($query1)){
-                                                    $Sid = $result['Student ID'];
-                                                    $code = $res['Subject Code'];
-                                                    $selectQuery2 = "SELECT `External Marks` from `exam_marks` WHERE `Student ID` = '$Sid' AND `Subject Code` = '$code'";
+                                                while($res1 = mysqli_fetch_assoc($query1)){
+                                                    $code = $res1['Subject Code'];
+                                                    $selectQuery2 = "SELECT `External Marks`, `Internals Total`, `Grade` from `exam_marks` WHERE `Student ID` = '$Sid' AND `Subject Code` = '$code'";
                                                     $query2 = mysqli_query($conn, $selectQuery2);
                                                     $res2 = mysqli_fetch_assoc($query2);
-                                                    $sum += @$res2['External Marks'];
-                                                    if(!@$res2['External Marks'])
-                                                        $notnull = false;
                                             ?>
-                                            <td><?php echo (@$res2['External Marks'] != null)? $res2['External Marks'] : "-"; ?></td>
-
-                                            <!-- <td></td> -->
+                                                <td><?php echo (@$res2['Internals Total'] != null)? $res2['Internals Total'] : "-"; ?></td>
+                                                <td><?php echo (@$res2['External Marks'] != null)? $res2['External Marks'] : "-"; ?></td>
+                                                <td><?php echo (@$res2['Grade'] != null)? $res2['Grade'] : "-"; ?></td>
                                             <?php } ?>
-                                            <td><?php echo ($notnull)? $sum : "-"; ?></td>
-                                            <?php
-                                                $sum1 = 0;
-                                                $not_null  = true;
-                                                $selectQuery2 = "SELECT `Subject Code` from `subject_details`";
-                                                $query2 = mysqli_query($conn, $selectQuery2);
-                                                while($res2 = mysqli_fetch_assoc($query2)){
-                                                    $code = $res2['Subject Code'];
-                                                    $selectQuery3 = "SELECT `Average` from `sem1_internals` WHERE `Student ID` = '$Sid' AND `Subject Code` = '$code'";
-                                                    $query3 = mysqli_query($conn, $selectQuery3);
-                                                    $res3 = mysqli_fetch_assoc($query3);
-                                                    $sum1 += @$res3['Average'];
-                                                    if(!@$res3['Average'])
-                                                        $not_null = false;
-                                                    }
-                                            ?>
-                                            <td><?php echo ($not_null)? $sum1 : "-"; ?></td>
-                                            <?php
-                                                $total = $sum1 + $sum;
-                                            ?>
-                                            <td <?php if($total >= 210) { ?> style="background-color: #51f542;"
-                                                    <?php } else{ ?> style="background-color: #f54242;" <?php } ?>>
-                                                <?php echo ($not_null && $notnull)?$total: "-" ; ?>
-                                            </td>
-                                            <!-- <td><a href="#" role="button" class="btn btn-danger btn-block">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </a></td> -->
-                                            <td><a href="ExamUpdate.php?id=<?php echo $result['Student ID']; ?>" role="button" class="btn btn-primary btn-block">
-                                                <i class="fas fa-edit"></i> Edit
-                                            </a></td>
+                                            <td><a href="ExamUpdate.php?id=<?php echo $result['Student ID']; ?>" role="button" class="btn btn-primary btn-block"> Edit</a></td>
                                         </tr>
-                                        <?php
-                                            }
-                                        ?>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
+                            <div class="mt-3 d-flex justify-content-around">
+                                <i>Note:</i>
+                                <i>INT = Internal Marks obtained</i>
+                                <i>EXT = Credit Points obtained</i>
+                                <i>GL = Grade Letter Obtained</i>
+                            </div>
+                        </div>
+                    </div>
                         </div>
                     </div>
                 </div>
