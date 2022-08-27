@@ -168,12 +168,14 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid">
-                    <ol class="breadcrumb mb-4">
+                    <ol class="breadcrumb mb-1">
                         <li class="breadcrumb-item">Dashboard</li>
                         <li class="breadcrumb-item">Student Progress Updation</li>
                         <li class="breadcrumb-item active">Internal Assessment's</li>
                     </ol>
-
+                    <nav class="navbar navbar-dark bg-primary mb-3 d-flex justify-content-center rounded">
+                        <h1 class="navbar-brand mb-0">I SEMESTER</h1>
+                    </nav>
                     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                         <?php
                             $selectQuery = "SELECT * from subject_details";
@@ -204,8 +206,8 @@
                                         <table class="table table-bordered text-center" width="100%" cellspacing="0">
                                         <form action="" method="POST">
                                         <div class="d-flex justify-content-around">
-                                        <h1 class="display-4"><?php echo "Subject Code : ".$res['Subject Code']; ?></h1>
-                                        <h1 class="display-4"><?php echo "Subject Name : ".$res['Subject Name']; ?></h1>
+                                        <h2><?php echo "Subject Code : ".$res['Subject Code']; ?></h2>
+                                        <h2><?php echo "Subject Name : ".$res['Subject Name']; ?></h2>
                                         </div>
                                             <thead>
                                                 <tr>
