@@ -53,13 +53,23 @@ if(isset($_POST['upload'])) {
             $result[] = $res['Student ID'];
         }
 
-        for($i = 1; $i < count($lines[0]); $i++) {
-            $IA = $lines[0][$i];
+        for($i=$x=1; $i < count($lines[0]); $i+=3, $x++) {
+            $Average = 0;
             for ($j = 1; $j < count($lines); $j++) {
                 $id = $lines[$j][0];
-                $IA_marks = $lines[$j][$i];
+                $classesTaken = (int)$lines[$j][$i];
+                $classesAttended = (int)$lines[$j][$i+1];
+                $attend_per = ($classesAttended/$classesTaken)*100;
+                $IA_marks = $lines[$j][$i+2];
+                $Average += $IA_marks;
                 if(in_array($id, $result)) {
-                    $insertQuery = "UPDATE `internals_marks` SET $IA= $IA_marks WHERE `Student ID` = '$id' AND `Subject Code` ='$code'";
+                    $insertQuery = "UPDATE `sem1_internals` SET
+                        `IA{$x}_CT`='$classesTaken',
+                        `IA{$x}_CA`='$classesAttended',
+                        `IA{$x}_AP`='$attend_per',
+                        `IA{$x}_MO`='$IA_marks',
+                        `Average`='$Average'
+                    WHERE `Student ID` = '$id' AND `Subject Code` ='$code'";
                     $query2 = mysqli_query($conn, $insertQuery);
                     if($query2){
                         $_SESSION["Uploaded"] = true;

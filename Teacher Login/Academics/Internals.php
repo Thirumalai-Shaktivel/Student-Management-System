@@ -8,8 +8,10 @@ if(isset($_SESSION['username']) != true)
 }
 $username = trim($_SESSION['username']);
 include "../../config.php";
+include "../../function.php";
 
 $file_issue = $subject_not_found = $student_not_found = $success = $updated = false;
+$updateCounsel = false;
 
 if(isset($_SESSION['FileFormatIssue']))
     $file_issue = true;
@@ -23,14 +25,37 @@ else if(isset($_SESSION['Uploaded']))
 if(isset($_SESSION['Updated']))
     $updated = true;
 
+$selectQuery = "SELECT * from subject_details";
+$query2 = mysqli_query($conn, $selectQuery);
+$res = mysqli_fetch_assoc($query2);
+
 if(isset($_GET['sub'])) {
     $sub  = $_GET['sub'];
 } else {
-    $selectQuery = "SELECT * from subject_details";
-    $query2 = mysqli_query($conn, $selectQuery);
-    $first = mysqli_fetch_assoc($query2);
+    $sub = $res['Subject Name'];
+}
 
-    $sub = $first['Subject Name'];
+if (isset($_POST['submit'])) {
+    $studentID = format($_POST['studentID']);
+    $code = $res['Subject Code'];
+    date_default_timezone_set('Asia/Kolkata');
+    $date = date('d M, Y H:i:s');
+    $check = "SELECT * FROM sem1_internals";
+    $query = mysqli_query($conn, $check);
+    if ($res = mysqli_fetch_assoc($query)) {
+        echo $date;
+        $shortfalls = format($_POST['shortfalls']);
+        $remarks = format($_POST['remarks']);
+        $updateQuery = "UPDATE `sem1_internals` SET
+            `Counselling_date`='$date',
+            `Shortfalls`='$shortfalls',
+            `Remarks`='$remarks'
+        WHERE `Student ID` = '$studentID' AND `Subject Code` =  '$code'";
+        $query = mysqli_query($conn, $updateQuery);
+        if($query){
+            $updateCounsel = true;
+        }
+    }
 }
 
 ?>
@@ -243,19 +268,19 @@ if(isset($_GET['sub'])) {
                             ?>
                                 <div class="tab-pane fade <?php if($sub == $res['Subject Name']) { ?> show active <?php } ?>" id="<?php echo $res['Subject Name']; ?>">
                                     <div class="table-responsive">
-                                        <table class="table table-striped text-center" width="100%" cellspacing="0">
+                                        <table class="table table-bordered text-center" width="100%" cellspacing="0">
                                         <div class="d-flex justify-content-around">
                                            <h3><?php echo "Subject Code : ".$res['Subject Code']; ?></h3>
                                            <h3><?php echo "Subject Name : ".$res['Subject Name']; ?></h3>
                                         </div>
                                             <thead>
                                                 <tr>
-                                                    <th style=>Students ID</th>
-                                                    <th>Students Name</th>
-                                                    <th>
+                                                    <th rowspan="2" class="align-middle">Students ID</th>
+                                                    <th rowspan="2" class="align-middle">Students Name</th>
+                                                    <th colspan="4">
                                                         <div class="row">
                                                                 <div class="col-8 ">
-                                                                    <label> Internal Assessment-01(20)</label>
+                                                                    <label> Internal Assessment-01</label>
                                                                 </div>
                                                             <div class="col align-self-center">
                                                                 <a href="UpdateInternals.php?id=IA1&sub=<?php echo $res['Subject Name'] ?>" role="button" class="btn btn-primary btn-block">
@@ -264,10 +289,10 @@ if(isset($_GET['sub'])) {
                                                             </div>
                                                         </div>
                                                     </th>
-                                                    <th>
+                                                    <th colspan="4">
                                                         <div class="row">
                                                             <div class="col-8 ">
-                                                                <label> Internal Assessment-02(20)</label>
+                                                                <label> Internal Assessment-02</label>
                                                             </div>
                                                             <div class="col align-self-center">
                                                                 <a href="UpdateInternals.php?id=IA2&sub=<?php echo $res['Subject Name'] ?>" role="button" class="btn btn-primary btn-block">
@@ -276,10 +301,10 @@ if(isset($_GET['sub'])) {
                                                             </div>
                                                         </div>
                                                     </th>
-                                                    <th>
+                                                    <th colspan="4">
                                                         <div class="row">
                                                             <div class="col-8">
-                                                                <label> Internal Assessment-03(20)</label>
+                                                                <label> Internal Assessment-03</label>
                                                             </div>
                                                             <div class="col align-self-center">
                                                                 <a href="UpdateInternals.php?id=IA3&sub=<?php echo $res['Subject Name'] ?>" role="button" class="btn btn-primary btn-block">
@@ -288,10 +313,23 @@ if(isset($_GET['sub'])) {
                                                             </div>
                                                         </div>
                                                     </th>
-                                                    <th>Average</th>
+                                                    <th rowspan="2" class="align-middle">Average</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>CT</th>
+                                                    <th>CA</th>
+                                                    <th>AP</th>
+                                                    <th>MO</th>
+                                                    <th>CT</th>
+                                                    <th>CA</th>
+                                                    <th>AP</th>
+                                                    <th>MO</th>
+                                                    <th>CT</th>
+                                                    <th>CA</th>
+                                                    <th>AP</th>
+                                                    <th>MO</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
                                             <tbody>
                                                 <?php
                                                     $selectQuery = "SELECT * from `student_details`";
@@ -305,13 +343,22 @@ if(isset($_GET['sub'])) {
                                                     $ID = $result['Student ID'];
                                                     $code = $res['Subject Code'];
 
-                                                    $selectQuery1 = "SELECT * from `internals_marks` WHERE `Student ID` = '$ID' AND `Subject Code` ='$code'";
+                                                    $selectQuery1 = "SELECT * from `sem1_internals` WHERE `Student ID` = '$ID' AND `Subject Code` ='$code'";
                                                     $query1 = mysqli_query($conn, $selectQuery1);
                                                     $result = mysqli_fetch_assoc($query1);
                                                     ?>
-                                                    <td><?php echo (@$result['IA1'] != null)? $result['IA1'] : "-"; ?></td>
-                                                    <td><?php echo (@$result['IA2'] != null)? $result['IA2'] : "-"; ?></td>
-                                                    <td><?php echo (@$result['IA3'] != null)? $result['IA3'] : "-"; ?></td>
+                                                    <td><?php echo (@$result['IA1_CT'] != null)? $result['IA1_CT'] : "-"; ?></td>
+                                                    <td><?php echo (@$result['IA1_CA'] != null)? $result['IA1_CA'] : "-"; ?></td>
+                                                    <td><?php echo (@$result['IA1_AP'] != null)? $result['IA1_AP'] : "-"; ?></td>
+                                                    <td><?php echo (@$result['IA1_MO'] != null)? $result['IA1_MO'] : "-"; ?></td>
+                                                    <td><?php echo (@$result['IA2_CT'] != null)? $result['IA2_CT'] : "-"; ?></td>
+                                                    <td><?php echo (@$result['IA2_CA'] != null)? $result['IA2_CA'] : "-"; ?></td>
+                                                    <td><?php echo (@$result['IA2_AP'] != null)? $result['IA2_AP'] : "-"; ?></td>
+                                                    <td><?php echo (@$result['IA2_MO'] != null)? $result['IA2_MO'] : "-"; ?></td>
+                                                    <td><?php echo (@$result['IA3_CT'] != null)? $result['IA3_CT'] : "-"; ?></td>
+                                                    <td><?php echo (@$result['IA3_CA'] != null)? $result['IA3_CA'] : "-"; ?></td>
+                                                    <td><?php echo (@$result['IA3_AP'] != null)? $result['IA3_AP'] : "-"; ?></td>
+                                                    <td><?php echo (@$result['IA3_MO'] != null)? $result['IA3_MO'] : "-"; ?></td>
                                                     <td <?php if(@$result['Average'] >= 12) { ?>style="background-color: #51f542;"
                                                     <?php } else{ ?> style="background-color: #f54242;" <?php } ?>
                                                     ><?php echo (@$result['Average'] !=null)?$result['Average']: "-"; ?></td>
@@ -321,9 +368,115 @@ if(isset($_GET['sub'])) {
                                                 ?>
                                             </tbody>
                                         </table>
+                                        <div class="d-flex justify-content-around">
+                                           <i>Note:</i>
+                                           <i>CT = Number of Classes Taken</i>
+                                           <i>CA = Number of Classes attended</i>
+                                           <i>AP = Attendance in percentage</i>
+                                           <i>MO = Marks Obtained</i>
+                                        </div>
                                     </div>
                                 </div>
                                 <?php } ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <h5>Counselling after Internal Assessment Test</h5>
+                                </div>
+                                <div class="card-body">
+                                    <form action="" method="POST">
+                                        <div class="form-row">
+                                            <div class="form-group col-sm">
+                                                <label for="studentID">Student ID</label>
+                                                    <select id="studentID" name="studentID" class="form-control">
+                                                        <option selected>Please Select Student ID</option>
+                                                    <?php
+                                                    $selectQuery = "SELECT * from `student_details`";
+                                                    $query = mysqli_query($conn, $selectQuery);
+                                                    while($res = mysqli_fetch_assoc($query)) {
+                                                    ?>
+                                                        <option value="<?php echo $res['Student ID']; ?>"><?php echo $res['Student ID']; ?></option>
+                                                    <?php } ?>
+                                                    </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-sm">
+                                                <label for="shortfalls">Discuss the shortfalls in the Academics performance</label>
+                                                <textarea type="text" name="shortfalls" class="form-control" id="shortfalls" rows="3"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-sm">
+                                                <label for="remarks">Remarks</label>
+                                                <textarea type="text" name="remarks" class="form-control" id="remarks" rows="3"></textarea>
+                                           </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-sm-4">
+                                                <button type="submit" name="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <a href="Internals.php" role="button" class="btn btn-outline-warning btn-lg btn-block">Cancel</a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div>
+                                 <?php if($updateCounsel) { $updateCounsel = false; ?>
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        <strong>Counselling details updated successfully</strong>
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                <?php } ?>
+
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <h5>Counselling Details</h5>
+                                    </div>
+                                    <div class="card-body">
+
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="align-middle">Student ID</th>
+                                                        <th class="align-middle">Date and time of Counselling</th>
+                                                        <th class="align-middle">Discussed the shortfalls in the Academics performance</th>
+                                                        <th class="align-middle">Adherence to the suggestions given by the facutly<br>(submitted by the students)</th>
+                                                        <th class="align-middle">Remarks</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php
+                                                    $query = mysqli_query($conn, "SELECT * from subject_details");
+                                                    $code = mysqli_fetch_assoc($query)['Subject Code'];
+                                                    $selectQuery = "SELECT * from `sem1_internals` WHERE `Subject Code` ='$code'";
+                                                    $query = mysqli_query($conn, $selectQuery);
+                                                    while($result = mysqli_fetch_assoc($query)) {
+                                                ?>
+                                                        <tr>
+                                                            <td><?php echo $result['Student ID']; ?></td>
+                                                            <td><?php echo (@$result['Counselling_date'] != null)? $result['Counselling_date'] : "-"; ?></td>
+                                                            <td><?php echo (@$result['Shortfalls'] != null)? $result['Shortfalls'] : "-"; ?></td>
+                                                            <td><?php echo (@$result['Adherence'] != null)? $result['Adherence'] : "-"; ?></td>
+                                                            <td><?php echo (@$result['Remarks'] != null)? $result['Remarks'] : "-"; ?></td>
+                                                        </tr>
+                                                <?php } ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
