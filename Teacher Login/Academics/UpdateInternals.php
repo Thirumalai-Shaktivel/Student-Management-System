@@ -9,96 +9,49 @@
     $username = trim($_SESSION['username']);
     include "../../config.php";
     $id = $_GET['id'];
-    $sub = $_GET['sub'];
-    // $selectQuery = "SELECT * from subject_details";
-    // $query = mysqli_query($conn, $selectQuery);
-    // while($res = mysqli_fetch_assoc($query)){
-    //     $selectQuery = "SELECT * from `student_details`";
-    //     $query1 = mysqli_query($conn, $selectQuery);
-    //     while($result = mysqli_fetch_assoc($query1)){
-    //         $id = $result['Student ID'];
-    //         $code = $res['Subject Code'];
-    //         $insertQuery = "INSERT INTO `internals_marks`(`Student ID`, `Subject Code`) VALUES ('$id','$code')";
-    //         $query2 = mysqli_query($conn, $insertQuery);
-    //     }
-    // }
+    $code = $_GET['code'];
+
+    $selectQuery = "SELECT `Subject Name` from subject_details WHERE `Subject Code`='$code'";
+    $query = mysqli_query($conn, $selectQuery);
+    $sub = mysqli_fetch_assoc($query)['Subject Name'];
+
     if(isset($_POST['save1'])){
-        $name = $_POST['IA1'];
-        $IA1 = 'IA1';
+        $values = $_POST['values'];
+        $keys = array_keys($values);
     }
     else if(isset($_POST['save2'])){
-        $name = $_POST['IA2'];
-        $IA1 = 'IA2';
+        $values = $_POST['values'];
+        $keys = array_keys($values);
     }
     else if(isset($_POST['save3'])){
-        $name = $_POST['IA3'];
-        $IA1 = 'IA3';
+        $values = $_POST['values'];
+        $keys = array_keys($values);
     }
 
     if(isset($_POST['save1']) || isset($_POST['save2']) || isset($_POST['save3'])) {
-        $selectQuery = "SELECT * from subject_details";
-        $query = mysqli_query($conn, $selectQuery);
-        while($res = mysqli_fetch_assoc($query)){
-            $selectQuery = "SELECT * from `student_details`";
-            $query1 = mysqli_query($conn, $selectQuery);
-            while($result = mysqli_fetch_assoc($query1)){
-                if(@$name[$result['Student ID']][$res['Subject Code']] != null){
-                    $id = $result['Student ID'];
-                    $code = $res['Subject Code'];
-                    $IA = $name[$result['Student ID']][$res['Subject Code']];
-                    $insertQuery = "UPDATE `sem1_internals` SET $IA1= $IA WHERE `Student ID` = '$id' AND `Subject Code` ='$code'";
-                    $query2 = mysqli_query($conn, $insertQuery);
-                    if($query2){
-                        $_SESSION["Updated"] = true;
-                        header("location: Internals.php?sub=".$res['Subject Name']);
-                    }
+        $selectQuery = "SELECT `Student ID` from `student_details`";
+        $query1 = mysqli_query($conn, $selectQuery);
+        while($result = mysqli_fetch_assoc($query1)){
+            $CT = $values[$keys[0]][$result['Student ID']];
+            $CA = $values[$keys[1]][$result['Student ID']];
+            $AP = $values[$keys[2]][$result['Student ID']];
+            $IA = $values[$keys[3]][$result['Student ID']];
+            if(@$CT != null AND @$CA != null AND @$AP != null AND @$IA != null) {
+                $id = $result['Student ID'];
+                $insertQuery = "UPDATE `sem1_internals` SET
+                    `$keys[0]`='$CT',
+                    `$keys[1]`='$CA',
+                    `$keys[2]`='$AP',
+                    `$keys[3]`='$IA'
+                WHERE `Student ID` = '$id' AND `Subject Code` ='$code'";
+                $query2 = mysqli_query($conn, $insertQuery);
+                if($query2){
+                    $_SESSION["Updated"] = true;
+                    header("location: Internals.php?sub=".$sub);
                 }
             }
         }
     }
-    // else if(isset($_POST['save2'])){
-    //     $name = $_POST['IA2'];
-    //     $selectQuery = "SELECT * from subject_details";
-    //     $query = mysqli_query($conn, $selectQuery);
-    //     while($res = mysqli_fetch_assoc($query)){
-    //         $selectQuery = "SELECT * from `student_details`";
-    //         $query1 = mysqli_query($conn, $selectQuery);
-    //         while($result = mysqli_fetch_assoc($query1)){
-    //             if(@$name[$result['Student ID']][$res['Subject Code']] != null){
-    //                 $id = $result['Student ID'];
-    //                 $code = $res['Subject Code'];
-    //                 $IA2 = $name[$result['Student ID']][$res['Subject Code']];
-    //                 $insertQuery = "UPDATE `internals_marks` SET `IA2`= $IA2 WHERE `Student ID` = '$id' AND `Subject Code` ='$code'";
-    //                 $query2 = mysqli_query($conn, $insertQuery);
-    //                 if($query2){
-    //                     header("location: Internals.php");
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
-    // else if(isset($_POST['save3'])){
-    //     $name = $_POST['IA3'];
-    //     $selectQuery = "SELECT * from subject_details";
-    //     $query = mysqli_query($conn, $selectQuery);
-    //     while($res = mysqli_fetch_assoc($query)){
-    //         $selectQuery = "SELECT * from `student_details`";
-    //         $query1 = mysqli_query($conn, $selectQuery);
-    //         while($result = mysqli_fetch_assoc($query1)){
-    //             if(@$name[$result['Student ID']][$res['Subject Code']] != null){
-    //                 $id = $result['Student ID'];
-    //                 $code = $res['Subject Code'];
-    //                 $IA3 = $name[$result['Student ID']][$res['Subject Code']];
-    //                 $insertQuery = "UPDATE `internals_marks` SET `IA3`= $IA3 WHERE `Student ID` = '$id' AND `Subject Code` ='$code'";
-    //                 $query2 = mysqli_query($conn, $insertQuery);
-    //                 if($query2){
-    //                     header("location: Internals.php");
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
-
 ?>
 
 <!DOCTYPE html>
@@ -113,7 +66,7 @@
     <link href="../../css/styles.css" rel="stylesheet" />
     <title>Internals Marks Updation Page</title>
 </head>
-<body class="sb-nav-fixed">
+<body class="sb-nav">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <button class="btn btn-link btn order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
         <a class="navbar-brand" href="../HomePage.php">Teacher</a>
@@ -244,11 +197,11 @@
                             <?php
                                 $selectQuery = "SELECT * from subject_details";
                                 $query2 = mysqli_query($conn, $selectQuery);
-                            while($res = mysqli_fetch_assoc($query2)){
+                                while($res = mysqli_fetch_assoc($query2)) {
                             ?>
                                 <div class="tab-pane fade <?php if($sub == $res['Subject Name']) { ?> show active <?php } ?>" id="<?php echo $res['Subject Name']; ?>">
                                     <div class="table-responsive">
-                                        <table class="table table-striped text-center" width="100%" cellspacing="0">
+                                        <table class="table table-bordered text-center" width="100%" cellspacing="0">
                                         <form action="" method="POST">
                                         <div class="d-flex justify-content-around">
                                         <h1 class="display-4"><?php echo "Subject Code : ".$res['Subject Code']; ?></h1>
@@ -256,15 +209,15 @@
                                         </div>
                                             <thead>
                                                 <tr>
-                                                    <th>Students ID</th>
-                                                    <th>Students Name</th>
+                                                    <th rowspan="2" class="align-middle">Students ID</th>
+                                                    <th rowspan="2" class="align-middle">Students Name</th>
                                                         <?php if($id == 'IA1') {?>
-                                                        <th>
+                                                        <th colspan="4">
                                                             <div class="row">
-                                                                    <div class="col-8 ">
-                                                                        <label> Internal Assessment-01(20)</label>
-                                                                    </div>
-                                                                <div class="col align-self-center">
+                                                                <div class="col-8">
+                                                                    <label> Internal Assessment-01</label>
+                                                                </div>
+                                                                <div class="col">
                                                                     <button type="submit" name="save1" class="btn btn-success btn-block">
                                                                         Save
                                                                     </button>
@@ -272,14 +225,14 @@
                                                             </div>
                                                         </th>
                                                         <?php } else{ ?>
-                                                            <th>Internal Assessment-01(20)</th>
+                                                            <th colspan="4">Internal Assessment-01</th>
                                                         <?php } if($id == 'IA2') {?>
-                                                        <th>
+                                                        <th colspan="4">
                                                             <div class="row">
                                                                 <div class="col-8">
-                                                                    <label> Internal Assessment-02(20)</label>
+                                                                    <label> Internal Assessment-02</label>
                                                                 </div>
-                                                                <div class="col align-self-center">
+                                                                <div class="col">
                                                                     <button type="submit" name="save2" class="btn btn-success btn-block">
                                                                         Save
                                                                     </button>
@@ -287,14 +240,14 @@
                                                             </div>
                                                         </th>
                                                         <?php } else{ ?>
-                                                            <th>Internal Assessment-02(20)</th>
+                                                            <th colspan="4">Internal Assessment-02</th>
                                                         <?php } if($id == 'IA3') {?>
-                                                        <th>
+                                                        <th colspan="4">
                                                             <div class="row">
                                                                 <div class="col-8 ">
-                                                                    <label> Internal Assessment-03(20)</label>
+                                                                    <label> Internal Assessment-03</label>
                                                                 </div>
-                                                                <div class="col align-self-center">
+                                                                <div class="col">
                                                                     <button type="submit" name="save3" class="btn btn-success btn-block">
                                                                         Save
                                                                     </button>
@@ -302,9 +255,23 @@
                                                             </div>
                                                         </th>
                                                         <?php } else{ ?>
-                                                            <th>Internal Assessment-03(20)</th>
+                                                            <th colspan="4">Internal Assessment-03</th>
                                                         <?php } ?>
-                                                    <th>Average</th>
+                                                    <th rowspan="2" class="align-middle">Average</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>CT</th>
+                                                    <th>CA</th>
+                                                    <th>AP</th>
+                                                    <th>MO</th>
+                                                    <th>CT</th>
+                                                    <th>CA</th>
+                                                    <th>AP</th>
+                                                    <th>MO</th>
+                                                    <th>CT</th>
+                                                    <th>CA</th>
+                                                    <th>AP</th>
+                                                    <th>MO</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -324,38 +291,46 @@
                                                     $selectQuery1 = "SELECT * from `sem1_internals` WHERE `Student ID` = '$ID' AND `Subject Code` ='$code'";
                                                     $query1 = mysqli_query($conn, $selectQuery1);
                                                     $result = mysqli_fetch_assoc($query1);
+                                                    for ($i=1; $i<=3; $i++) {
                                                 ?>
-                                                <?php if($id == 'IA1') {?>
+                                                <?php if($id == 'IA'.$i) {?>
                                                     <td>
-                                                        <input type="number" name="IA1[<?php echo $ID;?>][<?php echo $code;?>]" class="form-control" value="<?php echo @$result['IA1']; ?>">
+                                                        <input type="number" name="values<?php echo '[IA'.$i.'_CT]['.$ID.']'; ?>"
+                                                        class="form-control" value="<?php echo $result['IA'.$i.'_CT']; ?>">
                                                     </td>
-                                                <?php } else{ ?>
                                                     <td>
-                                                        <?php echo (@$result['IA1'] != null)? $result['IA1'] : "-"; ?>
+                                                        <input type="number" name="values<?php echo '[IA'.$i.'_CA]['.$ID.']'; ?>"
+                                                        class="form-control" value="<?php echo $result['IA'.$i.'_CA']; ?>">
                                                     </td>
-                                                <?php } if($id == 'IA2') {?>
                                                     <td>
-                                                        <input type="number" name="IA2[<?php echo $ID;?>][<?php echo $code;?>]" class="form-control" value="<?php echo @$result['IA2']; ?>">
+                                                        <input type="number" name="values<?php echo '[IA'.$i.'_AP]['.$ID.']'; ?>"
+                                                        class="form-control" value="<?php echo $result['IA'.$i.'_AP']; ?>">
                                                     </td>
-                                                <?php } else{ ?>
                                                     <td>
-                                                        <?php echo (@$result['IA2'] != null)? $result['IA2'] : "-"; ?>
+                                                        <input type="number" name="values<?php echo '[IA'.$i.'_MO]['.$ID.']'; ?>"
+                                                        class="form-control" value="<?php echo $result['IA'.$i.'_MO']; ?>">
                                                     </td>
-                                                <?php } if($id == 'IA3') {?>
+                                                <?php } else { ?>
                                                     <td>
-                                                        <input type="number" name="IA3[<?php echo $ID;?>][<?php echo $code;?>]" class="form-control" value="<?php echo @$result['IA3']; ?>">
+                                                        <?php echo (@$result['IA'.$i.'_CT'] != null)? $result['IA'.$i.'_CT'] : "-"; ?>
                                                     </td>
-                                                <?php } else{ ?>
                                                     <td>
-                                                        <?php echo (@$result['IA3'] != null)? $result['IA3'] : "-"; ?>
+                                                        <?php echo (@$result['IA'.$i.'_CA'] != null)? $result['IA'.$i.'_CA'] : "-"; ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php echo (@$result['IA'.$i.'_AP'] != null)? $result['IA'.$i.'_AP'] : "-"; ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php echo (@$result['IA'.$i.'_MO'] != null)? $result['IA'.$i.'_MO'] : "-"; ?>
                                                     </td>
                                                 <?php }
-                                                        if((@$result['IA1'] AND @$result['IA2'] AND @$result['IA3']) != NULL){
-                                                        $Average = round((@$result['IA1'] + @$result['IA2'] + @$result['IA3'])/3);
+                                                }
+                                                    if((@$result['IA1_MO'] AND @$result['IA2_MO'] AND @$result['IA3_MO']) != NULL) {
+                                                        $Average = round((@$result['IA1_MO'] + @$result['IA2_MO'] + @$result['IA3_MO'])/3);
 
                                                         $insert = "UPDATE `sem1_internals` SET `Average` = $Average WHERE `Student ID` = '$ID' AND `Subject Code` ='$code'";
                                                         $query3 = mysqli_query($conn, $insert);
-                                                        }
+                                                    }
                                                 ?>
                                                     <td><?php echo @$result['Average']; ?></td>
                                                 </tr>

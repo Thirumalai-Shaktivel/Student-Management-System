@@ -283,7 +283,7 @@ if (isset($_POST['submit'])) {
                                                                     <label> Internal Assessment-01</label>
                                                                 </div>
                                                             <div class="col align-self-center">
-                                                                <a href="UpdateInternals.php?id=IA1&sub=<?php echo $res['Subject Name'] ?>" role="button" class="btn btn-primary btn-block">
+                                                                <a href="UpdateInternals.php?id=IA1&code=<?php echo $res['Subject Code'] ?>" role="button" class="btn btn-primary btn-block">
                                                                     <i class="fas fa-edit"></i>
                                                                 </a>
                                                             </div>
@@ -295,7 +295,7 @@ if (isset($_POST['submit'])) {
                                                                 <label> Internal Assessment-02</label>
                                                             </div>
                                                             <div class="col align-self-center">
-                                                                <a href="UpdateInternals.php?id=IA2&sub=<?php echo $res['Subject Name'] ?>" role="button" class="btn btn-primary btn-block">
+                                                                <a href="UpdateInternals.php?id=IA2&code=<?php echo $res['Subject Code'] ?>" role="button" class="btn btn-primary btn-block">
                                                                     <i class="fas fa-edit"></i>
                                                                 </a>
                                                             </div>
@@ -307,7 +307,7 @@ if (isset($_POST['submit'])) {
                                                                 <label> Internal Assessment-03</label>
                                                             </div>
                                                             <div class="col align-self-center">
-                                                                <a href="UpdateInternals.php?id=IA3&sub=<?php echo $res['Subject Name'] ?>" role="button" class="btn btn-primary btn-block">
+                                                                <a href="UpdateInternals.php?id=IA3&code=<?php echo $res['Subject Code'] ?>" role="button" class="btn btn-primary btn-block">
                                                                     <i class="fas fa-edit"></i>
                                                                 </a>
                                                             </div>
