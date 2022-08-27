@@ -23,30 +23,26 @@ $id = $_GET['id'];
 //         }
 //     }
 
-if(isset($_POST['save'])){
-    $arr = $_POST['Ext'];
+if(isset($_POST['save'])) {
+    $Int = $_POST['Int'];
+    $Ext = $_POST['Ext'];
+    $Gl = $_POST['Gl'];
 
     $selectQuery1 = "SELECT `Subject Code` from `subject_details`";
     $query1 = mysqli_query($conn, $selectQuery1);
-    while($res = mysqli_fetch_assoc($query1)){
+    while($res = mysqli_fetch_assoc($query1)) {
         $code = $res['Subject Code'];
-
-        $selectQuery = "SELECT `Average` FROM `sem1_internals` WHERE `Student ID` = '$id' AND `Subject Code` = '$code'";
-        $query = mysqli_query($conn, $selectQuery);
-        $res = mysqli_fetch_assoc($query);
-        if(@$res['Average'] != null){
-            $avg = $res['Average'];
-            $total = $arr[$code] + $res['Average'];
-            $selectQuery2 = "UPDATE `exam_marks` SET `Internals Total`=$avg, `Total`=$total WHERE `Student ID` = '$id' AND `Subject Code` = '$code'";
+        if ($Int[$code] AND $Ext[$code] AND $Gl[$code] != null) {
+            $selectQuery2 = "UPDATE `exam_marks` SET
+                `Internals Total`= '$Int[$code]',
+                `External Marks`= '$Ext[$code]',
+                `Grade`= '$Gl[$code]'
+            WHERE `Student ID` = '$id' AND `Subject Code` = '$code'";
             $query2 = mysqli_query($conn, $selectQuery2);
-
-        }
-
-        $selectQuery2 = "UPDATE `exam_marks` SET `External Marks`= $arr[$code] WHERE `Student ID` = '$id' AND `Subject Code` = '$code'";
-        $query2 = mysqli_query($conn, $selectQuery2);
-        if($query2){
-            $_SESSION["UpdatedExamMarks"] = true;
-            header("location: Exam.php");
+            if($query2) {
+                $_SESSION["UpdatedExamMarks"] = true;
+                header("location: Exam.php");
+            }
         }
     }
 
@@ -165,31 +161,48 @@ if(isset($_POST['save'])){
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid">
-                    <ol class="breadcrumb mb-4">
+                    <ol class="breadcrumb mb-1">
                         <li class="breadcrumb-item">Dashboard</li>
                         <li class="breadcrumb-item">Student Progress Updation</li>
                         <li class="breadcrumb-item active">External Assessment</li>
                     </ol>
+                    <nav class="navbar navbar-dark bg-primary mb-3 d-flex justify-content-center rounded">
+                        <h1 class="navbar-brand mb-0">I SEMESTER</h1>
+                    </nav>
                     <div class="card mb-4">
                         <div class="card-header">
                             <h4>Finalized Marks Sheets</h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-striped text-center" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                                 <form action="" method="POST">
                                     <thead>
                                         <tr>
-                                            <th>Students ID</th>
-                                            <th>Students Name</th>
-                                            <th>English</th>
-                                            <th>Kannada</th>
-                                            <th>Hindi</th>
-                                            <th>Maths</th>
-                                            <th>Science</th>
-                                            <th>Social</th>
-                                            <!-- <th>Result</th> -->
-                                            <th>Action</th>
+                                            <th rowspan="2" class="align-middle">Students ID</th>
+                                            <th rowspan="2" class="align-middle">Students Name</th>
+                                            <?php
+                                                $selectQuery = "SELECT `Subject Code`, `Subject Name` from subject_details";
+                                                $query2 = mysqli_query($conn, $selectQuery);
+                                                while($result = mysqli_fetch_assoc($query2)) {
+                                            ?>
+                                            <th colspan="3">
+                                                <?php echo $result['Subject Code']; ?><br>
+                                                <?php echo $result['Subject Name']; ?>
+                                            </th>
+                                            <?php } ?>
+                                            <th rowspan="2" class="align-middle">Action</th>
+                                        </tr>
+                                        <tr>
+                                        <?php
+                                            $selectQuery = "SELECT `Subject Code`, `Subject Name` from subject_details";
+                                            $query2 = mysqli_query($conn, $selectQuery);
+                                            while($result = mysqli_fetch_assoc($query2)) {
+                                        ?>
+                                            <th>INT</th>
+                                            <th>EXT</th>
+                                            <th>GL</th>
+                                        <?php } ?>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -199,23 +212,22 @@ if(isset($_POST['save'])){
                                             while($result = mysqli_fetch_assoc($query)){
                                                 $Sid = $result['Student ID'];
                                         ?>
-                                        <tr class="">
+                                        <tr>
                                             <td><?php echo $Sid; ?></td>
                                             <td><?php echo $result['Name']; ?></td>
-                                                <?php
-                                                    if($id == $Sid){
-                                                    $selectQuery1 = "SELECT `Subject Code` from `subject_details`";
-                                                    $query1 = mysqli_query($conn, $selectQuery1);
-                                                    while($res = mysqli_fetch_assoc($query1)){
-
+                                            <?php
+                                                if($id == $Sid){
+                                                $selectQuery1 = "SELECT `Subject Code` from `subject_details`";
+                                                $query1 = mysqli_query($conn, $selectQuery1);
+                                                while($res = mysqli_fetch_assoc($query1)) {
                                                     $code = $res['Subject Code'];
                                                     $selectQuery2 = "SELECT * from `exam_marks` WHERE `Student ID` = '$id' AND `Subject Code` = '$code'";
                                                     $query2 = mysqli_query($conn, $selectQuery2);
                                                     $res2 = mysqli_fetch_assoc($query2);
-                                                ?>
-                                            <td>
-                                                <input type="number" name="Ext[<?php echo $code ?>]" class="form-control" value="<?php echo $res2['External Marks']; ?>">
-                                            </td>
+                                            ?>
+                                            <td><input type="number" name="Int[<?php echo $code ?>]" class="form-control" value="<?php echo $res2['Internals Total']; ?>"></td>
+                                            <td><input type="number" name="Ext[<?php echo $code ?>]" class="form-control" value="<?php echo $res2['External Marks']; ?>"></td>
+                                            <td><input type="text" name="Gl[<?php echo $code ?>]" class="form-control" value="<?php echo @$res2['Grade']; ?>"></td>
                                             <?php } ?>
 
                                             <td>
@@ -236,11 +248,13 @@ if(isset($_POST['save'])){
                                                 $query1 = mysqli_query($conn, $selectQuery1);
                                                 while($res1 = mysqli_fetch_assoc($query1)){
                                                     $code = $res1['Subject Code'];
-                                                    $selectQuery2 = "SELECT `External Marks` from `exam_marks` WHERE `Student ID` = '$Sid' AND `Subject Code` = '$code'";
+                                                    $selectQuery2 = "SELECT `External Marks`, `Internals Total`, `Grade` from `exam_marks` WHERE `Student ID` = '$Sid' AND `Subject Code` = '$code'";
                                                     $query2 = mysqli_query($conn, $selectQuery2);
                                                     $res2 = mysqli_fetch_assoc($query2);
                                             ?>
+                                                    <td><?php echo (@$res2['Internals Total'] != null)? $res2['Internals Total'] : "-"; ?></td>
                                                     <td><?php echo (@$res2['External Marks'] != null)? $res2['External Marks'] : "-"; ?></td>
+                                                    <td><?php echo (@$res2['Grade'] != null)? $res2['Grade'] : "-"; ?></td>
                                                 <?php } ?>
                                                 <td><a href="ExamUpdate.php?id=<?php echo $result['Student ID']; ?>" role="button" class="btn btn-primary btn-block"> Edit</a></td>
                                             <?php } ?>
