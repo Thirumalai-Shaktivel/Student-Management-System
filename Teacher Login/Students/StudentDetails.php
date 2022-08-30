@@ -280,21 +280,23 @@
                                                 <tr>
                                                     <td>Office Address with Phone No.</td><td><?php echo ":\t".$result['Mother Office Address']?></td>
                                                 </tr>
-                                                <!-- <tr>
-                                                    <td>Guardian Name (Relationship)</td><td><?php echo ":\t".$result['Guardian Name']?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Qualification / Occupation / Designation</td><td><?php echo ":\t".$result['Guardian Occupation']?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Mobile Number</td><td><?php echo ":\t".$result['Guardian Number']?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>E-Mail ID</td><td><?php echo ":\t".$result['Guardian Email']?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Office Address with Phone No.</td><td><?php echo ":\t".$result['Guardian Office Address']?></td> -->
-                                                </tr>
+                                                <?php if ($result['Guardian Name'] != null) { ?>
+                                                    <tr>
+                                                        <td>Guardian Name (Relationship)</td><td><?php echo ":\t".$result['Guardian Name']?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Qualification / Occupation / Designation</td><td><?php echo ":\t".$result['Guardian Occupation']?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Mobile Number</td><td><?php echo ":\t".$result['Guardian Number']?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>E-Mail ID</td><td><?php echo ":\t".$result['Guardian Email']?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Office Address with Phone No.</td><td><?php echo ":\t".$result['Guardian Office Address']?></td>
+                                                    </tr>
+                                                <?php } ?>
                                                 <tr>
                                                     <td>Address of Communication</td><td><?php echo ":\t".$result['Address of Communication']?></td>
                                                 </tr>
@@ -364,42 +366,44 @@
                                                 <tr>
                                                     <td>Chemistry</td><td><?php echo ":\t".$result['12th Marks Chemistry']?></td>
                                                 </tr>
-                                                <!-- <tr>
-                                                    <td>Name of the Institute</td><td><?php echo ":\t".$result['Diploma School Name']?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Place</td><td><?php echo ":\t".$result['Diploma School Place']?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Year of Passing</td><td><?php echo ":\t".$result['Diploma year']?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Marks Secured</td><td><?php echo ":\t".$result['Diploma Marks']?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Medium of Instruction</td><td><?php echo ":\t".$result['Diploma Medium']?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td> of Marks</td><td><?php echo ":\t".$result['Diploma Marks Percent']?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>I Sem</td><td><?php echo ":\t".$result['Diploma Marks Sem I']?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>II Sem</td><td><?php echo ":\t".$result['Diploma Marks Sem II']?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>III Sem</td><td><?php echo ":\t".$result['Diploma Marks Sem III']?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>IV Sem</td><td><?php echo ":\t".$result['Diploma Marks Sem IV']?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>V Sem</td><td><?php echo ":\t".$result['Diploma Marks Sem V']?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>VI Sem</td><td><?php echo ":\t".$result['Diploma Marks Sem VI']?></td>
-                                                </tr> -->
+                                                <?php if ($result['Diploma School Name'] != null) { ?>
+                                                    <tr>
+                                                        <td>Name of the Institute</td><td><?php echo ":\t".$result['Diploma School Name']?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Place</td><td><?php echo ":\t".$result['Diploma School Place']?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Year of Passing</td><td><?php echo ":\t".$result['Diploma year']?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Marks Secured</td><td><?php echo ":\t".$result['Diploma Marks']?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Medium of Instruction</td><td><?php echo ":\t".$result['Diploma Medium']?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td> of Marks</td><td><?php echo ":\t".$result['Diploma Marks Percent']?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>I Sem</td><td><?php echo ":\t".$result['Diploma Marks Sem I']?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>II Sem</td><td><?php echo ":\t".$result['Diploma Marks Sem II']?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>III Sem</td><td><?php echo ":\t".$result['Diploma Marks Sem III']?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>IV Sem</td><td><?php echo ":\t".$result['Diploma Marks Sem IV']?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>V Sem</td><td><?php echo ":\t".$result['Diploma Marks Sem V']?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>VI Sem</td><td><?php echo ":\t".$result['Diploma Marks Sem VI']?></td>
+                                                    </tr>
+                                                <?php } ?>
                                                 <tr>
                                                     <td>Method of Examination Preparation</td><td><?php echo ":\t".$result['Exam Preparation Method']?></td>
                                                 </tr>
@@ -470,24 +474,26 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="col-md-4 col text-center">
+                                <div class="col-sm-5 col text-center">
                                     <div class="row">
-                                        <div class="col-md">
-                                            <img src="../../image/Male.jpg" alt="Student Image" style="width:300px; border-radius: 50%;">
+                                        <div class="col" style="height: 1000px;">
+                                            <img src="<?php echo trim($result['Student_image']); ?>" alt="Student Image" style="width:300px; border-radius: 50%;">
+                                            <br> Student
                                         </div>
-                                        <br>
-                                        <div class="col-md">
-                                            <img src="../../image/white.jpeg" style="height:340px; width: 300px">
+                                        <div class="col mb-4" >
+                                            <img src="<?php echo trim($result['Father Photo']); ?>" alt="Father Image" style="width:300px; border-radius: 50%;">
+                                            <br>Father
                                         </div>
-                                        <div class="col-md">
-                                            <img src="../../image/white.jpeg" style="height:340px; width: 300px; border-color: coral;">
+                                        <div class="col">
+                                            <img src="<?php echo trim($result['Mother Photo']); ?>" alt="Mother Image" style="width:300px; border-radius: 50%;">
+                                            <br>Mother
                                         </div>
-                                        <div class="col-md" >
-                                            <img src="../../image/Male.jpg" alt="Student Image" style="width:300px; border-radius: 50%;">
+                                        <?php if ($result['Guardian Photo'] != null) { ?>
+                                            <div class="col">
+                                            <img src="<?php echo trim($result['Guardian Photo']); ?>" alt="Guardian Image" style="width:300px; border-radius: 50%;">
+                                            <br>Guardian
                                         </div>
-                                        <div class="col-md">
-                                            <img src="../../image/Male.jpg" alt="Student Image" style="width:300px; border-radius: 50%;">
-                                        </div>
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </div>

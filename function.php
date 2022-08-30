@@ -39,4 +39,25 @@ function format($data) {
     return $data;
 }
 
+function upload_image($files, $id, $name='') {
+    $filename = $files['name'];
+    $fileError = $files['error'];
+    $filetmp = $files['tmp_name'];
+    if ($fileError == 0) {
+        $fileExt = explode('.', $filename);
+        $fileCheck = strtolower(end($fileExt));
+
+        $fileExtStored = array('png', 'jpg', 'jpeg');
+        if(in_array($fileCheck, $fileExtStored)) {
+            $dirname='../../uploads/'.$id.'/';
+            if(!is_dir($dirname)) {
+                mkdir($dirname, 0755, true);
+            }
+            $destinationfile = $dirname.$id.$name.'.'.$fileCheck;
+            move_uploaded_file($filetmp, $destinationfile);
+        }
+    }
+    return $destinationfile;
+}
+
 ?>

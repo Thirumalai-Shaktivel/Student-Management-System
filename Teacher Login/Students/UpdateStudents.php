@@ -17,6 +17,33 @@
     $query = mysqli_query($conn, $select);
 
     if(isset($_POST['save'])){
+
+        $select = "SELECT `Student_image`, `Father Photo`, `Mother Photo`, `Guardian Photo`
+            FROM `student_details` WHERE `Student ID` = '$id'";
+        $query = mysqli_query($conn, $select);
+        $res = mysqli_fetch_assoc($query);
+
+        $destStudImage = $res['Student_image'];
+        if ($_FILES['StudentImage']['size'] != 0) {
+            $files = $_FILES['StudentImage'];
+            $destStudImage = upload_image($files, $id);
+        }
+        $destFatherImage = $res['Father Photo'];
+        if ($_FILES['FatherPhoto']['size'] != 0) {
+            $files = $_FILES['FatherPhoto'];
+            $destFatherImage = upload_image($files, $id, '_Father');
+        }
+        $destMotherImage = $res['Mother Photo'];
+        if ($_FILES['MotherPhoto']['size'] != 0) {
+            $files = $_FILES['MotherPhoto'];
+            $destMotherImage = upload_image($files, $id, '_Mother');
+        }
+        $destGuardianImage = $res['Guardian Photo'];
+        if ($_FILES['GuardianPhoto']['size'] != 0) {
+            $files = $_FILES['GuardianPhoto'];
+            $destGuardianImage = upload_image($files, $id, '_Guardian');
+        }
+
         $USN = format($_POST['USN']);
         $name = format($_POST['Firstname']) ." ". format($_POST['Lastname']);
         $ColID= format($_POST['ColID']);
@@ -42,13 +69,13 @@
         $fatherOccupation = format($_POST['FatherOccupation']);
         $fatherMobileNum = format($_POST['FatherMobileNum']);
         $fatherEmail = format($_POST['FatherEmail']);
-        $fatherPhoto = format($_POST['FatherPhoto']);
+        $fatherPhoto = $destFatherImage;
         $fatherofficeAddress = mysqli_real_escape_string($conn, format($_POST['FatherofficeAddress']));
         $motherName = format($_POST['MotherName']);
         $motherOccupation = format($_POST['MotherOccupation']);
         $motherMobileNum = format($_POST['MotherMobileNum']);
         $motherEmail = format($_POST['MotherEmail']);
-        $motherPhoto = format($_POST['MotherPhoto']);
+        $motherPhoto = $destMotherImage;
         $motherofficeAddress = mysqli_real_escape_string($conn, format($_POST['MotherofficeAddress']));
         $guardianName = format($_POST['GuardianName']);
         $guardianOccupation = format($_POST['GuardianOccupation']);
@@ -57,7 +84,7 @@
             $guardianMobileNum = "";
         }
         $guardianEmail = format($_POST['GuardianEmail']);
-        $guardianPhoto = format($_POST['GuardianPhoto']);
+        $guardianPhoto = $destGuardianImage;
         $guardianofficeAddress = mysqli_real_escape_string($conn, format($_POST['GuardianofficeAddress']));
         $addressCommunication = format($_POST['AddressCommunication']);
         $permAdd = mysqli_real_escape_string($conn, format($_POST['permAdd']));
@@ -122,6 +149,7 @@
         $branchReason = format($_POST['branchReason']);
 
         $updateQuery = "UPDATE `student_details` SET
+        `Student_image`='$destStudImage',
         `USN`='$USN',
         `Name`='$name',
         `College ID`='$ColID',
@@ -365,7 +393,7 @@
                         <div class="card-header">
                             <h4>Admit Students</h4>
                         </div>
-                        <form action="" method="POST">
+                        <form action="" method="POST" enctype="multipart/form-data">
                             <div class="card-body">
                                 <h5>Student Information</h5>
                                 <?php
@@ -430,6 +458,10 @@
                                                 <option <?php if($res['Hostel DayScholar']=='III Year'){?> selected <?php } ?> value="III Year">III Year</option>
                                                 <option <?php if($res['Hostel DayScholar']=='IV Year'){?> selected <?php } ?> value="IV Year">IV Year</option>
                                             </select>
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="StudentImage">Stamp Size Photo</label>
+                                            <input type="file" name="StudentImage" id="StudentImage">
                                         </div>
                                     </div>
                                     <div class="form-row">
@@ -529,7 +561,7 @@
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="FatherPhoto">Stamp Size Photo</label>
-                                            <input type="text" name="FatherPhoto" class="form-control" id="FatherPhoto" value="<?php echo $res['Father Photo']?>">
+                                            <input type="file" name="FatherPhoto" id="FatherPhoto">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="officeAddress">Office Address with Phone No.</label>
@@ -563,7 +595,7 @@
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="MotherPhoto">Stamp Size Photo</label>
-                                            <input type="text" name="MotherPhoto" class="form-control" id="MotherPhoto" value="<?php echo $res['Mother Photo']?>">
+                                            <input type="file" name="MotherPhoto" id="MotherPhoto">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="officeAddress">Office Address with Phone No.</label>
@@ -597,7 +629,7 @@
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="GuardianPhoto">Stamp Size Photo</label>
-                                            <input type="text" name="GuardianPhoto" class="form-control" id="GuardianPhoto" value="<?php echo $res['Guardian Photo']?>">
+                                            <input type="file" name="GuardianPhoto" id="GuardianPhoto">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="officeAddress">Office Address with Phone No.</label>

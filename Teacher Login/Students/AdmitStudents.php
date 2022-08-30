@@ -22,6 +22,18 @@
     if(isset($_POST['submit'])){
         $StudentId = format($_POST['StudID']);
 
+        $files = $_FILES['StudentImage'];
+        $destStudImage = upload_image($files, $id);
+        $files = $_FILES['FatherPhoto'];
+        $destFatherImage = upload_image($files, $id, '_Father');
+        $files = $_FILES['MotherPhoto'];
+        $destMotherImage = upload_image($files, $id, '_Mother');
+        $destGuardianImage = '';
+        if ($_FILES['GuardianPhoto']['size'] != 0) {
+            $files = $_FILES['GuardianPhoto'];
+            $destGuardianImage = upload_image($files, $id, '_Guardian');
+        }
+
         $check = "SELECT * FROM student_details WHERE `Student ID` = '$StudentId'";
         $query = mysqli_query($conn, $check);
         $res = mysqli_fetch_assoc($query);
@@ -51,13 +63,13 @@
             $fatherOccupation = format($_POST['FatherOccupation']);
             $fatherMobileNum = format($_POST['FatherMobileNum']);
             $fatherEmail = format($_POST['FatherEmail']);
-            $fatherPhoto = format($_POST['FatherPhoto']);
+            $fatherPhoto = $destFatherImage;
             $fatherofficeAddress = mysqli_real_escape_string($conn, format($_POST['FatherofficeAddress']));
             $motherName = format($_POST['MotherName']);
             $motherOccupation = format($_POST['MotherOccupation']);
             $motherMobileNum = format($_POST['MotherMobileNum']);
             $motherEmail = format($_POST['MotherEmail']);
-            $motherPhoto = format($_POST['MotherPhoto']);
+            $motherPhoto = $destMotherImage;
             $motherofficeAddress = mysqli_real_escape_string($conn, format($_POST['MotherofficeAddress']));
             $guardianName = format($_POST['GuardianName']);
             $guardianOccupation = format($_POST['GuardianOccupation']);
@@ -66,7 +78,7 @@
                 $guardianMobileNum = "";
             }
             $guardianEmail = format($_POST['GuardianEmail']);
-            $guardianPhoto = format($_POST['GuardianPhoto']);
+            $guardianPhoto = $destGuardianImage;
             $guardianofficeAddress = mysqli_real_escape_string($conn, format($_POST['GuardianofficeAddress']));
             $addressCommunication = format($_POST['AddressCommunication']);
             $permAdd = mysqli_real_escape_string($conn, format($_POST['permAdd']));
@@ -131,7 +143,7 @@
             $branchReason = format($_POST['branchReason']);
 
             // if(!(@$_SESSION['class'] || @$_SESSION['section'] || @$_SESSION['gender'])) {
-            $insertQuery = "INSERT INTO `student_details`(`Student ID`, `USN`, `Name`, `College ID`, `DOB`, `Religion`, `Admission Year`, `Admission Nature`, `Hostel DayScholar`, `Degree_Branch`, `Passport`, `Driving License`, `Languages`, `Blood Group`, `Height_Weight`, `Mobile Number`, `Email`, `Bank 1`, `Account No 1`, `Bank 2`, `Account No 2`, `Father Name`, `Father Occupation`, `Father Number`, `Father Email`, `Father Photo`, `Father Office Address`, `Mother Name`, `Mother Occupation`, `Mother Number`, `Mother Email`, `Mother Photo`, `Mother Office Address`, `Guardian Name`, `Guardian Occupation`, `Guardian Number`, `Guardian Email`, `Guardian Photo`, `Guardian Office Address`, `Address of Communication`, `Permanent Address`, `Permanent Address PIN`, `Permanent Address Phone`, `Communication Address`, `Communication Address PIN`, `Communication Address Phone`, `10th School Name`, `10th School Place`, `10th Year`, `10th Marks`, `10th Medium`, `12th School Name`, `12th School Place`, `12th School Address`, `12th Board`, `12th Year`, `12th Marks`, `12th Medium`, `12th Marks Percentage`, `12th Marks Maths`, `12th Marks Physics`, `12th Marks Chemistry`, `Diploma School Name`, `Diploma School Place`, `Diploma year`, `Diploma Marks`, `Diploma Medium`, `Diploma Marks Percent`, `Diploma Marks Sem I`, `Diploma Marks Sem II`, `Diploma Marks Sem III`, `Diploma Marks Sem IV`, `Diploma Marks Sem V`, `Diploma Marks Sem VI`, `Exam Preparation Method`, `Communicate well in English`, `Prepare English`, `Elder Brothers Count`, `Elder Brothers Qualification`, `Younger Brothers Count`, `Younger Brothers Qualification`, `Elder Sisters Count`, `Elder Sisters Qualification`, `Younger Sisters Count`, `Younger Sisters Qualification`, `Move Together`, `Personal Problems`, `Health Condition`, `Any Medications`, `Other Interests`, `Hobbies`, `Sports Interest`, `Prize Details`, `Specific talents`, `Ambition`, `Branch Reason`) VALUES ('$StudentId', '$USN', '$name', '$ColID', '$dob', '$religion', '$admYear', '$admNature', '$hostel_DayScholar', '$degree', '$passport', '$drivingLicense', '$language', '$blood', '$height_Weight', '$mobileNum', '$email', '$bank1', '$acNo1', '$bank2', '$acNo2', '$fatherName', '$fatherOccupation', '$fatherMobileNum', '$fatherEmail', '$fatherPhoto', '$fatherofficeAddress', '$motherName', '$motherOccupation', '$motherMobileNum', '$motherEmail', '$motherPhoto', '$motherofficeAddress', '$guardianName', '$guardianOccupation', '$guardianMobileNum', '$guardianEmail', '$guardianPhoto', '$guardianofficeAddress', '$addressCommunication', '$permAdd', '$pinPermanent', '$phonePermanent', '$communicationAddress', '$pinCommunication', '$phoneCommunication', '$_10th_School', '$_10th_Place', '$_10th_year', '$_10th_Marks', '$_10th_Medium', '$_12th_School', '$_12th_Place', '$_12th_Address', '$_12th_Board', '$_12th_year', '$_12th_Marks', '$_12th_Medium', '$_12th_MarksPercent', '$_12th_Marks_Maths', '$_12th_Marks_Physics', '$_12th_Marks_Chem', '$diploma_School', '$diploma_Place', '$diploma_year', '$diploma_Marks', '$diploma_Medium', '$diploma_MarksPercent', '$diploma_Marks_I', '$diploma_Marks_II', '$diploma_Marks_III', '$diploma_Marks_IV', '$diploma_Marks_V', '$diploma_Marks_VI', '$examPrep', '$communicateEnglish', '$prepareEnglish', '$elderBrothersCount', '$elderBrothersQualification', '$youngerBrothersCount', '$youngerBrothersQualification', '$elderSistersCount', '$elderSistersQualification', '$youngerSistersCount', '$youngerSistersQualification', '$moveTogether', '$personalProblems', '$healthCondition', '$anyMedication', '$otherInterest', '$hobbies', '$sportsInterest', '$prizeDetails', '$specificTalents', '$ambition', '$branchReason')";
+            $insertQuery = "INSERT INTO `student_details`(`Student ID`, `Student_image`, `USN`, `Name`, `College ID`, `DOB`, `Religion`, `Admission Year`, `Admission Nature`, `Hostel DayScholar`, `Degree_Branch`, `Passport`, `Driving License`, `Languages`, `Blood Group`, `Height_Weight`, `Mobile Number`, `Email`, `Bank 1`, `Account No 1`, `Bank 2`, `Account No 2`, `Father Name`, `Father Occupation`, `Father Number`, `Father Email`, `Father Photo`, `Father Office Address`, `Mother Name`, `Mother Occupation`, `Mother Number`, `Mother Email`, `Mother Photo`, `Mother Office Address`, `Guardian Name`, `Guardian Occupation`, `Guardian Number`, `Guardian Email`, `Guardian Photo`, `Guardian Office Address`, `Address of Communication`, `Permanent Address`, `Permanent Address PIN`, `Permanent Address Phone`, `Communication Address`, `Communication Address PIN`, `Communication Address Phone`, `10th School Name`, `10th School Place`, `10th Year`, `10th Marks`, `10th Medium`, `12th School Name`, `12th School Place`, `12th School Address`, `12th Board`, `12th Year`, `12th Marks`, `12th Medium`, `12th Marks Percentage`, `12th Marks Maths`, `12th Marks Physics`, `12th Marks Chemistry`, `Diploma School Name`, `Diploma School Place`, `Diploma year`, `Diploma Marks`, `Diploma Medium`, `Diploma Marks Percent`, `Diploma Marks Sem I`, `Diploma Marks Sem II`, `Diploma Marks Sem III`, `Diploma Marks Sem IV`, `Diploma Marks Sem V`, `Diploma Marks Sem VI`, `Exam Preparation Method`, `Communicate well in English`, `Prepare English`, `Elder Brothers Count`, `Elder Brothers Qualification`, `Younger Brothers Count`, `Younger Brothers Qualification`, `Elder Sisters Count`, `Elder Sisters Qualification`, `Younger Sisters Count`, `Younger Sisters Qualification`, `Move Together`, `Personal Problems`, `Health Condition`, `Any Medications`, `Other Interests`, `Hobbies`, `Sports Interest`, `Prize Details`, `Specific talents`, `Ambition`, `Branch Reason`) VALUES ('$StudentId', '$destStudImage','$USN', '$name', '$ColID', '$dob', '$religion', '$admYear', '$admNature', '$hostel_DayScholar', '$degree', '$passport', '$drivingLicense', '$language', '$blood', '$height_Weight', '$mobileNum', '$email', '$bank1', '$acNo1', '$bank2', '$acNo2', '$fatherName', '$fatherOccupation', '$fatherMobileNum', '$fatherEmail', '$fatherPhoto', '$fatherofficeAddress', '$motherName', '$motherOccupation', '$motherMobileNum', '$motherEmail', '$motherPhoto', '$motherofficeAddress', '$guardianName', '$guardianOccupation', '$guardianMobileNum', '$guardianEmail', '$guardianPhoto', '$guardianofficeAddress', '$addressCommunication', '$permAdd', '$pinPermanent', '$phonePermanent', '$communicationAddress', '$pinCommunication', '$phoneCommunication', '$_10th_School', '$_10th_Place', '$_10th_year', '$_10th_Marks', '$_10th_Medium', '$_12th_School', '$_12th_Place', '$_12th_Address', '$_12th_Board', '$_12th_year', '$_12th_Marks', '$_12th_Medium', '$_12th_MarksPercent', '$_12th_Marks_Maths', '$_12th_Marks_Physics', '$_12th_Marks_Chem', '$diploma_School', '$diploma_Place', '$diploma_year', '$diploma_Marks', '$diploma_Medium', '$diploma_MarksPercent', '$diploma_Marks_I', '$diploma_Marks_II', '$diploma_Marks_III', '$diploma_Marks_IV', '$diploma_Marks_V', '$diploma_Marks_VI', '$examPrep', '$communicateEnglish', '$prepareEnglish', '$elderBrothersCount', '$elderBrothersQualification', '$youngerBrothersCount', '$youngerBrothersQualification', '$elderSistersCount', '$elderSistersQualification', '$youngerSistersCount', '$youngerSistersQualification', '$moveTogether', '$personalProblems', '$healthCondition', '$anyMedication', '$otherInterest', '$hobbies', '$sportsInterest', '$prizeDetails', '$specificTalents', '$ambition', '$branchReason')";
 
             $query = mysqli_query($conn, $insertQuery);
 
@@ -154,10 +166,6 @@
                 }
             }
             header("location: AdmitStudents.php");
-            // }
-            // else{
-            //     header("location: AdmitStudents.php");
-            // }
         }
         else{
             $_SESSION['DuplicateStudent'] = true;
@@ -303,7 +311,7 @@
                         <div class="card-header">
                             <h4>Admit Students</h4>
                         </div>
-                        <form action="" method="POST">
+                        <form action="" method="POST" enctype="multipart/form-data">
                             <div class="card-body">
                                 <h5>Student Information</h5>
                                 <hr>
@@ -362,6 +370,10 @@
                                                 <option value="III Year">III Year</option>
                                                 <option value="IV Year">IV Year</option>
                                             </select>
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="StudentImage">Stamp Size Photo</label>
+                                            <input type="file" name="StudentImage" id="StudentImage" required>
                                         </div>
                                     </div>
                                     <div class="form-row">
@@ -461,7 +473,7 @@
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="FatherPhoto">Stamp Size Photo</label>
-                                            <input type="text" name="FatherPhoto" class="form-control" id="FatherPhoto" placeholder="Upload">
+                                            <input type="file" name="FatherPhoto" class="form-control" id="FatherPhoto" required>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="officeAddress">Office Address with Phone No.</label>
@@ -495,7 +507,7 @@
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="MotherPhoto">Stamp Size Photo</label>
-                                            <input type="text" name="MotherPhoto" class="form-control" id="MotherPhoto" placeholder="Upload">
+                                            <input type="file" name="MotherPhoto" class="form-control" id="MotherPhoto" required>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="officeAddress">Office Address with Phone No.</label>
@@ -529,7 +541,7 @@
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="GuardianPhoto">Stamp Size Photo</label>
-                                            <input type="text" name="GuardianPhoto" class="form-control" id="GuardianPhoto" placeholder="Upload">
+                                            <input type="file" name="GuardianPhoto" class="form-control" id="GuardianPhoto">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="officeAddress">Office Address with Phone No.</label>
