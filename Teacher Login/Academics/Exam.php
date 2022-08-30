@@ -33,12 +33,12 @@ if (isset($_POST['submit'])) {
     $studentID = format($_POST['studentID']);
     date_default_timezone_set('Asia/Kolkata');
     $date = date('d M, Y H:i:s');
-    $check = "SELECT * FROM exam_marks";
+    $check = "SELECT * FROM sem1_externals";
     $query = mysqli_query($conn, $check);
     if ($res = mysqli_fetch_assoc($query)) {
         $shortfalls = format($_POST['shortfalls']);
         $remarks = format($_POST['remarks']);
-        $updateQuery = "UPDATE `exam_marks` SET
+        $updateQuery = "UPDATE `sem1_externals` SET
             `Counselling_date`='$date',
             `Shortfalls`='$shortfalls',
             `Remarks`='$remarks'
@@ -286,7 +286,7 @@ if (isset($_POST['submit'])) {
                                                 $query1 = mysqli_query($conn, $selectQuery1);
                                                 while($res1 = mysqli_fetch_assoc($query1)){
                                                     $code = $res1['Subject Code'];
-                                                    $selectQuery2 = "SELECT `External Marks`, `Internals Total`, `Grade` from `exam_marks` WHERE `Student ID` = '$Sid' AND `Subject Code` = '$code'";
+                                                    $selectQuery2 = "SELECT `External Marks`, `Internals Total`, `Grade` from `sem1_externals` WHERE `Student ID` = '$Sid' AND `Subject Code` = '$code'";
                                                     $query2 = mysqli_query($conn, $selectQuery2);
                                                     $res2 = mysqli_fetch_assoc($query2);
                                             ?>
@@ -387,7 +387,7 @@ if (isset($_POST['submit'])) {
                                                 <?php
                                                     $query = mysqli_query($conn, "SELECT `Subject Code` from subject_details");
                                                     $code = mysqli_fetch_assoc($query)['Subject Code'];
-                                                    $selectQuery = "SELECT * from `exam_marks` WHERE `Subject Code` ='$code'";
+                                                    $selectQuery = "SELECT * from `sem1_externals` WHERE `Subject Code` ='$code'";
                                                     $query = mysqli_query($conn, $selectQuery);
                                                     while($result = mysqli_fetch_assoc($query)) {
                                                 ?>

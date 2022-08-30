@@ -50,7 +50,7 @@
             $query = mysqli_query($conn, $selectQuery);
             while($res = mysqli_fetch_assoc($query)){
                 $id = $res['Student ID'];
-                $insertQuery = "INSERT INTO `exam_marks`(`Student ID`, `Subject Code`) VALUES ('$id','$SubCode')";
+                $insertQuery = "INSERT INTO `sem1_externals`(`Student ID`, `Subject Code`) VALUES ('$id','$SubCode')";
                 $query2 = mysqli_query($conn, $insertQuery);
             }
         }

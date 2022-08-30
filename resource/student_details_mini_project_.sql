@@ -68,10 +68,10 @@ INSERT INTO `attendence` (`ID`, `Student ID`, `Total Class`, `Attended Class`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `exam_marks`
+-- Table structure for table `sem1_externals`
 --
 
-CREATE TABLE `exam_marks` (
+CREATE TABLE `sem1_externals` (
   `ID` int(11) NOT NULL,
   `Student ID` varchar(11) DEFAULT NULL,
   `Subject Code` varchar(11) DEFAULT NULL,
@@ -81,10 +81,10 @@ CREATE TABLE `exam_marks` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `exam_marks`
+-- Dumping data for table `sem1_externals`
 --
 
-INSERT INTO `exam_marks` (`ID`, `Student ID`, `Subject Code`, `External Marks`, `Internals Total`, `Total`) VALUES
+INSERT INTO `sem1_externals` (`ID`, `Student ID`, `Subject Code`, `External Marks`, `Internals Total`, `Total`) VALUES
 (80, '2022_CSE_01', NULL, NULL, NULL, NULL),
 (81, '2022_CSE_01', '51ENG', NULL, NULL, NULL),
 (82, '2022_CSE_01', '52KAN', NULL, NULL, NULL),
@@ -248,7 +248,7 @@ CREATE TRIGGER `Add Student ID into attendance Table` AFTER INSERT ON `student_d
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `Add Student ID into exam_marks Table` AFTER INSERT ON `student_details` FOR EACH ROW INSERT INTO `exam_marks`
+CREATE TRIGGER `Add Student ID into sem1_externals Table` AFTER INSERT ON `student_details` FOR EACH ROW INSERT INTO `sem1_externals`
 (`Student ID`) VALUES (new.`Student ID`)
 $$
 DELIMITER ;
@@ -306,7 +306,7 @@ INSERT INTO `subject_details` (`Subject Code`, `Subject Name`, `Instructor Name`
 -- Triggers `subject_details`
 --
 DELIMITER $$
-CREATE TRIGGER `Add Subject Code into exam_marks Table` AFTER INSERT ON `subject_details` FOR EACH ROW INSERT INTO `exam_marks`
+CREATE TRIGGER `Add Subject Code into sem1_externals Table` AFTER INSERT ON `subject_details` FOR EACH ROW INSERT INTO `sem1_externals`
 (`Subject Code`) VALUES (new.`Subject Code`)
 $$
 DELIMITER ;
@@ -354,9 +354,9 @@ ALTER TABLE `attendence`
   ADD KEY `Student ID` (`Student ID`);
 
 --
--- Indexes for table `exam_marks`
+-- Indexes for table `sem1_externals`
 --
-ALTER TABLE `exam_marks`
+ALTER TABLE `sem1_externals`
   ADD PRIMARY KEY (`ID`),
   ADD KEY `Student ID` (`Student ID`),
   ADD KEY `Subject Code` (`Subject Code`);
@@ -411,9 +411,9 @@ ALTER TABLE `attendence`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT for table `exam_marks`
+-- AUTO_INCREMENT for table `sem1_externals`
 --
-ALTER TABLE `exam_marks`
+ALTER TABLE `sem1_externals`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
@@ -451,11 +451,11 @@ ALTER TABLE `attendence`
   ADD CONSTRAINT `attendence_ibfk_1` FOREIGN KEY (`Student ID`) REFERENCES `student_details` (`Student ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `exam_marks`
+-- Constraints for table `sem1_externals`
 --
-ALTER TABLE `exam_marks`
-  ADD CONSTRAINT `exam_marks_ibfk_1` FOREIGN KEY (`Student ID`) REFERENCES `student_details` (`Student ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `exam_marks_ibfk_2` FOREIGN KEY (`Subject Code`) REFERENCES `subject_details` (`Subject Code`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `sem1_externals`
+  ADD CONSTRAINT `sem1_externals_ibfk_1` FOREIGN KEY (`Student ID`) REFERENCES `student_details` (`Student ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `sem1_externals_ibfk_2` FOREIGN KEY (`Subject Code`) REFERENCES `subject_details` (`Subject Code`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `internals_marks`

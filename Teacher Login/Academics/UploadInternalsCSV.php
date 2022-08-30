@@ -22,7 +22,7 @@ if(isset($_POST['upload'])) {
         exit();
     }
     if ($file_error == 0) {
-        $destfile = '../../upload/'.$filename;
+        $destfile = '../../uploads/'.$filename;
         move_uploaded_file($filepath, $destfile);
 
         $lines = array();

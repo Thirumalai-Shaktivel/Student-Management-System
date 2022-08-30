@@ -55,7 +55,7 @@
     <link href="../../css/styles.css" rel="stylesheet" />
     <title>Internals Marks Updation Page</title>
 </head>
-<body class="sb-nav">
+<body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <button class="btn btn-link btn order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
         <a class="navbar-brand" href="../HomePage.php">Teacher</a>

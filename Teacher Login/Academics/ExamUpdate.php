@@ -18,7 +18,7 @@ $id = $_GET['id'];
 //         while($result = mysqli_fetch_assoc($query1)){
 //             $id = $result['Student ID'];
 //             $code = $res['Subject Code'];
-//             $insertQuery = "INSERT INTO `exam_marks`(`Student ID`, `Subject Code`) VALUES ('$id','$code')";
+//             $insertQuery = "INSERT INTO `sem1_externals`(`Student ID`, `Subject Code`) VALUES ('$id','$code')";
 //             $query2 = mysqli_query($conn, $insertQuery);
 //         }
 //     }
@@ -33,7 +33,7 @@ if(isset($_POST['save'])) {
     while($res = mysqli_fetch_assoc($query1)) {
         $code = $res['Subject Code'];
         if ($Int[$code] AND $Ext[$code] AND $Gl[$code] != null) {
-            $selectQuery2 = "UPDATE `exam_marks` SET
+            $selectQuery2 = "UPDATE `sem1_externals` SET
                 `Internals Total`= '$Int[$code]',
                 `External Marks`= '$Ext[$code]',
                 `Grade`= '$Gl[$code]'
@@ -221,7 +221,7 @@ if(isset($_POST['save'])) {
                                                 $query1 = mysqli_query($conn, $selectQuery1);
                                                 while($res = mysqli_fetch_assoc($query1)) {
                                                     $code = $res['Subject Code'];
-                                                    $selectQuery2 = "SELECT * from `exam_marks` WHERE `Student ID` = '$id' AND `Subject Code` = '$code'";
+                                                    $selectQuery2 = "SELECT * from `sem1_externals` WHERE `Student ID` = '$id' AND `Subject Code` = '$code'";
                                                     $query2 = mysqli_query($conn, $selectQuery2);
                                                     $res2 = mysqli_fetch_assoc($query2);
                                             ?>
@@ -248,7 +248,7 @@ if(isset($_POST['save'])) {
                                                 $query1 = mysqli_query($conn, $selectQuery1);
                                                 while($res1 = mysqli_fetch_assoc($query1)){
                                                     $code = $res1['Subject Code'];
-                                                    $selectQuery2 = "SELECT `External Marks`, `Internals Total`, `Grade` from `exam_marks` WHERE `Student ID` = '$Sid' AND `Subject Code` = '$code'";
+                                                    $selectQuery2 = "SELECT `External Marks`, `Internals Total`, `Grade` from `sem1_externals` WHERE `Student ID` = '$Sid' AND `Subject Code` = '$code'";
                                                     $query2 = mysqli_query($conn, $selectQuery2);
                                                     $res2 = mysqli_fetch_assoc($query2);
                                             ?>

@@ -22,7 +22,7 @@ if(isset($_POST['upload'])) {
         exit();
     }
     if ($file_error == 0) {
-        $destfile = '../../upload/'.$filename;
+        $destfile = '../../uploads/'.$filename;
         move_uploaded_file($filepath, $destfile);
 
         $lines = array();
@@ -70,7 +70,7 @@ if(isset($_POST['upload'])) {
                 $code = trim($lines[0][$j]);
                 if(in_array($id, $result)) {
                     $val = $lines[$i][$j];
-                    $updateQuery = "UPDATE `exam_marks` SET
+                    $updateQuery = "UPDATE `sem1_externals` SET
                         `External Marks` = '$val'
                     WHERE `Student ID` = '$id' AND `Subject Code` ='$code'";
                     $query = mysqli_query($conn, $updateQuery);
