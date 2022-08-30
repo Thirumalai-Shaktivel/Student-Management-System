@@ -2,8 +2,8 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Jun 14, 2022 at 11:47 AM
+-- Host: 127.0.0.1
+-- Generation Time: Aug 30, 2022 at 07:27 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -63,7 +63,8 @@ CREATE TABLE `attendence` (
 --
 
 INSERT INTO `attendence` (`ID`, `Student ID`, `Total Class`, `Attended Class`, `Percentage`) VALUES
-(15, '2022_CSE_01', NULL, NULL, NULL);
+(15, '2022_CSE_01', NULL, NULL, NULL),
+(21, '2022_CSE_02', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -75,52 +76,78 @@ CREATE TABLE `sem1_externals` (
   `ID` int(11) NOT NULL,
   `Student ID` varchar(11) DEFAULT NULL,
   `Subject Code` varchar(11) DEFAULT NULL,
-  `External Marks` int(11) DEFAULT NULL,
-  `Internals Total` int(11) DEFAULT NULL,
-  `Total` int(11) DEFAULT NULL
+  `Internals Total` int(3) DEFAULT NULL,
+  `External Marks` int(3) DEFAULT NULL,
+  `Grade` varchar(2) DEFAULT NULL,
+  `Counselling_date` varchar(255) DEFAULT NULL,
+  `Shortfalls` varchar(255) DEFAULT NULL,
+  `Remarks` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `sem1_externals`
 --
 
-INSERT INTO `sem1_externals` (`ID`, `Student ID`, `Subject Code`, `External Marks`, `Internals Total`, `Total`) VALUES
-(80, '2022_CSE_01', NULL, NULL, NULL, NULL),
-(81, '2022_CSE_01', '51ENG', NULL, NULL, NULL),
-(82, '2022_CSE_01', '52KAN', NULL, NULL, NULL),
-(83, '2022_CSE_01', '53HIN', NULL, NULL, NULL),
-(84, '2022_CSE_01', '54MAT', NULL, NULL, NULL),
-(85, '2022_CSE_01', '55SCI', NULL, NULL, NULL),
-(86, '2022_CSE_01', '56SOC', NULL, NULL, NULL);
+INSERT INTO `sem1_externals` (`ID`, `Student ID`, `Subject Code`, `Internals Total`, `External Marks`, `Grade`, `Counselling_date`, `Shortfalls`, `Remarks`) VALUES
+(81, '2022_CSE_01', '51ENG', NULL, 100, NULL, '30 Aug, 2022 08:15:37', 'abc', 'abc'),
+(82, '2022_CSE_01', '52KAN', NULL, 90, NULL, NULL, NULL, NULL),
+(83, '2022_CSE_01', '53HIN', NULL, 80, NULL, NULL, NULL, NULL),
+(84, '2022_CSE_01', '54MAT', NULL, 60, NULL, NULL, NULL, NULL),
+(85, '2022_CSE_01', '55SCI', NULL, 70, NULL, NULL, NULL, NULL),
+(86, '2022_CSE_01', '56SOC', NULL, 85, NULL, NULL, NULL, NULL),
+(88, '2022_CSE_02', '51ENG', NULL, NULL, NULL, NULL, NULL, NULL),
+(89, '2022_CSE_02', '52KAN', NULL, NULL, NULL, NULL, NULL, NULL),
+(90, '2022_CSE_02', '53HIN', NULL, NULL, NULL, NULL, NULL, NULL),
+(91, '2022_CSE_02', '54MAT', NULL, NULL, NULL, NULL, NULL, NULL),
+(92, '2022_CSE_02', '55SCI', NULL, NULL, NULL, NULL, NULL, NULL),
+(93, '2022_CSE_02', '56SOC', NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `internals_marks`
+-- Table structure for table `sem1_internals`
 --
 
-CREATE TABLE `internals_marks` (
+CREATE TABLE `sem1_internals` (
   `ID` int(11) NOT NULL,
   `Student ID` varchar(11) DEFAULT NULL,
   `Subject Code` varchar(11) DEFAULT NULL,
-  `IA1` int(3) DEFAULT NULL,
-  `IA2` int(3) DEFAULT NULL,
-  `IA3` int(3) DEFAULT NULL,
-  `Average` int(3) DEFAULT NULL
+  `IA1_CT` int(3) DEFAULT NULL,
+  `IA1_CA` int(3) DEFAULT NULL,
+  `IA1_AP` float DEFAULT NULL,
+  `IA1_MO` int(3) DEFAULT NULL,
+  `IA2_CT` int(3) DEFAULT NULL,
+  `IA2_CA` int(3) DEFAULT NULL,
+  `IA2_AP` float DEFAULT NULL,
+  `IA2_MO` int(3) DEFAULT NULL,
+  `IA3_CT` int(3) DEFAULT NULL,
+  `IA3_CA` int(3) DEFAULT NULL,
+  `IA3_AP` float DEFAULT NULL,
+  `IA3_MO` int(3) DEFAULT NULL,
+  `Average` int(3) DEFAULT NULL,
+  `Counselling_date` varchar(25) DEFAULT NULL,
+  `Shortfalls` varchar(255) DEFAULT NULL,
+  `Adherence` varchar(255) DEFAULT NULL,
+  `Remarks` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `internals_marks`
+-- Dumping data for table `sem1_internals`
 --
 
-INSERT INTO `internals_marks` (`ID`, `Student ID`, `Subject Code`, `IA1`, `IA2`, `IA3`, `Average`) VALUES
-(80, '2022_CSE_01', NULL, NULL, NULL, NULL, NULL),
-(81, '2022_CSE_01', '51ENG', NULL, NULL, NULL, NULL),
-(82, '2022_CSE_01', '52KAN', NULL, NULL, NULL, NULL),
-(83, '2022_CSE_01', '53HIN', NULL, NULL, NULL, NULL),
-(84, '2022_CSE_01', '54MAT', NULL, NULL, NULL, NULL),
-(85, '2022_CSE_01', '55SCI', NULL, NULL, NULL, NULL),
-(86, '2022_CSE_01', '56SOC', NULL, NULL, NULL, NULL);
+INSERT INTO `sem1_internals` (`ID`, `Student ID`, `Subject Code`, `IA1_CT`, `IA1_CA`, `IA1_AP`, `IA1_MO`, `IA2_CT`, `IA2_CA`, `IA2_AP`, `IA2_MO`, `IA3_CT`, `IA3_CA`, `IA3_AP`, `IA3_MO`, `Average`, `Counselling_date`, `Shortfalls`, `Adherence`, `Remarks`) VALUES
+(81, '2022_CSE_01', '51ENG', 20, 15, 75, 30, 20, 20, 100, 29, 20, 18, 90, 30, 30, '30 Aug, 2022 08:11:32', 'abc', NULL, 'abc'),
+(82, '2022_CSE_01', '52KAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(83, '2022_CSE_01', '53HIN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(84, '2022_CSE_01', '54MAT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(85, '2022_CSE_01', '55SCI', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(86, '2022_CSE_01', '56SOC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(88, '2022_CSE_02', '51ENG', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(89, '2022_CSE_02', '52KAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(90, '2022_CSE_02', '53HIN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(91, '2022_CSE_02', '54MAT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(92, '2022_CSE_02', '55SCI', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(93, '2022_CSE_02', '56SOC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -130,6 +157,7 @@ INSERT INTO `internals_marks` (`ID`, `Student ID`, `Subject Code`, `IA1`, `IA2`,
 
 CREATE TABLE `student_details` (
   `Student ID` varchar(11) NOT NULL,
+  `Student_image` varchar(255) DEFAULT NULL,
   `USN` varchar(10) DEFAULT NULL,
   `Name` varchar(50) NOT NULL,
   `College ID` varchar(10) NOT NULL,
@@ -231,8 +259,9 @@ CREATE TABLE `student_details` (
 -- Dumping data for table `student_details`
 --
 
-INSERT INTO `student_details` (`Student ID`, `USN`, `Name`, `College ID`, `DOB`, `Religion`, `Admission Year`, `Admission Nature`, `Hostel DayScholar`, `Degree_Branch`, `Passport`, `Driving License`, `Languages`, `Blood Group`, `Height_Weight`, `Mobile Number`, `Email`, `Bank 1`, `Account No 1`, `Bank 2`, `Account No 2`, `Father Name`, `Father Occupation`, `Father Number`, `Father Email`, `Father Photo`, `Father Office Address`, `Mother Name`, `Mother Occupation`, `Mother Number`, `Mother Email`, `Mother Photo`, `Mother Office Address`, `Guardian Name`, `Guardian Occupation`, `Guardian Number`, `Guardian Email`, `Guardian Photo`, `Guardian Office Address`, `Address of Communication`, `Permanent Address`, `Permanent Address PIN`, `Permanent Address Phone`, `Communication Address`, `Communication Address PIN`, `Communication Address Phone`, `10th School Name`, `10th School Place`, `10th Year`, `10th Marks`, `10th Medium`, `12th School Name`, `12th School Place`, `12th School Address`, `12th Board`, `12th Year`, `12th Marks`, `12th Medium`, `12th Marks Percentage`, `12th Marks Maths`, `12th Marks Physics`, `12th Marks Chemistry`, `Diploma School Name`, `Diploma School Place`, `Diploma year`, `Diploma Marks`, `Diploma Medium`, `Diploma Marks Percent`, `Diploma Marks Sem I`, `Diploma Marks Sem II`, `Diploma Marks Sem III`, `Diploma Marks Sem IV`, `Diploma Marks Sem V`, `Diploma Marks Sem VI`, `Exam Preparation Method`, `Communicate well in English`, `Prepare English`, `Elder Brothers Count`, `Elder Brothers Qualification`, `Younger Brothers Count`, `Younger Brothers Qualification`, `Elder Sisters Count`, `Elder Sisters Qualification`, `Younger Sisters Count`, `Younger Sisters Qualification`, `Move Together`, `Personal Problems`, `Health Condition`, `Any Medications`, `Other Interests`, `Hobbies`, `Sports Interest`, `Prize Details`, `Specific talents`, `Ambition`, `Branch Reason`) VALUES
-('2022_CSE_01', '1KS18CS109', 'Shankar KS', '1234', '14 Jun, 2022', 'Muslim', 2022, 'CET', 'I Year', 'BE, CSE', 'N 00144521', 'UP1420080079043', 'English, Telugu', 'A-', '6, 50', '+91 9456137851', 'shankar@gmail.com', 'Indian Bank', '123456789123', NULL, NULL, 'Venkatesh', 'Network Engineer', '+91 9638527415', 'venkatesh@gmail.com', '', 'Wipro’s Campus, Cafeteria Hall EC-3, Ground Floor, Opp. Tower 8, No. 72, Keonics, Electronic\nCity, Hosur Road, Bangalore', 'Sumalatha', 'House-Wife', '+91 9638527415', 'suma@gmail.com', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Banashankari', '#411 TCH College road, Harinagar, Anjanapura(P)', '560085', '62354158', '#411 TCH College road, Harinagar, Anjanapura(P)', '560085', '62354158', 'Silicon High School', 'Harinagar', 2020, '566/625', 'English', 'Kumarans PU College', 'Banashankari', 'Banashankari Bangalore', 'State Board', 2022, '555/600', 'English', '92.5', '98', '98', '90', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Self Study', 'Yes', NULL, '1', 'Software engineer', NULL, '', '', '', '', '', 'Yes', 'No', 'Excellent', 'No', 'Sports', 'Drawing, Dancing', 'Yes (Football, Cricket)', 'N/A', 'Quick-learner', 'Entrepreneur', 'Understand more about Trending Technology');
+INSERT INTO `student_details` (`Student ID`, `Student_image`, `USN`, `Name`, `College ID`, `DOB`, `Religion`, `Admission Year`, `Admission Nature`, `Hostel DayScholar`, `Degree_Branch`, `Passport`, `Driving License`, `Languages`, `Blood Group`, `Height_Weight`, `Mobile Number`, `Email`, `Bank 1`, `Account No 1`, `Bank 2`, `Account No 2`, `Father Name`, `Father Occupation`, `Father Number`, `Father Email`, `Father Photo`, `Father Office Address`, `Mother Name`, `Mother Occupation`, `Mother Number`, `Mother Email`, `Mother Photo`, `Mother Office Address`, `Guardian Name`, `Guardian Occupation`, `Guardian Number`, `Guardian Email`, `Guardian Photo`, `Guardian Office Address`, `Address of Communication`, `Permanent Address`, `Permanent Address PIN`, `Permanent Address Phone`, `Communication Address`, `Communication Address PIN`, `Communication Address Phone`, `10th School Name`, `10th School Place`, `10th Year`, `10th Marks`, `10th Medium`, `12th School Name`, `12th School Place`, `12th School Address`, `12th Board`, `12th Year`, `12th Marks`, `12th Medium`, `12th Marks Percentage`, `12th Marks Maths`, `12th Marks Physics`, `12th Marks Chemistry`, `Diploma School Name`, `Diploma School Place`, `Diploma year`, `Diploma Marks`, `Diploma Medium`, `Diploma Marks Percent`, `Diploma Marks Sem I`, `Diploma Marks Sem II`, `Diploma Marks Sem III`, `Diploma Marks Sem IV`, `Diploma Marks Sem V`, `Diploma Marks Sem VI`, `Exam Preparation Method`, `Communicate well in English`, `Prepare English`, `Elder Brothers Count`, `Elder Brothers Qualification`, `Younger Brothers Count`, `Younger Brothers Qualification`, `Elder Sisters Count`, `Elder Sisters Qualification`, `Younger Sisters Count`, `Younger Sisters Qualification`, `Move Together`, `Personal Problems`, `Health Condition`, `Any Medications`, `Other Interests`, `Hobbies`, `Sports Interest`, `Prize Details`, `Specific talents`, `Ambition`, `Branch Reason`) VALUES
+('2022_CSE_01', '../../uploads/2022_CSE_01/2022_CSE_01.jpg', '1KS18CS109', 'Shankar KS', '1234', '14 Jun, 2022', 'Muslim', 2022, 'CET', 'I Year', 'BE, CSE', 'N 00144521', 'UP1420080079043', 'English, Telugu', 'A-', '6, 50', '+91 9456137851', 'shankar@gmail.com', 'Indian Bank', '123456789123', '', '', 'Venkatesh', 'Network Engineer', '+91 9638527415', 'venkatesh@gmail.com', '../../uploads/2022_CSE_01/2022_CSE_01_Father.jpg', 'Wiproâ€™s Campus, Cafeteria Hall EC-3, Ground Floor, Opp. Tower 8, No. 72, Keonics, Electronic\r\nCity, Hosur Road, Bangalore', 'Sumalatha', 'House-Wife', '+91 9638527415', 'suma@gmail.com', '../../uploads/2022_CSE_01/2022_CSE_01_Mother.jpg', '', '', '', '', '', '../../uploads/2022_CSE_01/2022_CSE_01_Guardian.jpg', '', 'Banashankari', '#411 TCH College road, Harinagar, Anjanapura(P)', '560085', '62354158', '#411 TCH College road, Harinagar, Anjanapura(P)', '560085', '62354158', 'Silicon High School', 'Harinagar', 2020, '566/625', 'English', 'Kumarans PU College', 'Banashankari', 'Banashankari Bangalore', 'State Board', 2022, '555/600', 'English', '92.5', '98', '98', '90', '', '', 0, '', '', '', '', '', '', '', '', '', 'Self Study', 'Yes', '', '1', 'Software engineer', '', '', '', '', '', '', 'Yes', 'No', 'Excellent', 'No', 'Sports', 'Drawing, Dancing', 'Yes (Football, Cricket)', 'N/A', 'Quick-learner', 'Entrepreneur', 'Understand more about Trending Technology'),
+('2022_CSE_02', '../../uploads/2022_CSE_02/2022_CSE_02.jpg', '1KS18CS110', 'Thirumalai Shaktivel', '1234', '17 Aug, 2022', 'Hindu', 2022, 'Please Sel', 'Please', 'CSE', '', '', '', 'A+', '5.5', '9663841156', 'thirumalaishaktivel@gmail', 'abc', '123456789', '', '', 'Chakravarthy', 'Engineer', '+91 9876543211', 'thirumalaishaktivel@gmail.com', '', 'Bangalore\r\nKarnataka\r\n560062', 'Poongodi', 'House-wife', '9663841156', 'thirumalaishaktivel@gmail.com', '', 'Bangalore\r\nKarnataka\r\n560062', '', '', '', '', '', '', 'abc', 'abc', '123', '123456789', 'abc', '123', '123456789', 'abc', 'abc', 2020, '625/625', 'English', 'abc', 'abc', 'abc', 'State Board', 2022, '600/600', 'English', '98', '100', '100', '100', '', '', 0, '', '', '', '', '', '', '', '', '', 'Self Study', 'Yes', '', '', '', '', '', '', '', '', '', 'abc', 'abc', 'abc', 'abc', 'abc', 'abc', 'abc', 'abc', 'abc', 'abc', 'abc');
 
 --
 -- Triggers `student_details`
@@ -253,7 +282,7 @@ CREATE TRIGGER `Add Student ID into sem1_externals Table` AFTER INSERT ON `stude
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `Add Student ID into internals_marks Table` AFTER INSERT ON `student_details` FOR EACH ROW INSERT INTO `internals_marks`
+CREATE TRIGGER `Add Student ID into sem1_internals Table` AFTER INSERT ON `student_details` FOR EACH ROW INSERT INTO `sem1_internals`
 (`Student ID`) VALUES (new.`Student ID`)
 $$
 DELIMITER ;
@@ -275,7 +304,8 @@ CREATE TABLE `stud_users` (
 --
 
 INSERT INTO `stud_users` (`ID`, `Unique_ID`, `password`) VALUES
-(15, '2022_CSE_01', NULL);
+(15, '2022_CSE_01', NULL),
+(21, '2022_CSE_02', NULL);
 
 -- --------------------------------------------------------
 
@@ -311,7 +341,7 @@ CREATE TRIGGER `Add Subject Code into sem1_externals Table` AFTER INSERT ON `sub
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `Add Subject Code into internals_marks Table` AFTER INSERT ON `subject_details` FOR EACH ROW INSERT INTO `internals_marks`
+CREATE TRIGGER `Add Subject Code into sem1_internals Table` AFTER INSERT ON `subject_details` FOR EACH ROW INSERT INTO `sem1_internals`
 (`Subject Code`) VALUES (new.`Subject Code`)
 $$
 DELIMITER ;
@@ -362,9 +392,9 @@ ALTER TABLE `sem1_externals`
   ADD KEY `Subject Code` (`Subject Code`);
 
 --
--- Indexes for table `internals_marks`
+-- Indexes for table `sem1_internals`
 --
-ALTER TABLE `internals_marks`
+ALTER TABLE `sem1_internals`
   ADD PRIMARY KEY (`ID`),
   ADD KEY `Student ID` (`Student ID`),
   ADD KEY `Subject Code` (`Subject Code`);
@@ -408,25 +438,25 @@ ALTER TABLE `announcements`
 -- AUTO_INCREMENT for table `attendence`
 --
 ALTER TABLE `attendence`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `sem1_externals`
 --
 ALTER TABLE `sem1_externals`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
--- AUTO_INCREMENT for table `internals_marks`
+-- AUTO_INCREMENT for table `sem1_internals`
 --
-ALTER TABLE `internals_marks`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+ALTER TABLE `sem1_internals`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
 -- AUTO_INCREMENT for table `stud_users`
 --
 ALTER TABLE `stud_users`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `teacher_user`
@@ -458,11 +488,11 @@ ALTER TABLE `sem1_externals`
   ADD CONSTRAINT `sem1_externals_ibfk_2` FOREIGN KEY (`Subject Code`) REFERENCES `subject_details` (`Subject Code`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `internals_marks`
+-- Constraints for table `sem1_internals`
 --
-ALTER TABLE `internals_marks`
-  ADD CONSTRAINT `internals_marks_ibfk_1` FOREIGN KEY (`Student ID`) REFERENCES `student_details` (`Student ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `internals_marks_ibfk_2` FOREIGN KEY (`Subject Code`) REFERENCES `subject_details` (`Subject Code`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `sem1_internals`
+  ADD CONSTRAINT `sem1_internals_ibfk_1` FOREIGN KEY (`Student ID`) REFERENCES `student_details` (`Student ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `sem1_internals_ibfk_2` FOREIGN KEY (`Subject Code`) REFERENCES `subject_details` (`Subject Code`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `stud_users`
