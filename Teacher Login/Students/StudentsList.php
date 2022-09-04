@@ -22,6 +22,7 @@ else if(isset($_SESSION['DeletedStudent']))
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Font Awesome (Basic Icons) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous"/>
     <!-- Bootstrap CSS -->
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous"> -->
     <link href="../../css/styles.css" rel="stylesheet" />
@@ -165,12 +166,10 @@ else if(isset($_SESSION['DeletedStudent']))
                                             <th>USN</th>
                                             <th>Students Name</th>
                                             <th>Parent Name</th>
-                                            <!-- <th>Class</th> -->
-                                            <!-- <th>Section</th> -->
                                             <th>Date Of Birth</th>
                                             <th>Father Phone Number</th>
                                             <th>Father E-mail</th>
-                                            <th colspan="2" class="text-center">Action</th>
+                                            <th class="text-center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -183,7 +182,6 @@ else if(isset($_SESSION['DeletedStudent']))
                                             <td><?php echo $result['USN']; ?></td>
                                             <td><?php echo $result['Name']; ?></td>
                                             <td><?php echo $result['Father Name']; ?></td>
-                                            <!-- <td><?php echo $result['Class']; ?></td> -->
                                             <td><?php echo $result['DOB']; ?></td>
                                             <td><?php echo $result['Father Number']; ?></td>
                                             <td><?php echo $result['Father Email']; ?></td>
@@ -215,8 +213,11 @@ else if(isset($_SESSION['DeletedStudent']))
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+
     <!-- JavaScript -->
     <script src="../../js/scripts.js"></script>
+    <script src="../../js/datatable.js"></script>
 </body>
 </html>
