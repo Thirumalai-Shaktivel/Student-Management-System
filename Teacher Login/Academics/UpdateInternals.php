@@ -245,7 +245,7 @@
                                                         <?php } else{ ?>
                                                             <th colspan="4">Internal Assessment-03</th>
                                                         <?php } ?>
-                                                    <th rowspan="2" class="align-middle">Average</th>
+                                                    <th rowspan="2" class="align-middle">Average (40)</th>
                                                 </tr>
                                                 <tr>
                                                     <th>CT</th>
@@ -325,6 +325,13 @@
                                             </tbody>
                                         </form>
                                         </table>
+                                        <div class="d-flex justify-content-around">
+                                           <i>Note:</i>
+                                           <i>CT = Number of Classes Taken</i>
+                                           <i>CA = Number of Classes attended</i>
+                                           <i>AP = Attendance in percentage</i>
+                                           <i>MO = Marks Obtained</i>
+                                        </div>
                                     </div>
                                 </div>
                                 <?php } ?>

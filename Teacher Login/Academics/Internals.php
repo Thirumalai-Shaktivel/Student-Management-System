@@ -313,7 +313,7 @@ if (isset($_POST['submit'])) {
                                                             </div>
                                                         </div>
                                                     </th>
-                                                    <th rowspan="2" class="align-middle">Average</th>
+                                                    <th rowspan="2" class="align-middle">Average (40)</th>
                                                 </tr>
                                                 <tr>
                                                     <th>CT</th>
