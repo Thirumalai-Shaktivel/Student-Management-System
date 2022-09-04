@@ -348,7 +348,7 @@ if (isset($_POST['submit'])) {
                                                 <button type="submit" name="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
                                             </div>
                                             <div class="form-group col-lg-5">
-                                                <a href="Internals.php" role="button" class="btn btn-outline-warning btn-lg btn-block">Cancel</a>
+                                                <a href="Exam.php" role="button" class="btn btn-outline-warning btn-lg btn-block">Cancel</a>
                                             </div>
                                         </div>
                                     </form>
