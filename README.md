@@ -17,7 +17,7 @@ The resulting system is able to:
 ### TODO
 
 ## RELATIONAL SCHEMA
-![Relational schema](image/ER%20Mapping.png)
+![Relational schema](image/ER_Mapping.png)
 
 ## Software Requirements
 * [XAMPP](https://www.apachefriends.org/index.html)
