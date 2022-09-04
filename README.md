@@ -14,43 +14,30 @@ Managing student records manually is a troublesome job, this increases as the nu
 
 ## ROLES AND FEATURES
 The resulting system is able to:
-* Teacher View:
-    - Register New Teacher credentials for login.
-    - Login as Teacher for Academics records handling.
-    - Admit, Update Students details for Specific Class.
-    - View the Details of all the Students in the Class.
-    - Add, update, delete the Subject details along with its instructor.
-    - Create new Announcement and circulate the same.
-    - Update Attendance for each student in the Class.
-    - Update Internal Assessment Marks for each student.
-    - Update Final Exam Marks For each Student.
-* Student View:
-    - Register New Student credentials for login.
-    - Login as Student for Curriculum Activities.
-    - View any Recent Announcements made by specific Subject teacher.
-    - View Subject Details and Contact information of the subject teachers.
-    - View Internal Assessment Marks for each Subject.
-    - View Final Exam Marks for each subject.
-    - View the Attendance details.
+### TODO
 
-### RELATIONAL SCHEMA
+## RELATIONAL SCHEMA
 ![Relational schema](image/ER%20Mapping.png)
 
-For screenshots and more details about the project, please checkout [Final Report](Final-Report.pdf)
 ## Software Requirements
 * [XAMPP](https://www.apachefriends.org/index.html)
 * Browser of your choice
 
-## Steps to run the project
+## Steps to run the project in Windows
 - Install XAMPP on your local machine.
 - Clone the project using
     ```console
-    $ git clone https://github.com/Thirumalai-Shaktivel/Student_Information_Management_System.git
+    $ git clone https://github.com/Thirumalai-Shaktivel/Student-Management-System.git
     ```
-- Remove the contents of htdocs (xampp), and add all the items from the project which were cloned before.
+- Replace the contents of htdocs (inside the xampp folder) with the items from the `Student-Management-System` folder.
 - Start the Apache and MySQL servers.
 - Create a database named `student details(mini project)`
 - Now, just import the sql file i.e., [student_details_mini_project_.sql](resource/student_details_mini_project_.sql)
-- Goto: `https:\\http://localhost/`
+- Goto: `http://localhost/`
+
+Login details (Teacher):
+
+    Teacher Name: thirumalai
+    Teacher Password: 123456789
 
 If you have any doubt related to this project, feel free to contact me on [twitter](https://twitter.com/sh0ck_thi) or [mail](mailto:thirumalaishaktivel@gmail.com) me.
