@@ -115,15 +115,29 @@ $result1 = mysqli_fetch_assoc($query1);
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-striped text-center" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Subject Code</th>
-                                            <th>Subject Name</th>
-                                            <th>IA-1 Marks(25)</th>
-                                            <th>IA-2 Marks(25)</th>
-                                            <th>IA-3 Marks(25)</th>
-                                            <th>Average</th>
+                                            <th rowspan="2" class="align-middle">Subject Code</th>
+                                            <th rowspan="2" class="align-middle">Subject Name</th>
+                                            <th colspan="4">IA-1 Marks</th>
+                                            <th colspan="4">IA-2 Marks</th>
+                                            <th colspan="4">IA-3 Marks</th>
+                                            <th rowspan="2" class="align-middle">Average</th>
+                                        </tr>
+                                        <tr>
+                                            <th>CT</th>
+                                            <th>CA</th>
+                                            <th>AP</th>
+                                            <th>MO</th>
+                                            <th>CT</th>
+                                            <th>CA</th>
+                                            <th>AP</th>
+                                            <th>MO</th>
+                                            <th>CT</th>
+                                            <th>CA</th>
+                                            <th>AP</th>
+                                            <th>MO</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -142,9 +156,18 @@ $result1 = mysqli_fetch_assoc($query1);
                                             $query = mysqli_query($conn, $selectQuery);
                                             $result = mysqli_fetch_assoc($query);
                                         ?>
-                                            <td><?php echo ($result['IA1'] == null)?"-":$result['IA1']; ?></td>
-                                            <td><?php echo ($result['IA2'] == null)?"-":$result['IA2']; ?></td>
-                                            <td><?php echo ($result['IA3'] == null)?"-":$result['IA3']; ?></td>
+                                            <td><?php echo (@$result['IA1_CT'] != null)? $result['IA1_CT'] : "-"; ?></td>
+                                            <td><?php echo (@$result['IA1_CA'] != null)? $result['IA1_CA'] : "-"; ?></td>
+                                            <td><?php echo (@$result['IA1_AP'] != null)? $result['IA1_AP'] : "-"; ?></td>
+                                            <td><?php echo (@$result['IA1_MO'] != null)? $result['IA1_MO'] : "-"; ?></td>
+                                            <td><?php echo (@$result['IA2_CT'] != null)? $result['IA2_CT'] : "-"; ?></td>
+                                            <td><?php echo (@$result['IA2_CA'] != null)? $result['IA2_CA'] : "-"; ?></td>
+                                            <td><?php echo (@$result['IA2_AP'] != null)? $result['IA2_AP'] : "-"; ?></td>
+                                            <td><?php echo (@$result['IA2_MO'] != null)? $result['IA2_MO'] : "-"; ?></td>
+                                            <td><?php echo (@$result['IA3_CT'] != null)? $result['IA3_CT'] : "-"; ?></td>
+                                            <td><?php echo (@$result['IA3_CA'] != null)? $result['IA3_CA'] : "-"; ?></td>
+                                            <td><?php echo (@$result['IA3_AP'] != null)? $result['IA3_AP'] : "-"; ?></td>
+                                            <td><?php echo (@$result['IA3_MO'] != null)? $result['IA3_MO'] : "-"; ?></td>
                                             <td <?php if($result['Average'] >= 12) { ?>style="background-color: #51f542;"
                                                 <?php } else{ ?> style="background-color: #f54242;" <?php } ?>
                                                 class="text-center"
