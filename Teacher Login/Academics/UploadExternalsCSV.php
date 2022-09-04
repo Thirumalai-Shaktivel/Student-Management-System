@@ -7,6 +7,7 @@ if(isset($_SESSION['username']) != true)
     exit;
 }
 include "../../config.php";
+include "../../function.php";
 
 if(isset($_POST['upload'])) {
     $file = $_FILES['marks_upload'];
@@ -69,9 +70,18 @@ if(isset($_POST['upload'])) {
                 $id = trim($lines[$i][0]);
                 $code = trim($lines[0][$j]);
                 if(in_array($id, $result)) {
-                    $val = $lines[$i][$j];
+                    $Ext_val = $lines[$i][$j];
+
+                    $selectQuery = "SELECT `Internals Total` from `sem1_externals`
+                                    WHERE `Student ID` = '$id' AND `Subject Code` = '$code'";
+                    $query2 = mysqli_query($conn, $selectQuery);
+                    $res1 = mysqli_fetch_assoc($query2);
+                    $sum = $res1['Internals Total'] + $Ext_val;
+                    $GL = get_grade_letter($sum);
+                    
                     $updateQuery = "UPDATE `sem1_externals` SET
-                        `External Marks` = '$val'
+                        `External Marks` = '$Ext_val',
+                        `Grade` = '$GL'
                     WHERE `Student ID` = '$id' AND `Subject Code` ='$code'";
                     $query = mysqli_query($conn, $updateQuery);
                     if($query) {
