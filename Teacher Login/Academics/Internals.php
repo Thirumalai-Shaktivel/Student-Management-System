@@ -399,7 +399,7 @@ if (isset($_POST['submit'])) {
                                                     $query = mysqli_query($conn, $selectQuery);
                                                     while($res = mysqli_fetch_assoc($query)) {
                                                     ?>
-                                                        <option value="<?php echo $res['Student ID']; ?>"><?php echo $res['Student ID']; ?></option>
+                                                        <option value="<?php echo $res['Student ID']; ?>"><?php echo $res['Student ID'].": ".$res['Name']; ?></option>
                                                     <?php } ?>
                                                     </select>
                                             </div>
