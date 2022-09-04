@@ -165,7 +165,16 @@
                                 <form action="" method="POST">
                                     <div class="form-row">
                                         <div class="form-group col-sm-4">
-                                            <input type="text" name="Sid" class="form-control" required>
+                                            <select id="Sid" name="Sid" class="form-control">
+                                                <option selected>Please Select Student ID</option>
+                                            <?php
+                                            $selectQuery = "SELECT * from `student_details`";
+                                            $query = mysqli_query($conn, $selectQuery);
+                                            while($res = mysqli_fetch_assoc($query)) {
+                                            ?>
+                                                <option value="<?php echo $res['Student ID']; ?>"><?php echo $res['Student ID'].": ".$res['Name']; ?></option>
+                                            <?php } ?>
+                                            </select>
                                         </div>
                                         <div class="form-group col-5 col-sm-3 col-lg-2">
                                             <button type="submit" name="find" class="btn btn-success btn-block">Search</button>
