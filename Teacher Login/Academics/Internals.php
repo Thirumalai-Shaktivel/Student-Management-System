@@ -245,7 +245,7 @@ if (isset($_POST['submit'])) {
                                         <div class="col-8">
                                             <h5>
                                                 Have a CSV file?
-                                                <a href="https://raw.githubusercontent.com/Thirumalai-Shaktivel/Student-Management-System/master/resource/MarksExample.csv"> upload format </a>
+                                                <a href="https://raw.githubusercontent.com/Thirumalai-Shaktivel/Student-Management-System/master/resource/InternalsExample.csv"> upload format </a>
                                             </h5>
                                             <input type="file" name="marks_upload" class="mb-2">
                                         </div>
