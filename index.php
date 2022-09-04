@@ -73,27 +73,36 @@ include "Teacher Login/register.php";
     </div>
     <div class="jumbotron">
       <div class="row">
-        <div class="col-3">
+        <div class="col-lg-2 col-md">
           <div class="nav flex-column nav-pills">
-            <a class="nav-link active" href="#AI_ML" data-toggle="pill">Computer Science and Engineering</a>
-            <a class="nav-link" href="#CSD" data-toggle="pill">Computer Science and Design</a>
-            <a class="nav-link" href="#CSE" data-toggle="pill">Artificial Intelligence & Machine Learning Engineering</a>
-            <a class="nav-link" href="#ECE" data-toggle="pill">Electronics & Communication Engineering</a>
-            <a class="nav-link" href="#ME" data-toggle="pill">Mechanical Engineering</a>
-            <a class="nav-link" href="#SH" data-toggle="pill">Science & Humanities</a>
+            <?php
+              $depts = array(
+                0 => [ "CSE", "Computer Science and Engineering" ],
+                1 => [ "CSD", "Computer Science and Design" ],
+                2 => [ "AI_ML", "Artificial Intelligence & Machine Learning Engineering" ],
+                3 => [ "ECE", "Electronics & Communication Engineering" ],
+                4 => [ "ME", "Mechanical Engineering" ],
+                5 => [ "SH", "Science & Humanities" ],
+              );
+              foreach ($depts as $dept) {
+            ?>
+            <a class="nav-link <?php if ($dept[0] == "CSE") { ?> active <?php } ?>"
+              href="#<?php echo $dept[0];?>" data-toggle="pill"><?php echo $dept[1];?></a>
+            <?php } ?>
           </div>
         </div>
-        <div class="col-9">
+        <div class="col-lg col-md">
           <div class="tab-content" id="v-pills-tabContent">
-            <div class="tab-pane fade show active" id="AI_ML">
+            <?php foreach ($depts as $dept) { ?>
+            <div class="tab-pane fade <?php if ($dept[0] == "CSE") { ?>  show active <?php } ?>" id="<?php echo $dept[0];?>">
               <div class="card">
-                <h5 class="card-header">Computer Science and Engineering</h5>
+                <h5 class="card-header"><?php echo $dept[1];?></h5>
                 <div class="card-body">
                   <div class="row text-center">
                     <div class="col-md-6">
                       <h2 class="display-6">Teacher</h2>
                       <div class="text-center col-12">
-                        <img src="image/Teacher.jpg" class="responsive" alt="Students">
+                        <img src="image/Teacher.jpg" width="600" class="responsive" alt="Students">
                       </div>
                       <div class="form-row">
                         <div class="form-group col">
@@ -171,7 +180,7 @@ include "Teacher Login/register.php";
                     <div class="col-md-6">
                       <h2 class="display-6">Student</h2>
                       <div class="text-center col-12">
-                          <img src="image/College_Students.jpg"  width="490"  class="responsive" alt="Students">
+                          <img src="image/College_Students.jpg" width="600" class="responsive" alt="Students">
                       </div>
                       <div class="form-row">
                         <div class="form-group col">
@@ -250,11 +259,7 @@ include "Teacher Login/register.php";
                 </div>
               </div>
             </div>
-            <!-- <div class="tab-pane fade" id="CSD">2</div>
-            <div class="tab-pane fade" id="CSE">3</div>
-            <div class="tab-pane fade" id="ECE">4</div>
-            <div class="tab-pane fade" id="ME">5</div>
-            <div class="tab-pane fade" id="SH">6</div> -->
+            <?php } ?>
           </div>
         </div>
       </div>
