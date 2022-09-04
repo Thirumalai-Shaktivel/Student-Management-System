@@ -60,4 +60,23 @@ function upload_image($files, $id, $name='') {
     return $destinationfile;
 }
 
+function get_grade_letter($val) {
+    switch ($val) {
+        case $val <= 100 && $val >= 90:
+            return 'S';
+        case $val < 90 && $val >= 80:
+            return 'A';
+        case $val < 80 && $val >= 70:
+            return 'B';
+        case $val < 70 && $val >= 60:
+            return 'C';
+        case $val < 60 && $val >= 45:
+            return 'D';
+        case $val < 45 && $val >= 40:
+            return 'E';
+        case $val < 40:
+            return 'F';
+    }
+}
+
 ?>

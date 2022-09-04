@@ -8,37 +8,27 @@ if(isset($_SESSION['username']) != true)
 }
 $username = trim($_SESSION['username']);
 include "../../config.php";
+include "../../function.php";
 $id = $_GET['id'];
 
-// $selectQuery = "SELECT * from subject_details";
-//     $query = mysqli_query($conn, $selectQuery);
-//     while($res = mysqli_fetch_assoc($query)){
-//         $selectQuery = "SELECT * from `student_details`";
-//         $query1 = mysqli_query($conn, $selectQuery);
-//         while($result = mysqli_fetch_assoc($query1)){
-//             $id = $result['Student ID'];
-//             $code = $res['Subject Code'];
-//             $insertQuery = "INSERT INTO `sem1_externals`(`Student ID`, `Subject Code`) VALUES ('$id','$code')";
-//             $query2 = mysqli_query($conn, $insertQuery);
-//         }
-//     }
-
 if(isset($_POST['save'])) {
-    $Int = $_POST['Int'];
     $Ext = $_POST['Ext'];
-    $Gl = $_POST['Gl'];
 
     $selectQuery1 = "SELECT `Subject Code` from `subject_details`";
     $query1 = mysqli_query($conn, $selectQuery1);
     while($res = mysqli_fetch_assoc($query1)) {
         $code = $res['Subject Code'];
-        if ($Int[$code] AND $Ext[$code] AND $Gl[$code] != null) {
-            $selectQuery2 = "UPDATE `sem1_externals` SET
-                `Internals Total`= '$Int[$code]',
+        if ($Ext[$code] != null) {
+            $selectQuery = "SELECT `Internals Total` from `sem1_externals` WHERE `Student ID` = '$id' AND `Subject Code` = '$code'";
+            $query2 = mysqli_query($conn, $selectQuery);
+            $res1 = mysqli_fetch_assoc($query2);
+            $sum = $res1['Internals Total'] + $Ext[$code];
+            $GL = get_grade_letter($sum);
+            $updateQuery = "UPDATE `sem1_externals` SET
                 `External Marks`= '$Ext[$code]',
-                `Grade`= '$Gl[$code]'
+                `Grade` = '$GL'
             WHERE `Student ID` = '$id' AND `Subject Code` = '$code'";
-            $query2 = mysqli_query($conn, $selectQuery2);
+            $query2 = mysqli_query($conn, $updateQuery);
             if($query2) {
                 $_SESSION["UpdatedExamMarks"] = true;
                 header("location: Exam.php");
@@ -225,9 +215,9 @@ if(isset($_POST['save'])) {
                                                     $query2 = mysqli_query($conn, $selectQuery2);
                                                     $res2 = mysqli_fetch_assoc($query2);
                                             ?>
-                                            <td><input type="number" name="Int[<?php echo $code ?>]" class="form-control" value="<?php echo $res2['Internals Total']; ?>"></td>
+                                            <td><?php echo (@$res2['Internals Total'] != null)? $res2['Internals Total'] : "-"; ?></td>
                                             <td><input type="number" name="Ext[<?php echo $code ?>]" class="form-control" value="<?php echo $res2['External Marks']; ?>"></td>
-                                            <td><input type="text" name="Gl[<?php echo $code ?>]" class="form-control" value="<?php echo @$res2['Grade']; ?>"></td>
+                                            <td><?php echo (@$res2['Grade'] != null)? $res2['Grade'] : "-"; ?></td>
                                             <?php } ?>
 
                                             <td>
@@ -267,7 +257,7 @@ if(isset($_POST['save'])) {
                             <div class="mt-3 d-flex justify-content-around">
                                 <i>Note:</i>
                                 <i>INT = Internal Marks obtained</i>
-                                <i>EXT = Credit Points obtained</i>
+                                <i>EXT = External Marks obtained</i>
                                 <i>GL = Grade Letter Obtained</i>
                             </div>
                         </div>

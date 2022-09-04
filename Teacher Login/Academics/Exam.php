@@ -303,7 +303,7 @@ if (isset($_POST['submit'])) {
                             <div class="mt-3 d-flex justify-content-around">
                                 <i>Note:</i>
                                 <i>INT = Internal Marks obtained</i>
-                                <i>EXT = Credit Points obtained</i>
+                                <i>EXT = External Marks obtained</i>
                                 <i>GL = Grade Letter Obtained</i>
                             </div>
                         </div>
