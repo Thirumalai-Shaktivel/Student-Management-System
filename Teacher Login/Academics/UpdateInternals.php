@@ -313,12 +313,6 @@
                                                     </td>
                                                 <?php }
                                                 }
-                                                    if((@$result['IA1_MO'] AND @$result['IA2_MO'] AND @$result['IA3_MO']) != NULL) {
-                                                        $Average = round((@$result['IA1_MO'] + @$result['IA2_MO'] + @$result['IA3_MO'])/3);
-
-                                                        $insert = "UPDATE `sem1_internals` SET `Average` = $Average WHERE `Student ID` = '$ID' AND `Subject Code` ='$code'";
-                                                        $query3 = mysqli_query($conn, $insert);
-                                                    }
                                                 ?>
                                                     <td><?php echo @$result['Average']; ?></td>
                                                 </tr>

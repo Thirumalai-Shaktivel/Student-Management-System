@@ -53,16 +53,13 @@ if(isset($_POST['upload'])) {
             $result[] = $res['Student ID'];
         }
         for ($i=1; $i < count($lines); $i++) {
-            $sum = 0;
             for($j=$k=1; $j < count($lines[0]); $j+=3, $k++) {
                 $id = $lines[$i][0];
                 if(in_array($id, $result)) {
                     $classesTaken = (int)$lines[$i][$j];
                     $classesAttended = (int)$lines[$i][$j+1];
                     $attend_per = ($classesAttended/$classesTaken)*100;
-                    $sum += $IA_marks = $lines[$i][$j+2];
-                    $Average=(count($lines[0]) == 10)?$sum/$k:0;
-                    // echo "<br>Sum: ".$sum."<br>".$Average;
+                    $IA_marks = $lines[$i][$j+2];
                     $updateQuery = "UPDATE `sem1_internals` SET
                         `IA{$k}_CT`='$classesTaken',
                         `IA{$k}_CA`='$classesAttended',
