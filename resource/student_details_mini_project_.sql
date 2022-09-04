@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 30, 2022 at 07:27 AM
+-- Generation Time: Sep 04, 2022 at 09:36 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -148,6 +148,44 @@ INSERT INTO `sem1_internals` (`ID`, `Student ID`, `Subject Code`, `IA1_CT`, `IA1
 (91, '2022_CSE_02', '54MAT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (92, '2022_CSE_02', '55SCI', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (93, '2022_CSE_02', '56SOC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+--
+-- Triggers `sem1_internals`
+--
+DELIMITER $$
+CREATE TRIGGER `Update average of internal marks` BEFORE UPDATE ON `sem1_internals` FOR EACH ROW BEGIN
+IF (NEW.IA1_MO = OLD.IA1_MO) THEN
+	SET @IA1 = OLD.IA1_MO;
+ELSE
+	SET @IA1 = NEW.IA1_MO;
+END IF;
+IF (NEW.IA2_MO = OLD.IA2_MO) THEN
+	SET @IA2 = OLD.IA2_MO;
+ELSE
+	SET @IA2 = NEW.IA2_MO;
+END IF;
+IF (NEW.IA3_MO = OLD.IA3_MO) THEN
+	SET @IA3 = OLD.IA3_MO;
+ELSE
+	SET @IA3 = NEW.IA3_MO;
+END IF;
+SET @sum = 0, @count = 0;
+IF (@IA1 IS NOT NULL) THEN
+	SET @sum = @sum + @IA1;
+    SET @count = @count + 1;
+END IF;
+IF (@IA2 IS NOT NULL) THEN
+	SET @sum = @sum + @IA2;
+    SET @count = @count + 1;
+END IF;
+IF (@IA3 IS NOT NULL) THEN
+	SET @sum = @sum + @IA3;
+    SET @count = @count + 1;
+END IF;
+SET NEW.Average = @sum/@count;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
