@@ -121,15 +121,14 @@ $result1 = mysqli_fetch_assoc($query1);
                                         <tr>
                                             <th>Subject Code</th>
                                             <th>Subject Name</th>
-                                            <th>Internal Marks(20)</th>
-                                            <th>External Marks(80)</th>
-                                            <th>Total(100)</th>
-                                            <!-- <th>Result</th> -->
+                                            <th>Internal Marks (40)</th>
+                                            <th>External Marks (60)</th>
+                                            <th>Grade Letter</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                            $intSum = $ExtSum = $total = 0;
+                                            $intSum = $ExtSum = 0;
                                             $selectQuery = "SELECT `Subject Code`, `Subject Name` from subject_details";
                                             $query = mysqli_query($conn, $selectQuery);
                                             while($result = mysqli_fetch_assoc($query)){
@@ -148,22 +147,16 @@ $result1 = mysqli_fetch_assoc($query1);
                                                     echo (@$result1['Internals Total'] != null)? $result1['Internals Total'] : "-";
                                                     $intSum += $result1['Internals Total'];
                                                 ?></td>
-                                                <td><?php
-                                                    echo (@$result1['External Marks'] != null)? $result1['External Marks'] : "-";
-                                                    $ExtSum +=  $result1['External Marks'];
-                                                ?></td>
-                                                <td <?php
-                                                        if(@$result1['Total'] >= 35) {
-                                                    ?>style="background-color: #51f542;"
-                                                    <?php } else{ ?>
+                                                <td <?php if(@$result1['External Marks'] >= 21) { ?>
+                                                        style="background-color: #51f542;"
+                                                    <?php } else { ?>
                                                         style="background-color: #f54242;" <?php }
                                                     ?> >
                                                     <?php
-                                                        echo (@$result1['Total'] != null)? $result1['Total'] : "-";
-                                                        $total += $result1['Total'];
-                                                    ?>
-                                                </td>
-                                                <!-- <td><?php //echo (@$res['Internals Total'] != null)? $res['Internals Total'] : "-"; ?></td> -->
+                                                    echo (@$result1['External Marks'] != null)? $result1['External Marks'] : "-";
+                                                    $ExtSum +=  $result1['External Marks'];
+                                                ?></td>
+                                                <td><?php echo (@$result1['Grade'] != null)? $result1['Grade'] : "-"; ?></td>
                                             </tr>
                                         <?php
                                             }
@@ -173,9 +166,8 @@ $result1 = mysqli_fetch_assoc($query1);
                                         <tr>
                                             <th></th>
                                             <th></th>
-                                            <th>Total =    <?php echo "\t".$intSum; ?></th>
-                                            <th>Total =    <?php echo "\t".$ExtSum; ?></th>
-                                            <th>Total =    <?php echo "\t".$total; ?></th>
+                                            <th>Total = <?php echo "\t".$intSum; ?></th>
+                                            <th>Total = <?php echo "\t".$ExtSum; ?></th>
                                         </tr>
                                     </tfoot>
                                 </table>
