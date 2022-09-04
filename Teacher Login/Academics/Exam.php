@@ -11,7 +11,7 @@ include "../../config.php";
 include "../../function.php";
 
 $file_issue = $subject_not_found = $student_not_found = $uploaded = false;
-$updateCounsel = $success = false;
+$updateCounsel = $success = $res_file_issue = $res_uploaded = false;
 
 if(isset($_SESSION['FileFormatIssue']))
     $file_issue = true;
@@ -24,6 +24,11 @@ else if(isset($_SESSION['Uploaded']))
 
 if(isset($_SESSION['UpdatedExamMarks']))
     $success = true;
+
+if(isset($_SESSION['ResultFileFormatIssue']))
+    $res_file_issue = true;
+else if(isset($_SESSION['UploadedResult']))
+    $res_uploaded = true;
 
 $selectQuery = "SELECT `Subject Code` from subject_details";
 $query = mysqli_query($conn, $selectQuery);
@@ -247,6 +252,7 @@ if (isset($_POST['submit'])) {
                                         <tr>
                                             <th rowspan="2" class="align-middle">Students ID</th>
                                             <th rowspan="2" class="align-middle">Students Name</th>
+                                            <th rowspan="2" class="align-middle">VTU<br>result</th>
                                             <?php
                                                 $selectQuery = "SELECT `Subject Code`, `Subject Name` from subject_details";
                                                 $query2 = mysqli_query($conn, $selectQuery);
@@ -281,14 +287,26 @@ if (isset($_POST['submit'])) {
                                         <tr>
                                             <td><?php echo $Sid; ?></td>
                                             <td><?php echo $result['Name']; ?></td>
+                                            <td>
+                                                <?php
+                                                    $selectQuery1 = "SELECT `VTU_Result` from `sem1_externals`
+                                                        WHERE `Student ID` = '$Sid' AND `Subject Code` = '$code'";
+                                                    $query1 = mysqli_query($conn, $selectQuery1);
+                                                    $res = mysqli_fetch_assoc($query1);
+                                                    if (@$res['VTU_Result'] != null) {
+                                                ?>
+                                                    <a href="<?php echo $res['VTU_Result']?>" target="_blank"
+                                                        role="button" class="btn btn-primary btn-block">View</a>
+                                                <?php } else { echo "-"; }?>
+                                            </td>
                                             <?php
-                                                $selectQuery1 = "SELECT `Subject Code` from `subject_details`";
-                                                $query1 = mysqli_query($conn, $selectQuery1);
-                                                while($res1 = mysqli_fetch_assoc($query1)){
+                                                $selectQuery2 = "SELECT `Subject Code` from `subject_details`";
+                                                $query2 = mysqli_query($conn, $selectQuery2);
+                                                while($res1 = mysqli_fetch_assoc($query2)){
                                                     $code = $res1['Subject Code'];
-                                                    $selectQuery2 = "SELECT `External Marks`, `Internals Total`, `Grade` from `sem1_externals` WHERE `Student ID` = '$Sid' AND `Subject Code` = '$code'";
-                                                    $query2 = mysqli_query($conn, $selectQuery2);
-                                                    $res2 = mysqli_fetch_assoc($query2);
+                                                    $selectQuery3 = "SELECT `External Marks`, `Internals Total`, `Grade` from `sem1_externals` WHERE `Student ID` = '$Sid' AND `Subject Code` = '$code'";
+                                                    $query3 = mysqli_query($conn, $selectQuery3);
+                                                    $res2 = mysqli_fetch_assoc($query3);
                                             ?>
                                                 <td><?php echo (@$res2['Internals Total'] != null)? $res2['Internals Total'] : "-"; ?></td>
                                                 <td><?php echo (@$res2['External Marks'] != null)? $res2['External Marks'] : "-"; ?></td>
@@ -310,6 +328,57 @@ if (isset($_POST['submit'])) {
                     </div>
                     <div class="row">
                         <div class="col-md-4 col-sm">
+                        <?php if ($res_file_issue) {
+                            unset($_SESSION["ResultFileFormatIssue"]); ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>File type not supported! Please upload .pdf file</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        <?php } else if ($res_uploaded) {
+                            unset($_SESSION["UploadedResult"]); ?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <strong>VTU result uploaded successfully!</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        <?php } ?>
+                        <div class="card mb-4">
+                                <div class="card-header">
+                                    <h5>Upload VTU Externals Result</h5>
+                                </div>
+                                <div class="card-body">
+                                    <form action="UploadVTUResult.php" method="POST" enctype="multipart/form-data">
+                                        <div class="form-row">
+                                            <div class="form-group col-sm">
+                                                <label for="studentID">Student ID</label>
+                                                    <select id="studentID" name="studentID" class="form-control">
+                                                        <option selected>Please Select Student ID</option>
+                                                    <?php
+                                                    $selectQuery = "SELECT * from `student_details`";
+                                                    $query = mysqli_query($conn, $selectQuery);
+                                                    while($res = mysqli_fetch_assoc($query)) {
+                                                    ?>
+                                                        <option value="<?php echo $res['Student ID']; ?>"><?php echo $res['Student ID'].": ".$res['Name']; ?></option>
+                                                    <?php } ?>
+                                                    </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-sm">
+                                                <input type="file" name="marks_upload" class="mb-2" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-lg-5">
+                                                <button type="submit" name="upload_result" class="btn btn-primary btn-lg btn-block">Upload</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                             <div class="card mb-4">
                                 <div class="card-header">
                                     <h5>Counselling after University Results</h5>
