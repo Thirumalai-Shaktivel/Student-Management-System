@@ -166,13 +166,15 @@
                                     <div class="form-row">
                                         <div class="form-group col-sm-4">
                                             <select id="Sid" name="Sid" class="form-control">
-                                                <option selected>Please Select Student ID</option>
+                                                <option <?php if(!$display) { ?> selected <?php } ?>>Please Select Student ID</option>
                                             <?php
                                             $selectQuery = "SELECT * from `student_details`";
                                             $query = mysqli_query($conn, $selectQuery);
                                             while($res = mysqli_fetch_assoc($query)) {
                                             ?>
-                                                <option value="<?php echo $res['Student ID']; ?>"><?php echo $res['Student ID'].": ".$res['Name']; ?></option>
+                                                <option <?php if ($id == $res['Student ID']) { ?> selected <?php } ?>
+                                                    value="<?php echo $res['Student ID']; ?>"><?php echo $res['Student ID'].": ".$res['Name']; ?>
+                                            </option>
                                             <?php } ?>
                                             </select>
                                         </div>
@@ -485,19 +487,25 @@
                                 </div>
                                 <div class="col-sm-5 col text-center">
                                     <div class="row">
+                                        <?php if ($result['Student_image'] != null) { ?>
                                         <div class="col" style="height: 1000px;">
                                             <img src="<?php echo trim($result['Student_image']); ?>" alt="Student Image" style="width:300px; border-radius: 50%;">
                                             <br> Student
                                         </div>
-                                        <div class="col mb-4" >
+                                        <?php }
+                                            if ($result['Father Photo'] != null) { ?>
+                                        <div class="col" >
                                             <img src="<?php echo trim($result['Father Photo']); ?>" alt="Father Image" style="width:300px; border-radius: 50%;">
                                             <br>Father
                                         </div>
+                                        <?php }
+                                            if ($result['Mother Photo'] != null) { ?>
                                         <div class="col">
                                             <img src="<?php echo trim($result['Mother Photo']); ?>" alt="Mother Image" style="width:300px; border-radius: 50%;">
                                             <br>Mother
                                         </div>
-                                        <?php if ($result['Guardian Photo'] != null) { ?>
+                                        <?php }
+                                            if ($result['Guardian Photo'] != null) { ?>
                                             <div class="col">
                                             <img src="<?php echo trim($result['Guardian Photo']); ?>" alt="Guardian Image" style="width:300px; border-radius: 50%;">
                                             <br>Guardian
