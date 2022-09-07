@@ -12,11 +12,13 @@
     $username = trim($_SESSION['username']);
     ini_set('display_errors', 1);
 
-    $insert = $dupl = $clas = false;
+    $insert = $dupl = $clas = $file_issue = false;
 
-    if(isset($_SESSION['insertStudents']))
+    if(isset($_SESSION['FileFormatIssue']))
+        $file_issue = true;
+    else if(isset($_SESSION['insertStudents']))
         $insert = true;
-    else if(isset($_SESSION['DuplicateStudent']))
+    else if(isset($_SESSION["DuplicateStudent"]))
         $dupl = true;
 
     if(isset($_POST['submit'])){
@@ -292,24 +294,56 @@
                         <li class="breadcrumb-item">Students Info</li>
                         <li class="breadcrumb-item active">Admit Students</li>
                     </ol>
-                    <?php if($insert){  unset($_SESSION["insertStudents"]);?>
+                    <?php if ($file_issue) {
+                        unset($_SESSION["FileFormatIssue"]); ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>File type not supported! Please upload .csv file</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    <?php } else if($insert){
+                        unset($_SESSION["insertStudents"]);?>
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             <strong>Student Details Admitted Successfully</strong>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                    <?php } else if($dupl) { unset($_SESSION["DuplicateStudent"]);?>
+                    <?php } else if($dupl) { ?>
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong>Student ID already Taken!!</strong> Use Different Student ID(Must be Unqiue)
+                            <strong>Student ID: <?php echo $_SESSION["DuplicateStudent"]["StudID"]; ?> already Taken!!</strong> Use a different student ID that is unique.
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                    <?php } ?>
+                    <?php unset($_SESSION["DuplicateStudent"]);
+                          } ?>
                     <div class="card mb-4">
                         <div class="card-header">
-                            <h4>Admit Students</h4>
+                            <div class="row">
+                                <div class="col-6">
+                                    <h4>Admit Students</h4>
+                                </div>
+                                <div class="col-6">
+                                    <form action="AdmitStudentsCSV.php" method="POST" enctype="multipart/form-data">
+                                        <div class="row">
+                                            <div class="col-8">
+                                                <h5>
+                                                    Have a CSV file?
+                                                    <a href="https://raw.githubusercontent.com/Thirumalai-Shaktivel/Student-Management-System/master/resource/AdmitStudentExample.csv"> upload format </a>
+                                                </h5>
+                                                <input type="file" name="marks_upload" class="mb-2">
+                                            </div>
+                                            <div class="col align-self-center">
+                                                <button type="submit" name="upload" class="btn btn-success btn-block">
+                                                    <strong>Upload</strong>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                         <form action="" method="POST" enctype="multipart/form-data">
                             <div class="card-body">
@@ -473,7 +507,7 @@
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="FatherPhoto">Stamp Size Photo</label>
-                                            <input type="file" name="FatherPhoto" class="form-control" id="FatherPhoto" required>
+                                            <input type="file" name="FatherPhoto" id="FatherPhoto" required>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="officeAddress">Office Address with Phone No.</label>
@@ -507,7 +541,7 @@
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="MotherPhoto">Stamp Size Photo</label>
-                                            <input type="file" name="MotherPhoto" class="form-control" id="MotherPhoto" required>
+                                            <input type="file" name="MotherPhoto" id="MotherPhoto" required>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="officeAddress">Office Address with Phone No.</label>
@@ -541,7 +575,7 @@
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="GuardianPhoto">Stamp Size Photo</label>
-                                            <input type="file" name="GuardianPhoto" class="form-control" id="GuardianPhoto">
+                                            <input type="file" name="GuardianPhoto" id="GuardianPhoto">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="officeAddress">Office Address with Phone No.</label>
