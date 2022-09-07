@@ -172,7 +172,7 @@
                                             $query = mysqli_query($conn, $selectQuery);
                                             while($res = mysqli_fetch_assoc($query)) {
                                             ?>
-                                                <option <?php if ($id == $res['Student ID']) { ?> selected <?php } ?>
+                                                <option <?php if (@$id == $res['Student ID'] && $display) { ?> selected <?php } ?>
                                                     value="<?php echo $res['Student ID']; ?>"><?php echo $res['Student ID'].": ".$res['Name']; ?>
                                             </option>
                                             <?php } ?>
