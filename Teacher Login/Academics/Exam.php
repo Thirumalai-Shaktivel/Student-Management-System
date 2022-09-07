@@ -303,8 +303,8 @@ if (isset($_POST['submit'])) {
                                                 $selectQuery2 = "SELECT `Subject Code` from `subject_details`";
                                                 $query2 = mysqli_query($conn, $selectQuery2);
                                                 while($res1 = mysqli_fetch_assoc($query2)){
-                                                    $code = $res1['Subject Code'];
-                                                    $selectQuery3 = "SELECT `External Marks`, `Internals Total`, `Grade` from `sem1_externals` WHERE `Student ID` = '$Sid' AND `Subject Code` = '$code'";
+                                                    $code1 = $res1['Subject Code'];
+                                                    $selectQuery3 = "SELECT `External Marks`, `Internals Total`, `Grade` from `sem1_externals` WHERE `Student ID` = '$Sid' AND `Subject Code` = '$code1'";
                                                     $query3 = mysqli_query($conn, $selectQuery3);
                                                     $res2 = mysqli_fetch_assoc($query3);
                                             ?>
@@ -455,8 +455,8 @@ if (isset($_POST['submit'])) {
                                                 <tbody>
                                                 <?php
                                                     $query = mysqli_query($conn, "SELECT `Subject Code` from subject_details");
-                                                    $code = mysqli_fetch_assoc($query)['Subject Code'];
-                                                    $selectQuery = "SELECT * from `sem1_externals` WHERE `Subject Code` ='$code'";
+                                                    $code1 = mysqli_fetch_assoc($query)['Subject Code'];
+                                                    $selectQuery = "SELECT * from `sem1_externals` WHERE `Subject Code` ='$code1'";
                                                     $query = mysqli_query($conn, $selectQuery);
                                                     while($result = mysqli_fetch_assoc($query)) {
                                                 ?>
