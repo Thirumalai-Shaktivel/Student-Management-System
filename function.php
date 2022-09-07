@@ -79,4 +79,8 @@ function get_grade_letter($val) {
     }
 }
 
+function print_($content) {
+    echo "<pre>".print_r($content, true)."</pre>";
+}
+
 ?>
